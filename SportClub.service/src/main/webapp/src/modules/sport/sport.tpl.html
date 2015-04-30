@@ -23,6 +23,9 @@
             </div>
         </nav>
     </div>
+    <div ng-show="sportCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
+        <strong>Error!</strong> {{sportCtrl.error.msg}}
+    </div>
     <div ng-hide="sportCtrl.editMode">
         <table id="recordList" class="table table-striped table-bordered">
             <thead>

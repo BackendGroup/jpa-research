@@ -28,13 +28,14 @@
 package co.edu.uniandes.csw.SportGroup.sport.logic.entity;
 
 import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
+import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 
 @Entity
-public class SportEntity {
+public class SportEntity implements Serializable {
 
     @Id
     @GeneratedValue(generator = "Sport")

@@ -7,6 +7,9 @@ package co.edu.uniandes.csw.SportGroup.country.logic.converter;
 
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
+import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
+import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
+import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -15,12 +18,17 @@ import java.util.List;
  * @author afesguerra
  */
 public class CountryConverter {
+
     public static CountryDTO entity2PersistenceDTO(CountryEntity entity) {
         if (entity != null) {
             CountryDTO dto = new CountryDTO();
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setPopulation(entity.getPopulation());
+            dto.setSports(new ArrayList<SportDTO>());
+            if (entity.getSports() != null) {
+                dto.setSports(SportConverter.entity2PersistenceDTOList(entity.getSports()));
+            }
             return dto;
         } else {
             return null;

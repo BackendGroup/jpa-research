@@ -1,5 +1,7 @@
 package co.edu.uniandes.csw.SportGroup.country.logic.dto;
 
+import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
+import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
@@ -9,6 +11,8 @@ public class CountryDTO {
     private String name;
 
     private Integer population;
+    
+    private List<SportDTO> sports;
 
     public Long getId() {
         return id;
@@ -32,5 +36,13 @@ public class CountryDTO {
 
     public void setPopulation(Integer population) {
         this.population = population;
+    }
+
+    public List<SportDTO> getSports() {
+        return sports;
+    }
+
+    public void setSports(List<SportDTO> sports) {
+        this.sports = sports;
     }
 }
