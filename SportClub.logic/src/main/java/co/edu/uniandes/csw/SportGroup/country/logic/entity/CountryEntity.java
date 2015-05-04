@@ -3,11 +3,12 @@ package co.edu.uniandes.csw.SportGroup.country.logic.entity;
 import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import java.io.Serializable;
 import java.util.List;
+import javax.persistence.CascadeType;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
+import org.eclipse.persistence.annotations.JoinFetch;
 
 @Entity
 public class CountryEntity implements Serializable {
@@ -17,9 +18,14 @@ public class CountryEntity implements Serializable {
     private Long id;
     private String name;
     private Integer population;
-    
+
     @OneToMany
+    @JoinFetch
     private List<SportEntity> sports;
+
+    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @JoinFetch
+    private List<SportEntity> ownedSports;
 
     public Long getId() {
         return id;
@@ -51,5 +57,13 @@ public class CountryEntity implements Serializable {
 
     public void setSports(List<SportEntity> sports) {
         this.sports = sports;
+    }
+
+    public List<SportEntity> getOwnedSports() {
+        return ownedSports;
+    }
+
+    public void setOwnedSports(List<SportEntity> ownedSports) {
+        this.ownedSports = ownedSports;
     }
 }

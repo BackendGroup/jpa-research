@@ -6,13 +6,16 @@ import javax.xml.bind.annotation.XmlRootElement;
 
 @XmlRootElement
 public class CountryDTO {
+
     private Long id;
 
     private String name;
 
     private Integer population;
-    
+
     private List<SportDTO> sports;
+
+    private List<SportDTO> ownedSports;
 
     public Long getId() {
         return id;
@@ -44,5 +47,13 @@ public class CountryDTO {
 
     public void setSports(List<SportDTO> sports) {
         this.sports = sports;
+    }
+
+    public List<SportDTO> getOwnedSports() {
+        return ownedSports;
+    }
+
+    public void setOwnedSports(List<SportDTO> ownedSports) {
+        this.ownedSports = ownedSports;
     }
 }

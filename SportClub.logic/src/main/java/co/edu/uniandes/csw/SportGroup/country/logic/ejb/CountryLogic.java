@@ -54,9 +54,9 @@ public class CountryLogic implements ICountryLogic{
         entityManager.remove(entity);
     }
 
-    public void updateCountry(CountryDTO country) {
+    public CountryDTO updateCountry(CountryDTO country) {
         CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2Entity(country));
-        CountryConverter.entity2PersistenceDTO(entity);
+        return CountryConverter.entity2PersistenceDTO(entity);
     }
 
     public CountryDTO getMostPopulated() {
@@ -67,5 +67,14 @@ public class CountryLogic implements ICountryLogic{
     public CountryDTO getLeastPopulated() {
         Query query = entityManager.createQuery("select u from CountryEntity u WHERE u.population = (SELECT MIN(v.population) from CountryEntity v)");
         return CountryConverter.entity2PersistenceDTO((CountryEntity)query.getSingleResult());
+    }
+
+    public CountryDTO getCountryMaster(Long id) {
+        return CountryConverter.entityMaster2PersistenceDTO(entityManager.find(CountryEntity.class, id));
+    }    
+
+    public CountryDTO updateCountryMaster(CountryDTO dto) {
+        CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2EntityMaster(dto));
+        return CountryConverter.entityMaster2PersistenceDTO(entity);
     }
 }

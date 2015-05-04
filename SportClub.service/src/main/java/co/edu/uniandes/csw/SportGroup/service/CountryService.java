@@ -48,8 +48,9 @@ public class CountryService {
 
     @PUT
     @Path("{id}")
-    public void updateCountry(@PathParam("id") Long id, CountryDTO sport) {
-        countryLogic.updateCountry(sport);
+    public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto) {
+        dto.setId(id);
+        return countryLogic.updateCountry(dto);
     }
 
     @GET

@@ -7,6 +7,7 @@ package co.edu.uniandes.csw.SportGroup.country.logic.api;
 
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
+import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
 import java.util.List;
 
 /**
@@ -25,9 +26,13 @@ public interface ICountryLogic {
 
     public void deleteCountry(Long id);
 
-    public void updateCountry(CountryDTO detail);
+    public CountryDTO updateCountry(CountryDTO detail);
     
     public CountryDTO getMostPopulated();
     
     public CountryDTO getLeastPopulated();
+    
+    public CountryDTO getCountryMaster(Long id);
+    
+    public CountryDTO updateCountryMaster(CountryDTO dto);
 }
