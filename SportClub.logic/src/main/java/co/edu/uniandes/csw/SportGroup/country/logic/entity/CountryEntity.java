@@ -19,7 +19,7 @@ public class CountryEntity implements Serializable {
     private String name;
     private Integer population;
 
-    @OneToMany
+    @OneToMany(orphanRemoval = true)
     @JoinFetch
     private List<SportEntity> sports;
 

@@ -5,6 +5,8 @@ import co.edu.uniandes.csw.SportGroup.country.logic.converter.CountryConverter;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
+import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
+import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
@@ -76,5 +78,13 @@ public class CountryLogic implements ICountryLogic{
     public CountryDTO updateCountryMaster(CountryDTO dto) {
         CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2EntityMaster(dto));
         return CountryConverter.entityMaster2PersistenceDTO(entity);
+    }
+
+    public List<SportDTO> getCountrySports(Long id) {
+        return SportConverter.entity2PersistenceDTOList(entityManager.find(CountryEntity.class, id).getSports());
+    }
+
+    public List<SportDTO> getCountryOwnedSports(Long id) {
+        return SportConverter.entity2PersistenceDTOList(entityManager.find(CountryEntity.class, id).getOwnedSports());
     }
 }

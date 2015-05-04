@@ -35,4 +35,8 @@ public interface ICountryLogic {
     public CountryDTO getCountryMaster(Long id);
     
     public CountryDTO updateCountryMaster(CountryDTO dto);
+    
+    public List<SportDTO> getCountrySports(Long id);
+    
+    public List<SportDTO> getCountryOwnedSports(Long id);
 }

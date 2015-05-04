@@ -1,5 +1,6 @@
 package co.edu.uniandes.csw.SportGroup.sport.logic.converter;
 
+import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
 import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import java.util.ArrayList;
@@ -36,6 +37,12 @@ public class SportConverter {
             entity.setMaxAge(dto.getMaxAge());
 
             entity.setRules(dto.getRules());
+            
+            if (dto.getCountry()!= null) {
+                CountryEntity country = new CountryEntity();
+                country.setId(dto.getCountry());
+                entity.setCountry(country);
+            }
 
             return entity;
         } else {

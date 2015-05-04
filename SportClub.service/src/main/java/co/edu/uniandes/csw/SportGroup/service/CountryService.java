@@ -3,6 +3,8 @@ package co.edu.uniandes.csw.SportGroup.service;
 import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
+import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
+import java.util.List;
 
 import javax.inject.Inject;
 import javax.ws.rs.Consumes;
@@ -63,5 +65,17 @@ public class CountryService {
     @Path("leastPopulated")
     public CountryDTO getLeastPopulated() {
         return countryLogic.getLeastPopulated();
+    }
+    
+    @GET
+    @Path("{id}/sports")
+    public List<SportDTO> getCountrySports(@PathParam("id") Long id) {
+        return countryLogic.getCountrySports(id);
+    }
+    
+    @GET
+    @Path("{id}/ownedSports")
+    public List<SportDTO> getCountryOwnedSports(@PathParam("id") Long id) {
+        return countryLogic.getCountryOwnedSports(id);
     }
 }
