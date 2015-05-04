@@ -43,5 +43,5 @@ public interface ISportLogic {
 
     public void deleteSport(Long id);
 
-    public void updateSport(SportDTO detail);
+    public SportDTO updateSport(SportDTO detail);
 }

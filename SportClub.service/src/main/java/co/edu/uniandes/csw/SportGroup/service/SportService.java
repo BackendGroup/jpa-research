@@ -75,8 +75,8 @@ public class SportService {
 
     @PUT
     @Path("{id}")
-    public void updateSport(@PathParam("id") Long id, SportDTO sport) {
-        sportLogicService.updateSport(sport);
+    public SportDTO updateSport(@PathParam("id") Long id, SportDTO sport) {
+        return sportLogicService.updateSport(sport);
     }
 
 }
