@@ -32,6 +32,11 @@
                     //Variables para el controlador
                     ctrl.editMode = false;
                     ctrl.error = {show: false};
+                    
+                    ctrl.showError = function(response){
+                        ctrl.error = {show: true, msg: response.data};
+                        $timeout(function(){ctrl.error = {show: false};}, 3000);
+                    };
 
                     //Funciones que no requieren del servicio
                     ctrl.createRecord = function () {
@@ -57,21 +62,18 @@
                             scope.currentRecord = {};
                             ctrl.editMode = false;
                             return data;
-                        });
+                        }, ctrl.showError);
                     };
                     ctrl.saveRecord = function () {
                         return service.saveRecord(scope.currentRecord).then(function () {
                             ctrl.fetchRecords();
-                        });
+                        }, ctrl.showError);
                     };
                     ctrl.deleteRecord = function (record) {
                         var self = this;
                         return service.deleteRecord(record).then(function () {
                             self.fetchRecords();
-                        }, function(response){
-                            self.error = {show: true, msg: response.data};
-                            $timeout(function(){self.error = {show: false};}, 3000);
-                        });
+                        }, ctrl.showError);
                     };
                 };
             }
