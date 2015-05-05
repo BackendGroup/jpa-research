@@ -5,6 +5,7 @@ import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 
 @Entity
@@ -17,7 +18,8 @@ public class SportEntity implements Serializable {
     private Integer minAge;
     private Integer maxAge;
     private String rules;
-    @ManyToOne(optional = false)
+    @ManyToOne
+    @JoinColumn(nullable=false)
     private CountryEntity country;
 
     public Long getId() {
