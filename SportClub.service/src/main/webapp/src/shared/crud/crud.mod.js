@@ -1,5 +1,5 @@
-(function () {
-    var crud = angular.module('CrudModule', ['restangular', 'ui.bootstrap']);
+(function (ng) {
+    var crud = ng.module('CrudModule', ['restangular', 'ui.bootstrap']);
 
     crud.config(['RestangularProvider', function (rp) {
             rp.setBaseUrl('webresources');
@@ -20,4 +20,4 @@
                 return extractedData;
             });
         }]);
-})();
+})(window.angular);

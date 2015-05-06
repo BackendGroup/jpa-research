@@ -1,5 +1,5 @@
-(function () {
-    var crud = angular.module('CrudModule');
+(function (ng) {
+    var crud = ng.module('CrudModule');
 
     crud.factory('CRUDBase', ['Restangular','$timeout', function (RestAngular, $timeout) {
             function crudConstructor() {
@@ -81,4 +81,4 @@
                     crudConstructor.call(svc);
                 }};
         }]);
-})();
+})(window.angular);

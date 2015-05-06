@@ -1,8 +1,8 @@
-(function (angular) {
-    var countryModule = angular.module('countryModule');
+(function (ng) {
+    var mod = ng.module('countryModule');
 
-    countryModule.service('countryService', ['CRUDBase', 'country.context', function (CRUDBase, context) {
-            this.url = context;
+    mod.service('countryService', ['CRUDBase', 'country.context', function (CRUDBase, ctx) {
+            this.url = ctx;
             CRUDBase.extendService(this);
             this.getMostPopulated = function () {
                 return this.api.customGET('mostPopulated');
@@ -11,4 +11,18 @@
                 return this.api.customGET('leastPopulated');
             };
         }]);
+
+    mod.factory('countryModel', [function () {
+        return [{
+                name: 'name',
+                displayName: 'Name',
+                type: 'String',
+                order: 1
+            }, {
+                name: 'population',
+                displayName: 'Population',
+                type: 'Integer',
+                order: 2
+            }];
+    }]);
 })(window.angular);
