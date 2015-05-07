@@ -1,7 +1,7 @@
 (function (ng) {
     var crud = ng.module('CrudModule');
 
-    crud.factory('CRUDBase', ['Restangular','$timeout', function (RestAngular, $timeout) {
+    crud.factory('CRUDBase', ['Restangular', '$timeout', function (RestAngular, $timeout) {
             function crudConstructor() {
                 this.api = RestAngular.all(this.url);
 
@@ -32,10 +32,12 @@
                     //Variables para el controlador
                     ctrl.editMode = false;
                     ctrl.error = {show: false};
-                    
-                    ctrl.showError = function(response){
+
+                    ctrl.showError = function (response) {
                         ctrl.error = {show: true, msg: response.data};
-                        $timeout(function(){ctrl.error = {show: false};}, 3000);
+                        $timeout(function () {
+                            ctrl.error = {show: false};
+                        }, 3000);
                     };
 
                     //Funciones que no requieren del servicio
@@ -75,6 +77,48 @@
                             self.fetchRecords();
                         }, ctrl.showError);
                     };
+                    ctrl.globalActions = [{
+                            name: 'create',
+                            displayName: 'Create',
+                            icon: 'plus',
+                            fn: function () {
+                                ctrl.createRecord();
+                            },
+                            show: function () {
+                                return !ctrl.editMode;
+                            }
+                        }, {
+                            name: 'refresh',
+                            displayName: 'Refresh',
+                            icon: 'refresh',
+                            fn: function () {
+                                ctrl.fetchRecords();
+                            },
+                            show: function () {
+                                return !ctrl.editMode;
+                            }
+                        }, {
+                            name: 'save',
+                            displayName: 'Save',
+                            icon: 'floppy-disk',
+                            fn: function () {
+                                ctrl.saveRecord();
+                            },
+                            show: function () {
+                                return ctrl.editMode;
+                            }
+                        }, {
+                            name: 'cancel',
+                            displayName: 'Cancel',
+                            icon: 'remove',
+                            fn: function () {
+                                ctrl.fetchRecords();
+                            },
+                            show: function () {
+                                return ctrl.editMode;
+                            }
+                        }
+                    ];
                 };
             }
             return {extendService: function (svc) {

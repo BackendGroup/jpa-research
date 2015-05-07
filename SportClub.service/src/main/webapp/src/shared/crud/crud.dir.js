@@ -24,7 +24,7 @@
             };
         }]);
     
-    mod.directive('menu', [function(){
+    mod.directive('toolbar', [function(){
             return {
                 scope: {
                     actions: '=*',

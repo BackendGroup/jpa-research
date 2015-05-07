@@ -4,16 +4,6 @@
     countryModule.controller('countryCtrl', ['$scope', 'countryService', 'countryModel', function ($scope, svc, model) {
             $scope.model = model;
             svc.extendCtrl(this, $scope);
-            var self = this;
-            this.globalActions = [{
-                    name: 'create',
-                    displayName: 'Create',
-                    fn: self.createRecord,
-                    context: self,
-                    show: !self.editMode,
-                    icon: 'plus'
-                }
-            ];
             this.fetchRecords();
             this.getMostPopulated = function () {
                 svc.getMostPopulated().then(function (data) {
@@ -30,5 +20,28 @@
                     alert('There are no countries with population on server');
                 });
             };
+            var self = this;
+            this.globalActions.push({
+                name: 'leastPopulated',
+                displayName: 'Least Populated',
+                icon: 'star',
+                fn: function () {
+                    self.getLeastPopulated();
+                },
+                show: function () {
+                    return true;
+                }
+            });
+            this.globalActions.push({
+                name: 'mostPopulated',
+                displayName: 'Most Populated',
+                icon: 'star',
+                fn: function () {
+                    self.getMostPopulated();
+                },
+                show: function () {
+                    return true;
+                }
+            });
         }]);
 })(window.angular);
