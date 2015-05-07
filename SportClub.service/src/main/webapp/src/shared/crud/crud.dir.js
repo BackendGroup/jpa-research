@@ -1,7 +1,7 @@
 (function (ng) {
-    var crudModule = ng.module('CrudModule');
+    var mod = ng.module('CrudModule');
 
-    crudModule.directive('listRecords', [function () {
+    mod.directive('listRecords', [function () {
             return {
                 scope: {
                     records: '=*',
@@ -23,4 +23,16 @@
                 }
             };
         }]);
+    
+    mod.directive('menu', [function(){
+            return {
+                scope: {
+                    actions: '=*',
+                    name: '@',
+                    displayName: '@'
+                },
+                restrict: 'E',
+                templateUrl: 'src/shared/crud/menu.tpl.html'
+            };
+    }]);
 })(window.angular);
