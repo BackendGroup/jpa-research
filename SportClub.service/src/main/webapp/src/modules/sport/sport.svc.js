@@ -7,37 +7,37 @@
         }]);
 
     mod.factory('sportModel', [function () {
-            return {
-                name:{
+            return [{
+                    name: 'name',
                     displayName: 'Name',
                     type: 'String',
                     order: 1
-                }, 
-                minAge: {
+                }, {
+                    name: 'minAge',
                     displayName: 'MinAge',
                     type: 'Integer',
                     order: 2
-                }, 
-                maxAge: {
+                }, {
+                    name: 'maxAge',
                     displayName: 'MaxAge',
                     type: 'Integer',
                     order: 3
-                }, 
-                avgAge: {
+                }, {
+                    name: 'avgAge',
                     displayName: 'Average Age',
                     type: 'Computed',
                     order: 4,
-                    compute: function(record){
+                    compute: function (record) {
                         return (record.minAge + record.maxAge) / 2;
                     }
-                }, 
-                country: {
+                }, {
+                    name: 'country',
                     displayName: 'Country',
                     type: 'Computed',
                     order: 5,
-                    compute: function(record){
+                    compute: function (record) {
                         return record.country;
                     }
-                }};
+                }];
         }]);
 })(window.angular);

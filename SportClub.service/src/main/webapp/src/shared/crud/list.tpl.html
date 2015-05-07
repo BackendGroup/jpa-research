@@ -1,8 +1,8 @@
-<div ng-hide="editMode">
+<div>
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th ng-repeat="column in model">{{column.displayName}}</th>
+                <th ng-repeat="column in model | orderBy : 'order'">{{column.displayName}}</th>
                 <th>Actions</th>
             </tr>
         </thead>

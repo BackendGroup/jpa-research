@@ -11,15 +11,20 @@
             };
             var getCountryName = function(record){
                 for (var i in $scope.countryRecords) {
-                    if ($scope.countryRecords[i].id === record.id) {
+                    if ($scope.countryRecords[i].id === record.country) {
                         return $scope.countryRecords[i].name;
                     }
                 }
                 return;
             };
             countrySvc.fetchRecords().then(function(data){
-                $scope.countryRecords = data;
-                model.country.compute = getCountryName;
+                $scope.countryRecords = data.plain();
+                for(var i in model){
+                    if(model.hasOwnProperty(i) && model[i].name === 'country'){
+                        model[i].compute = getCountryName;
+                        return;
+                    }
+                }
             });
         }]);
 })(window.angular);

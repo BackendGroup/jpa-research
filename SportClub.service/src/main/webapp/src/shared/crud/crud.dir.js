@@ -10,7 +10,6 @@
                     currentPage: '=',
                     maxSize: '=',
                     itemsPerPage: '=',
-                    editMode: '=',
                     changePage: '&',
                     editRecord: '&',
                     deleteRecord: '&'

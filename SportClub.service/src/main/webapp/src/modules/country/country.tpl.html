@@ -27,8 +27,7 @@
 <div ng-show="countryCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
     <strong>Error!</strong> {{countryCtrl.error.msg}}
 </div>
-<list-records 
-    edit-mode="countryCtrl.editMode"
+<list-records ng-hide="countryCtrl.editMode"
     change-page="countryCtrl.pageChanged()"
     edit-record="countryCtrl.editRecord(record)"
     delete-record="countryCtrl.deleteRecord(record)"

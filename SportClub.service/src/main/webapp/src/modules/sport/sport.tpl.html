@@ -26,8 +26,7 @@
     <div ng-show="sportCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
         <strong>Error!</strong> {{sportCtrl.error.msg}}
     </div>
-    <list-records 
-        edit-mode="sportCtrl.editMode"
+    <list-records ng-hide="sportCtrl.editMode"
         change-page="sportCtrl.pageChanged()"
         edit-record="sportCtrl.editRecord(record)"
         delete-record="sportCtrl.deleteRecord(record)"
