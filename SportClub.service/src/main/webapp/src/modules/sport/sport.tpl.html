@@ -1,41 +1,18 @@
 <div ng-controller="sportCtrl as sportCtrl">
-    <div id="header">
-        <nav class="navbar navbar-default" role="navigation">
-            <div class="container-fluid">
-                <!-- Brand and toggle get grouped for better mobile display -->
-                <div class="navbar-header">
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#country-navbar">
-                        <span class="sr-only">Toggle navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-                    <a class="navbar-brand" href="#">Sport</a>
-                </div>
-
-                <!-- Collect the nav links, forms, and other content for toggling -->
-                <div class="collapse navbar-collapse" id="country-navbar">
-                    <button id="createBtn" class="btn btn-default navbar-btn" ng-hide="sportCtrl.editMode" ng-click="sportCtrl.createRecord()"><span class="glyphicon glyphicon-plus"></span> Create</button>
-                    <button id="refreshBtn" class="btn btn-default navbar-btn" ng-hide="sportCtrl.editMode" ng-click="sportCtrl.fetchRecords()"><span class="glyphicon glyphicon-refresh"></span> Refresh</button>
-                    <button id="saveBtn" class="btn btn-default navbar-btn" ng-show="sportCtrl.editMode" ng-click="sportCtrl.saveRecord()"><span class="glyphicon glyphicon-floppy-disk"></span> Save</button>
-                    <button id="cancelBtn" class="btn btn-default navbar-btn" ng-show="sportCtrl.editMode" ng-click="sportCtrl.fetchRecords()"><span class="glyphicon glyphicon-remove"></span> Cancel</button>
-                </div>
-            </div>
-        </nav>
-    </div>
+    <toolbar name="sport" display-name="Sport" actions="sportCtrl.globalActions"></toolbar>
     <div ng-show="sportCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
         <strong>Error!</strong> {{sportCtrl.error.msg}}
     </div>
     <list-records ng-hide="sportCtrl.editMode"
-        change-page="sportCtrl.pageChanged()"
-        edit-record="sportCtrl.editRecord(record)"
-        delete-record="sportCtrl.deleteRecord(record)"
-        model="model"
-        records="records"
-        total-items="totalItems"
-        current-page="currentPage"
-        max-size="maxSize"
-        items-per-page="itemsPerPage">
+                  change-page="sportCtrl.pageChanged()"
+                  edit-record="sportCtrl.editRecord(record)"
+                  delete-record="sportCtrl.deleteRecord(record)"
+                  model="model"
+                  records="records"
+                  total-items="totalItems"
+                  current-page="currentPage"
+                  max-size="maxSize"
+                  items-per-page="itemsPerPage">
     </list-records>
     <div ng-show="sportCtrl.editMode">
         <form name="countryForm" role="form">

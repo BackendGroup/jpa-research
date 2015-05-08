@@ -31,10 +31,15 @@
                         return (record.minAge + record.maxAge) / 2;
                     }
                 }, {
+                    name: 'rules',
+                    displayName: 'Rules',
+                    type: 'String',
+                    order: 5
+                }, {
                     name: 'country',
                     displayName: 'Country',
                     type: 'Computed',
-                    order: 5,
+                    order: 6,
                     compute: function (record) {
                         return record.country;
                     }
