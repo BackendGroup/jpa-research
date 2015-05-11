@@ -2,17 +2,16 @@
 <div ng-show="countryCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
     <strong>Error!</strong> {{countryCtrl.error.msg}}
 </div>
-<list-records ng-hide="countryCtrl.editMode"
-    change-page="countryCtrl.pageChanged()"
-    edit-record="countryCtrl.editRecord(record)"
-    delete-record="countryCtrl.deleteRecord(record)"
-    model="model"
-    records="records"
-    total-items="totalItems"
-    current-page="currentPage"
-    max-size="maxSize"
-    items-per-page="itemsPerPage">
-</list-records>
+<div ng-hide="countryCtrl.editMode">
+    <list-records
+        change-page="countryCtrl.pageChanged()"
+        edit-record="countryCtrl.editRecord(record)"
+        delete-record="countryCtrl.deleteRecord(record)"
+        model="model"
+        records="records">
+    </list-records>
+    <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+</div>
 <div ng-show="countryCtrl.editMode">
     <form name="countryForm" role="form">
         <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>

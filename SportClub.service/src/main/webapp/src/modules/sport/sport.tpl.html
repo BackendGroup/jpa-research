@@ -3,17 +3,20 @@
     <div ng-show="sportCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
         <strong>Error!</strong> {{sportCtrl.error.msg}}
     </div>
-    <list-records ng-hide="sportCtrl.editMode"
-                  change-page="sportCtrl.pageChanged()"
-                  edit-record="sportCtrl.editRecord(record)"
-                  delete-record="sportCtrl.deleteRecord(record)"
-                  model="model"
-                  records="records"
-                  total-items="totalItems"
-                  current-page="currentPage"
-                  max-size="maxSize"
-                  items-per-page="itemsPerPage">
-    </list-records>
+    <div ng-hide="sportCtrl.editMode">
+        <list-records
+                      change-page="sportCtrl.pageChanged()"
+                      edit-record="sportCtrl.editRecord(record)"
+                      delete-record="sportCtrl.deleteRecord(record)"
+                      model="model"
+                      records="records"
+                      total-items="totalItems"
+                      current-page="currentPage"
+                      max-size="maxSize"
+                      items-per-page="itemsPerPage">
+        </list-records>
+        <pagination total-items="totalItems" ng-model="currentPage" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+    </div>
     <div ng-show="sportCtrl.editMode">
         <form name="countryForm" role="form">
             <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
