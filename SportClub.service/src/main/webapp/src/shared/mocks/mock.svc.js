@@ -1,5 +1,5 @@
-(function () {
-    var mock = angular.module('MockModule');
+(function (ng) {
+    var mock = ng.module('MockModule');
 
     mock.value('MockModule.mockRecords', {});
 
@@ -12,4 +12,4 @@
             return context;
         };
     });
-})();
+})(window.angular);
