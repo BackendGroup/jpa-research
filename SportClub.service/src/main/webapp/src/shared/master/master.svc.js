@@ -4,8 +4,10 @@
     mod.service('masterUtils', ['CRUDBase', function (CRUDBase) {
             function childConstructor(scope, childName) {
                 scope.currentRecord = {};
+                var self = this;
                 scope.$on('master-selected', function (event, args) {
                     scope.records = args[childName];
+                    self.fetchRecords();
                 });
                 this.editMode = false;
                 this.error = {show: false};
@@ -22,7 +24,6 @@
                 }
 
                 this.showError = function (response) {
-                    var self = this;
                     this.error = {show: true, msg: response.data};
                     $timeout(function () {
                         self.error = {show: false};
@@ -53,14 +54,12 @@
                 };
             }
             function masterConstructor() {
-                var previous = this.extendCtrl;
+                var oldExtend = this.extendCtrl;
                 this.extendCtrl = function (ctrl, scope) {
-                    previous.call(this, ctrl, scope);
-                    var service = this;
+                    oldExtend.call(this, ctrl, scope);
+                    var oldEdit = ctrl.editRecord;
                     ctrl.editRecord = function (record) {
-                        service.fetchRecord(record).then(function (data) {
-                            scope.currentRecord = data;
-                            ctrl.editMode = true;
+                        return oldEdit.call(this, record).then(function (data) {
                             scope.$broadcast('master-selected', data);
                         });
                     };

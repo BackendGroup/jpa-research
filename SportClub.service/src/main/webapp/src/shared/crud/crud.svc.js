@@ -50,10 +50,10 @@
                         scope.currentRecord = {};
                     };
                     ctrl.editRecord = function (record) {
-                        service.fetchRecord(record).then(function(data){
+                        return service.fetchRecord(record).then(function(data){
                             scope.currentRecord = data;
                             ctrl.editMode = true;
-                            scope.$broadcast('master-selected', data);
+                            return data;
                         });
                     };
 
