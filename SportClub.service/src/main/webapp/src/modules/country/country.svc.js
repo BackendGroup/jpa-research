@@ -11,18 +11,4 @@
                 return this.api.customGET('leastPopulated');
             };
         }]);
-
-    mod.factory('countryModel', [function () {
-            return [{
-                    name: 'name',
-                    displayName: 'Name',
-                    type: 'String',
-                    order: 1
-                }, {
-                    name: 'population',
-                    displayName: 'Population',
-                    type: 'Integer',
-                    order: 2
-                }];
-        }]);
 })(window.angular);
