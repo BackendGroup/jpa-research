@@ -4,7 +4,10 @@ import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -25,16 +28,21 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CountryService {
 
-    @Inject
-    protected ICountryLogic countryLogic;
-    
-    @Context HttpServletResponse response;
+    @Inject private ICountryLogic countryLogic;
+    @Context private HttpServletResponse response;
     @HeaderParam("page") Integer page;
     @HeaderParam("maxRecords") Integer maxRecords;
 
     @POST
     public CountryDTO createCountry(CountryDTO sport) {
-        return countryLogic.createCountry(sport);
+        CountryDTO dto = countryLogic.createCountry(sport);
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        try {
+            response.flushBuffer();
+        } catch (IOException ex) {
+            Logger.getLogger(CountryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dto;
     }
 
     @DELETE
