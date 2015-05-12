@@ -2,9 +2,9 @@
     var mod = ng.module('masterModule');
 
     mod.service('masterUtils', [function () {
-            function childConstructor(scope) {
+            function childConstructor(scope, childName) {
                 scope.currentRecord = {};
-                scope.records = [];
+                scope.records = scope.$parent.currentRecord[childName];
                 this.editMode = false;
                 this.error = {show: false};
 
@@ -51,8 +51,8 @@
                 };
             }
 
-            this.extendService = function (svc, scope) {
-                childConstructor.call(svc, scope);
+            this.extendService = function (svc, scope, childName) {
+                childConstructor.call(svc, scope, childName);
             };
         }]);
 })(window.angular);

@@ -1,20 +1,13 @@
 (function (ng) {
-    var countryMaster = ng.module('countryMasterModule', ['countryModule', 'sportModule']);
+    var mod = ng.module('countryMasterModule');
 
-    countryMaster.controller('countryMasterCtrl', ['$scope', function ($scope) {
-            $scope.tab = 'sports';
-            this.changeTab = function (tabName) {
-                $scope.tab = tabName;
-            };
-
-            this.editMode = false;
-
-            this.createRecord = function () {
-                this.editMode = true;
-            };
-            
-            this.fetchRecords = function(){
-                this.editMode = false;
-            };
+    mod.controller('countryMasterCtrl', ['$scope', 'countryMasterService', 'countryModel', function ($scope, svc, model) {
+            $scope.model = model;
+            svc.extendCtrl(this, $scope);
+            this.fetchRecords();
         }]);
+    
+    mod.controller('sportsCtrl', ['masterUtils', '$scope', function(masterSvc, $scope){
+            masterSvc.extendService(this, $scope, 'sports');
+    }]);
 })(window.angular);

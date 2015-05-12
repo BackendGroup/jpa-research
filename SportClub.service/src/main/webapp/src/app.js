@@ -4,7 +4,9 @@
 
     mainApp.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.when('/sport', {
-                templateUrl: 'src/modules/sport/sport.tpl.html'
+                templateUrl: 'src/modules/sport/sport.tpl.html',
+                controller: 'sportCtrl',
+                controllerAs: 'sportCtrl'
             }).when('/country', {
                 templateUrl: 'src/modules/country/country.tpl.html',
                 controller: 'countryCtrl',
