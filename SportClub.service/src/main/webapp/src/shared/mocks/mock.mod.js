@@ -4,21 +4,35 @@
     mocksModule.constant('MockModule.baseUrl', 'webresources');
 
     mocksModule.run(['$httpBackend', 'MockModule.urls', 'MockModule.mockRecords', 'MockModule.baseUrl', function ($httpBackend, urls, mockRecords, baseUrl) {
+            function getUrlVars(url)
+            {
+                var vars = {}, hash;
+                var hashes = url.slice(url.indexOf('?') + 1).split('&');
+                for (var i = 0; i < hashes.length; i++)
+                {
+                    hash = hashes[i].split('=');
+                    vars[hash[0]] = hash[1];
+                }
+                return vars;
+            }
             function mockUrls(entity_url) {
                 mockRecords[entity_url] = [];
                 var fullUrl = baseUrl + '/' + entity_url;
                 var fetchUrl = new RegExp(fullUrl + '[?].*');
                 var url_regexp = new RegExp(fullUrl + '/([0-9]+)');
-                $httpBackend.whenGET(fetchUrl).respond(function (method, url, data, params) {
-                    var responseObj = {totalRecords: mockRecords[entity_url].length};
-                    if (params && params.page && params.maxRecords) {
-                        var start_index = (params.page - 1) * params.maxRecords;
-                        var end_index = start_index + params.maxRecords;
-                        responseObj.records = mockRecords[entity_url].slice(start_index, end_index);
+                $httpBackend.whenGET(fetchUrl).respond(function (method, url) {
+                    var responseObj = [];
+                    var queryParams = getUrlVars(url);
+                    var page = parseInt(queryParams["page"]);
+                    var maxRecords = parseInt(queryParams["maxRecords"]);
+                    if (page && maxRecords) {
+                        var start_index = (page - 1) * maxRecords;
+                        var end_index = start_index + maxRecords;
+                        responseObj = mockRecords[entity_url].slice(start_index, end_index);
                     } else {
-                        responseObj.records = mockRecords[entity_url];
+                        responseObj = mockRecords[entity_url];
                     }
-                    return [200, responseObj, {}];
+                    return [200, responseObj, {"X-Total-Count": mockRecords[entity_url].length}];
                 });
                 $httpBackend.whenGET(url_regexp).respond(function (method, url) {
                     var id = parseInt(url.split('/').pop());
