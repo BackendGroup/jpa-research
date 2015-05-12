@@ -1,15 +1,62 @@
 (function (ng) {
     var crud = ng.module('CrudModule');
 
-    crud.service('CRUDBase', ['Restangular', '$timeout', function (RestAngular, $timeout) {
+    crud.service('actionsService', [function () {
+            this.buildGlobalActions = function (ctrl) {
+                return [{
+                        name: 'create',
+                        displayName: 'Create',
+                        icon: 'plus',
+                        fn: function () {
+                            ctrl.createRecord();
+                        },
+                        show: function () {
+                            return !ctrl.editMode;
+                        }
+                    }, {
+                        name: 'refresh',
+                        displayName: 'Refresh',
+                        icon: 'refresh',
+                        fn: function () {
+                            ctrl.fetchRecords();
+                        },
+                        show: function () {
+                            return !ctrl.editMode;
+                        }
+                    }, {
+                        name: 'save',
+                        displayName: 'Save',
+                        icon: 'floppy-disk',
+                        fn: function () {
+                            ctrl.saveRecord();
+                        },
+                        show: function () {
+                            return ctrl.editMode;
+                        }
+                    }, {
+                        name: 'cancel',
+                        displayName: 'Cancel',
+                        icon: 'remove',
+                        fn: function () {
+                            ctrl.fetchRecords();
+                        },
+                        show: function () {
+                            return ctrl.editMode;
+                        }
+                    }
+                ];
+            };
+        }]);
+
+    crud.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
             function crudConstructor() {
                 this.api = RestAngular.all(this.url);
 
                 this.fetchRecords = function (currentPage, itemsPerPage) {
                     return this.api.getList({page: currentPage, maxRecords: itemsPerPage});
                 };
-                
-                this.fetchRecord = function(record){
+
+                this.fetchRecord = function (record) {
                     return record.get();
                 };
                 this.saveRecord = function (currentRecord) {
@@ -50,7 +97,7 @@
                         scope.currentRecord = {};
                     };
                     ctrl.editRecord = function (record) {
-                        return service.fetchRecord(record).then(function(data){
+                        return service.fetchRecord(record).then(function (data) {
                             scope.currentRecord = data;
                             ctrl.editMode = true;
                             return data;
@@ -84,48 +131,7 @@
                             self.fetchRecords();
                         }, ctrl.showError);
                     };
-                    ctrl.globalActions = [{
-                            name: 'create',
-                            displayName: 'Create',
-                            icon: 'plus',
-                            fn: function () {
-                                ctrl.createRecord();
-                            },
-                            show: function () {
-                                return !ctrl.editMode;
-                            }
-                        }, {
-                            name: 'refresh',
-                            displayName: 'Refresh',
-                            icon: 'refresh',
-                            fn: function () {
-                                ctrl.fetchRecords();
-                            },
-                            show: function () {
-                                return !ctrl.editMode;
-                            }
-                        }, {
-                            name: 'save',
-                            displayName: 'Save',
-                            icon: 'floppy-disk',
-                            fn: function () {
-                                ctrl.saveRecord();
-                            },
-                            show: function () {
-                                return ctrl.editMode;
-                            }
-                        }, {
-                            name: 'cancel',
-                            displayName: 'Cancel',
-                            icon: 'remove',
-                            fn: function () {
-                                ctrl.fetchRecords();
-                            },
-                            show: function () {
-                                return ctrl.editMode;
-                            }
-                        }
-                    ];
+                    ctrl.globalActions = actionsBuilder.buildGlobalActions(ctrl);
                 };
             }
             this.extendService = function (svc) {

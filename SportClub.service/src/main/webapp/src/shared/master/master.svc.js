@@ -1,7 +1,7 @@
 (function (ng) {
     var mod = ng.module('masterModule');
 
-    mod.service('masterUtils', ['CRUDBase', function (CRUDBase) {
+    mod.service('masterUtils', ['CRUDBase', 'actionsService', function (CRUDBase, actionsBuilder) {
             function childConstructor(scope, childName) {
                 scope.currentRecord = {};
                 var self = this;
@@ -11,6 +11,8 @@
                 });
                 this.editMode = false;
                 this.error = {show: false};
+
+                this.globalActions = actionsBuilder.buildGlobalActions(this);
 
                 function indexOf(rc) {
                     for (var i in scope.records) {
@@ -51,6 +53,10 @@
                 this.editRecord = function (record) {
                     scope.currentRecord = ng.copy(record);
                     this.editMode = true;
+                };
+                this.createRecord = function () {
+                    this.editMode = true;
+                    scope.currentRecord = {};
                 };
             }
             function masterConstructor() {
