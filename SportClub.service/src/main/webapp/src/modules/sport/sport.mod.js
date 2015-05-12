@@ -3,7 +3,7 @@
 
     mod.constant('sport.context', 'sports');
 
-    mod.constant('sport.skipMock', false);
+    mod.constant('sport.skipMock', true);
 
     mod.run(['sport.context', 'MockModule.service', 'sport.skipMock', function (context, mockService, skip) {
             mockService.setMock(context, skip);

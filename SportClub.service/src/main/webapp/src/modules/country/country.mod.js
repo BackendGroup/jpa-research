@@ -3,7 +3,7 @@
 
     mod.constant('country.context', 'countries');
 
-    mod.constant('country.skipMock', false);
+    mod.constant('country.skipMock', true);
 
     mod.run(['country.context', 'MockModule.service', 'country.skipMock', function (context, mockService, skip) {
             mockService.setMock(context, skip);
