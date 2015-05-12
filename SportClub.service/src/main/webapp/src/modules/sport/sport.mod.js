@@ -1,11 +1,11 @@
-(function (angular) {
-    var sportModule = angular.module('sportModule', ['CrudModule', 'MockModule', 'countryModule']);
+(function (ng) {
+    var mod = ng.module('sportModule', ['CrudModule', 'MockModule', 'countryModule']);
 
-    sportModule.constant('sport.context', 'sports');
+    mod.constant('sport.context', 'sports');
 
-    sportModule.constant('sport.skipMock', true);
+    mod.constant('sport.skipMock', false);
 
-    sportModule.config(['sport.context', 'MockModule.urlsProvider', 'sport.skipMock', function (context, urlsProvider, skipMock) {
-            urlsProvider.registerUrl(context, skipMock);
+    mod.run(['sport.context', 'MockModule.service', 'sport.skipMock', function (context, mockService, skip) {
+            mockService.setMock(context, skip);
         }]);
 })(window.angular);

@@ -1,95 +1,10 @@
-(function (angular) {
-    var mocksModule = angular.module('MockModule', ['ngMockE2E']);
+(function (ng) {
+    var mod = ng.module('MockModule', ['ngMockE2E']);
 
-    mocksModule.constant('MockModule.baseUrl', 'webresources');
+    mod.constant('MockModule.baseUrl', 'webresources');
 
-    mocksModule.run(['$httpBackend', 'MockModule.urls', 'MockModule.mockRecords', 'MockModule.baseUrl', function ($httpBackend, urls, mockRecords, baseUrl) {
-            function getUrlVars(url)
-            {
-                var vars = {}, hash;
-                var hashes = url.slice(url.indexOf('?') + 1).split('&');
-                for (var i = 0; i < hashes.length; i++)
-                {
-                    hash = hashes[i].split('=');
-                    vars[hash[0]] = hash[1];
-                }
-                return vars;
-            }
-            function mockUrls(entity_url) {
-                mockRecords[entity_url] = [];
-                var fullUrl = baseUrl + '/' + entity_url;
-                var fetchUrl = new RegExp(fullUrl + '[?].*');
-                var url_regexp = new RegExp(fullUrl + '/([0-9]+)');
-                $httpBackend.whenGET(fetchUrl).respond(function (method, url) {
-                    var responseObj = [];
-                    var queryParams = getUrlVars(url);
-                    var page = parseInt(queryParams["page"]);
-                    var maxRecords = parseInt(queryParams["maxRecords"]);
-                    if (page && maxRecords) {
-                        var start_index = (page - 1) * maxRecords;
-                        var end_index = start_index + maxRecords;
-                        responseObj = mockRecords[entity_url].slice(start_index, end_index);
-                    } else {
-                        responseObj = mockRecords[entity_url];
-                    }
-                    return [200, responseObj, {"X-Total-Count": mockRecords[entity_url].length}];
-                });
-                $httpBackend.whenGET(url_regexp).respond(function (method, url) {
-                    var id = parseInt(url.split('/').pop());
-                    var record;
-                    angular.forEach(mockRecords[entity_url], function (value) {
-                        if (value.id === id) {
-                            record = angular.copy(value);
-                        }
-                    });
-                    return [200, record, {}];
-                });
-                $httpBackend.whenPOST(fullUrl).respond(function (method, url, data) {
-                    var record = angular.fromJson(data);
-                    record.id = Math.floor(Math.random() * 10000);
-                    mockRecords[entity_url].push(record);
-                    return [200, record, {}];
-                });
-                $httpBackend.whenPUT(url_regexp).respond(function (method, url, data) {
-                    var record = angular.fromJson(data);
-                    angular.forEach(mockRecords[entity_url], function (value, key) {
-                        if (value.id === record.id) {
-                            mockRecords[entity_url].splice(key, 1, record);
-                        }
-                    });
-                    return [200, null, {}];
-                });
-                $httpBackend.whenDELETE(url_regexp).respond(function (method, url) {
-                    var id = parseInt(url.split('/').pop());
-                    angular.forEach(mockRecords[entity_url], function (value, key) {
-                        if (value.id === id) {
-                            mockRecords[entity_url].splice(key, 1);
-                        }
-                    });
-                    return [200, null, {}];
-                });
-            }
-
-            function skipUrl(entity_url) {
-                var fullUrl = baseUrl + '/' + entity_url;
-                var fetchUrl = new RegExp(fullUrl + '[?].*');
-                var url_regexp = new RegExp(fullUrl + '/([0-9]+)');
-                $httpBackend.whenGET(fetchUrl).passThrough();
-                $httpBackend.whenGET(url_regexp).passThrough();
-                $httpBackend.whenPOST(fullUrl).passThrough();
-                $httpBackend.whenPUT(url_regexp).passThrough();
-                $httpBackend.whenDELETE(url_regexp).passThrough();
-            }
+    mod.run(['$httpBackend', 'MockModule.baseUrl', function ($httpBackend, baseUrl) {
             var ignore_regexp = new RegExp('^((?!' + baseUrl + ').)*$');
             $httpBackend.whenGET(ignore_regexp).passThrough();
-            for (var i in urls) {
-                if (urls.hasOwnProperty(i)) {
-                    if (urls[i].skip) {
-                        skipUrl(urls[i].url);
-                    } else {
-                        mockUrls(urls[i].url);
-                    }
-                }
-            }
         }]);
 })(window.angular);
