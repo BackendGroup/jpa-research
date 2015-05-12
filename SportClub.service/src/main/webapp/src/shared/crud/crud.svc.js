@@ -24,10 +24,10 @@
                     scope.records = [];
 
                     //Variables de paginacion
-                    scope.maxSize = 5;
-                    scope.itemsPerPage = 5;
-                    scope.totalItems = 0;
-                    scope.currentPage = 1;
+                    ctrl.maxSize = 5;
+                    ctrl.itemsPerPage = 5;
+                    ctrl.totalItems = 0;
+                    ctrl.currentPage = 1;
 
                     //Variables para el controlador
                     ctrl.editMode = false;
@@ -58,9 +58,9 @@
                     };
 
                     ctrl.fetchRecords = function () {
-                        return service.fetchRecords(scope.currentPage, scope.itemsPerPage).then(function (data) {
+                        return service.fetchRecords(ctrl.currentPage, ctrl.itemsPerPage).then(function (data) {
                             scope.records = data;
-                            scope.totalItems = data.totalRecords;
+                            ctrl.totalItems = data.totalRecords;
                             scope.currentRecord = {};
                             ctrl.editMode = false;
                             return data;

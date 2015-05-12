@@ -4,13 +4,12 @@
 </div>
 <div ng-hide="sportCtrl.editMode">
     <list-records
-        change-page="sportCtrl.pageChanged()"
         edit-record="sportCtrl.editRecord(record)"
         delete-record="sportCtrl.deleteRecord(record)"
         model="model"
         records="records">
     </list-records>
-    <pagination total-items="totalItems" ng-model="currentPage" ng-change="sportCtrl.pageChanged()" items-per-page="itemsPerPage" max-size="maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+    <pagination total-items="sportCtrl.totalItems" ng-model="sportCtrl.currentPage" ng-change="sportCtrl.pageChanged()" items-per-page="sportCtrl.itemsPerPage" max-size="sportCtrl.maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 </div>
 <div ng-show="sportCtrl.editMode">
     <form name="countryForm" role="form">
