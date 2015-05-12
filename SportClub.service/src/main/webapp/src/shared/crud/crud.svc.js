@@ -1,7 +1,7 @@
 (function (ng) {
     var crud = ng.module('CrudModule');
 
-    crud.factory('CRUDBase', ['Restangular', '$timeout', function (RestAngular, $timeout) {
+    crud.service('CRUDBase', ['Restangular', '$timeout', function (RestAngular, $timeout) {
             function crudConstructor() {
                 this.api = RestAngular.all(this.url);
 
@@ -121,8 +121,8 @@
                     ];
                 };
             }
-            return {extendService: function (svc) {
-                    crudConstructor.call(svc);
-                }};
+            this.extendService = function (svc) {
+                crudConstructor.call(svc);
+            };
         }]);
 })(window.angular);
