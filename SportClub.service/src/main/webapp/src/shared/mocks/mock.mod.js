@@ -7,8 +7,9 @@
             function mockUrls(entity_url) {
                 mockRecords[entity_url] = [];
                 var fullUrl = baseUrl + '/' + entity_url;
+                var fetchUrl = new RegExp(fullUrl + '[?].*');
                 var url_regexp = new RegExp(fullUrl + '/([0-9]+)');
-                $httpBackend.whenGET(fullUrl).respond(function (method, url, data, params) {
+                $httpBackend.whenGET(fetchUrl).respond(function (method, url, data, params) {
                     var responseObj = {totalRecords: mockRecords[entity_url].length};
                     if (params && params.page && params.maxRecords) {
                         var start_index = (params.page - 1) * params.maxRecords;
@@ -57,8 +58,9 @@
 
             function skipUrl(entity_url) {
                 var fullUrl = baseUrl + '/' + entity_url;
+                var fetchUrl = new RegExp(fullUrl + '[?].*');
                 var url_regexp = new RegExp(fullUrl + '/([0-9]+)');
-                $httpBackend.whenGET(fullUrl).passThrough();
+                $httpBackend.whenGET(fetchUrl).passThrough();
                 $httpBackend.whenGET(url_regexp).passThrough();
                 $httpBackend.whenPOST(fullUrl).passThrough();
                 $httpBackend.whenPUT(url_regexp).passThrough();

@@ -6,7 +6,7 @@
                 this.api = RestAngular.all(this.url);
 
                 this.fetchRecords = function (currentPage, itemsPerPage) {
-                    return this.api.getList(null, {page: currentPage, maxRecords: itemsPerPage});
+                    return this.api.getList({page: currentPage, maxRecords: itemsPerPage});
                 };
                 this.saveRecord = function (currentRecord) {
                     if (currentRecord.id) {
