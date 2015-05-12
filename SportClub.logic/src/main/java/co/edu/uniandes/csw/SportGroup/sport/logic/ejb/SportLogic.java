@@ -7,7 +7,6 @@ import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.SportGroup.sport.logic.api.ISportLogic;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportPageDTO;
 import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
 import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import java.util.List;
@@ -38,19 +37,18 @@ public class SportLogic implements ISportLogic {
         return SportConverter.entity2PersistenceDTOList(q.getResultList());
     }
 
-    public SportPageDTO getSports(Integer page, Integer maxRecords) {
+    public int countSports() {
         Query count = entityManager.createQuery("select count(u) from SportEntity u");
-        Long regCount = 0L;
-        regCount = Long.parseLong(count.getSingleResult().toString());
+        return Integer.parseInt(count.getSingleResult().toString());
+    }
+
+    public List<SportDTO> getSports(Integer page, Integer maxRecords) {
         Query q = entityManager.createQuery("select u from SportEntity u");
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
             q.setMaxResults(maxRecords);
         }
-        SportPageDTO response = new SportPageDTO();
-        response.setTotalRecords(regCount);
-        response.setRecords(SportConverter.entity2PersistenceDTOList(q.getResultList()));
-        return response;
+        return SportConverter.entity2PersistenceDTOList(q.getResultList());
     }
 
     public SportDTO getSport(Long id) {

@@ -10,7 +10,6 @@ import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
 import co.edu.uniandes.csw.SportGroup.sport.logic.api.ISportLogic;
 import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportPageDTO;
 import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.util._TestUtil.generateRandom;
 import java.util.ArrayList;
@@ -124,7 +123,7 @@ public class SportLogicTest {
 
     @Test
     public void getSportsTest() {
-        List<SportDTO> list = sportLogic.getSports();
+        List<SportDTO> list = sportLogic.getSports(null, null);
         Assert.assertEquals(list.size(), data.size());
         for (SportDTO dto : list) {
             boolean found = false;
@@ -184,17 +183,15 @@ public class SportLogicTest {
     @Test
     public void getSportPaginationTest() {
         //Page 1
-        SportPageDTO dto1 = sportLogic.getSports(1, 2);
+        List<SportDTO> dto1 = sportLogic.getSports(1, 2);
         Assert.assertNotNull(dto1);
-        Assert.assertEquals(2, dto1.getRecords().size());
-        Assert.assertEquals(3L, dto1.getTotalRecords().longValue());
+        Assert.assertEquals(2, dto1.size());
         //Page 2
-        SportPageDTO dto2 = sportLogic.getSports(2, 2);
+        List<SportDTO> dto2 = sportLogic.getSports(2, 2);
         Assert.assertNotNull(dto2);
-        Assert.assertEquals(1, dto2.getRecords().size());
-        Assert.assertEquals(3L, dto2.getTotalRecords().longValue());
+        Assert.assertEquals(1, dto2.size());
 
-        for (SportDTO dto : dto1.getRecords()) {
+        for (SportDTO dto : dto1) {
             boolean found = false;
             for (SportEntity entity : data) {
                 if (dto.getId().equals(entity.getId())) {
@@ -204,7 +201,7 @@ public class SportLogicTest {
             Assert.assertTrue(found);
         }
 
-        for (SportDTO dto : dto2.getRecords()) {
+        for (SportDTO dto : dto2) {
             boolean found = false;
             for (SportEntity entity : data) {
                 if (dto.getId().equals(entity.getId())) {

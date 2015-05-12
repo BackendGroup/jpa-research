@@ -28,16 +28,15 @@
 package co.edu.uniandes.csw.SportGroup.sport.logic.api;
 
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportPageDTO;
 import java.util.List;
 
 public interface ISportLogic {
 
     public SportDTO createSport(SportDTO detail);
+    
+    public int countSports();
 
-    public List<SportDTO> getSports();
-
-    public SportPageDTO getSports(Integer page, Integer maxRecords);
+    public List<SportDTO> getSports(Integer page, Integer maxRecords);
 
     public SportDTO getSport(Long id);
 

@@ -29,9 +29,13 @@ package co.edu.uniandes.csw.SportGroup.service;
 
 import co.edu.uniandes.csw.SportGroup.sport.logic.api.ISportLogic;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportPageDTO;
+import java.io.IOException;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 import javax.inject.Inject;
+import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
 import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
@@ -41,6 +45,7 @@ import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
+import javax.ws.rs.core.Context;
 import javax.ws.rs.core.MediaType;
 
 @Path("/sports")
@@ -48,35 +53,47 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class SportService {
 
-    @Inject
-    protected ISportLogic sportLogicService;
+    @Inject private ISportLogic sportLogic;
+    @Context private HttpServletResponse response;
+    @HeaderParam("page") private Integer page;
+    @HeaderParam("maxRecords") private Integer maxRecords;
 
     @POST
     public SportDTO createSport(SportDTO sport) {
-        return sportLogicService.createSport(sport);
+        SportDTO dto = sportLogic.createSport(sport);
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        try {
+            response.flushBuffer();
+        } catch (IOException ex) {
+            Logger.getLogger(CountryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dto;
     }
 
     @DELETE
     @Path("{id}")
     public void deleteSport(@PathParam("id") Long id) {
-        sportLogicService.deleteSport(id);
+        sportLogic.deleteSport(id);
     }
 
     @GET
-    public SportPageDTO getSports(@HeaderParam("page") Integer page, @HeaderParam("maxRecords") Integer maxRecords) {
-        return sportLogicService.getSports(page, maxRecords);
+    public List<SportDTO> getSports() {
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", sportLogic.countSports());
+        }
+        return sportLogic.getSports(page, maxRecords);
     }
 
     @GET
     @Path("{id}")
     public SportDTO getSport(@PathParam("id") Long id) {
-        return sportLogicService.getSport(id);
+        return sportLogic.getSport(id);
     }
 
     @PUT
     @Path("{id}")
     public SportDTO updateSport(@PathParam("id") Long id, SportDTO sport) {
-        return sportLogicService.updateSport(sport);
+        return sportLogic.updateSport(sport);
     }
 
 }

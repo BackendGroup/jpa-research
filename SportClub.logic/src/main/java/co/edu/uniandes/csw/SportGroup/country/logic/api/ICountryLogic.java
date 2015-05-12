@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.SportGroup.country.logic.api;
 
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
 import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
 import java.util.List;
 

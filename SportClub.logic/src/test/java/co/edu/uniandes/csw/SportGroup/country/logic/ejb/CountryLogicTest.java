@@ -3,7 +3,6 @@ package co.edu.uniandes.csw.SportGroup.country.logic.ejb;
 import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.country.logic.converter.CountryConverter;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryPageDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
 import static co.edu.uniandes.csw.SportGroup.util._TestUtil.*;
 import java.util.ArrayList;
