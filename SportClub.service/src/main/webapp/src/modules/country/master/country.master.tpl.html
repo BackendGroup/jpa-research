@@ -4,6 +4,6 @@
         <li role="presentation" ng-class="{active: tab === 'sports'}"><a href ng-click="countryCtrl.changeTab('sports')">Sports</a></li>
         <li role="presentation" ng-class="{active: tab === 'ownedSports'}"><a href ng-click="countryCtrl.changeTab('ownedSports')">Owned Sports</a></li>
     </ul>
-    <div ng-show="tab === 'sports'" ng-include="'src/modules/sport/sport.tpl.html'"></div>
-    <div ng-show="tab === 'ownedSports'" ng-include="'src/modules/sport/sport.tpl.html'"></div>
+    <div ng-show="tab === 'sports'" ng-controller="sportsCtrl as sportCtrl"ng-include="'src/modules/sport/sport.tpl.html'"></div>
+    <div ng-show="tab === 'ownedSports'" ng-controller="ownedSportsCtrl as sportCtrl" ng-include="'src/modules/sport/sport.tpl.html'"></div>
 </div>

@@ -1,10 +1,12 @@
 (function (ng) {
     var mod = ng.module('masterModule');
 
-    mod.service('masterUtils', [function () {
+    mod.service('masterUtils', ['CRUDBase', function (CRUDBase) {
             function childConstructor(scope, childName) {
                 scope.currentRecord = {};
-                scope.records = scope.$parent.currentRecord[childName];
+                scope.$on('master-selected', function (event, args) {
+                    scope.records = args[childName];
+                });
                 this.editMode = false;
                 this.error = {show: false};
 
@@ -50,9 +52,29 @@
                     this.editMode = true;
                 };
             }
-
-            this.extendService = function (svc, scope, childName) {
-                childConstructor.call(svc, scope, childName);
+            function masterConstructor() {
+                var previous = this.extendCtrl;
+                this.extendCtrl = function (ctrl, scope) {
+                    previous.call(this, ctrl, scope);
+                    var service = this;
+                    ctrl.editRecord = function (record) {
+                        service.fetchRecord(record).then(function (data) {
+                            scope.currentRecord = data;
+                            ctrl.editMode = true;
+                            scope.$broadcast('master-selected', data);
+                        });
+                    };
+                    ctrl.changeTab = function (tab) {
+                        scope.tab = tab;
+                    };
+                };
+            }
+            this.extendChildCtrl = function (ctrl, scope, childName) {
+                childConstructor.call(ctrl, scope, childName);
+            };
+            this.extendService = function (svc) {
+                CRUDBase.extendService(svc);
+                masterConstructor.call(svc);
             };
         }]);
 })(window.angular);

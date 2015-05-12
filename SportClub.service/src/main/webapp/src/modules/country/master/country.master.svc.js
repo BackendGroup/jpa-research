@@ -1,8 +1,8 @@
 (function(ng){
     var mod = ng.module('countryMasterModule');
     
-    mod.service('countryMasterService', ['CRUDBase', 'countryMasterModule.context', function(CRUDBase, ctx){
+    mod.service('countryMasterService', ['masterUtils', 'countryMasterModule.context', function(utils, ctx){
             this.url = ctx;
-            CRUDBase.extendService(this);
+            utils.extendService(this);
     }]);
 })(window.angular);

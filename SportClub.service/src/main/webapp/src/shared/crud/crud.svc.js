@@ -8,6 +8,10 @@
                 this.fetchRecords = function (currentPage, itemsPerPage) {
                     return this.api.getList({page: currentPage, maxRecords: itemsPerPage});
                 };
+                
+                this.fetchRecord = function(record){
+                    return record.get();
+                };
                 this.saveRecord = function (currentRecord) {
                     if (currentRecord.id) {
                         return currentRecord.put();
@@ -46,8 +50,11 @@
                         scope.currentRecord = {};
                     };
                     ctrl.editRecord = function (record) {
-                        scope.currentRecord = RestAngular.copy(record);
-                        this.editMode = true;
+                        service.fetchRecord(record).then(function(data){
+                            scope.currentRecord = data;
+                            ctrl.editMode = true;
+                            scope.$broadcast('master-selected', data);
+                        });
                     };
 
                     //Funciones que usan el servicio CRUD
