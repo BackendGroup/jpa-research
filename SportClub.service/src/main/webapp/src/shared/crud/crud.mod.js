@@ -9,15 +9,11 @@
                 }
                 return data;
             });
-            rp.addResponseInterceptor(function (data, operation) {
-                var extractedData;
-                if (operation === "getList") {
-                    extractedData = data.records;
-                    extractedData.totalRecords = data.totalRecords;
-                } else {
-                    extractedData = data;
+            rp.addResponseInterceptor(function (data, operation, what, url, response) {
+                if (operation === "getList" && response.headers("X-Total-Count")) {
+                    data.totalRecords = parseInt(response.headers("X-Total-Count"));
                 }
-                return extractedData;
+                return data;
             });
         }]);
 })(window.angular);

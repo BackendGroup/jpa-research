@@ -30,8 +30,8 @@ public class CountryService {
 
     @Inject private ICountryLogic countryLogic;
     @Context private HttpServletResponse response;
-    @HeaderParam("page") Integer page;
-    @HeaderParam("maxRecords") Integer maxRecords;
+    @HeaderParam("page") private Integer page;
+    @HeaderParam("maxRecords") private Integer maxRecords;
 
     @POST
     public CountryDTO createCountry(CountryDTO sport) {
@@ -52,10 +52,11 @@ public class CountryService {
     }
 
     @GET
-    public CountryPageDTO getCountries() {
-        CountryPageDTO records = countryLogic.getCountries(page, maxRecords);
-        this.response.setHeader("X-Total-Count", records.getTotalRecords().toString());
-        return records;
+    public List<CountryDTO> getCountries() {
+        if (page != null && maxRecords != null) {
+            this.response.setIntHeader("X-Total-Count", countryLogic.countCountries());
+        }
+        return countryLogic.getCountries(page, maxRecords);
     }
 
     @GET

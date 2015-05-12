@@ -15,12 +15,12 @@ import java.util.List;
  * @author afesguerra
  */
 public interface ICountryLogic {
+    
+    public int countCountries();
 
     public CountryDTO createCountry(CountryDTO detail);
 
-    public List<CountryDTO> getCountries();
-
-    public CountryPageDTO getCountries(Integer page, Integer maxRecords);
+    public List<CountryDTO> getCountries(Integer page, Integer maxRecords);
 
     public CountryDTO getCountry(Long id);
 

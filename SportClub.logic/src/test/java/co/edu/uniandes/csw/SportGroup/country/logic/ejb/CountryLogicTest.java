@@ -146,37 +146,37 @@ public class CountryLogicTest {
         Assert.assertEquals(dto.getPopulation(), resp.getPopulation());
     }
 
-    @Test
-    public void getCountryPaginationTest() {
-        //Page 1
-        CountryPageDTO dto1 = countryLogic.getCountries(1, 2);
-        Assert.assertNotNull(dto1);
-        Assert.assertEquals(dto1.getRecords().size(), 2);
-        Assert.assertEquals(dto1.getTotalRecords().longValue(), 3L);
-        //Page 2
-        CountryPageDTO dto2 = countryLogic.getCountries(2, 2);
-        Assert.assertNotNull(dto2);
-        Assert.assertEquals(dto2.getRecords().size(), 1);
-        Assert.assertEquals(dto2.getTotalRecords().longValue(), 3L);
-
-        for (CountryDTO dto : dto1.getRecords()) {
-            boolean found = false;
-            for (CountryEntity entity : data) {
-                if (dto.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-
-        for (CountryDTO dto : dto2.getRecords()) {
-            boolean found = false;
-            for (CountryEntity entity : data) {
-                if (dto.getId().equals(entity.getId())) {
-                    found = true;
-                }
-            }
-            Assert.assertTrue(found);
-        }
-    }
+//    @Test
+//    public void getCountryPaginationTest() {
+//        //Page 1
+//        CountryPageDTO dto1 = countryLogic.getCountries(1, 2);
+//        Assert.assertNotNull(dto1);
+//        Assert.assertEquals(dto1.getRecords().size(), 2);
+//        Assert.assertEquals(dto1.getTotalRecords().longValue(), 3L);
+//        //Page 2
+//        CountryPageDTO dto2 = countryLogic.getCountries(2, 2);
+//        Assert.assertNotNull(dto2);
+//        Assert.assertEquals(dto2.getRecords().size(), 1);
+//        Assert.assertEquals(dto2.getTotalRecords().longValue(), 3L);
+//
+//        for (CountryDTO dto : dto1.getRecords()) {
+//            boolean found = false;
+//            for (CountryEntity entity : data) {
+//                if (dto.getId().equals(entity.getId())) {
+//                    found = true;
+//                }
+//            }
+//            Assert.assertTrue(found);
+//        }
+//
+//        for (CountryDTO dto : dto2.getRecords()) {
+//            boolean found = false;
+//            for (CountryEntity entity : data) {
+//                if (dto.getId().equals(entity.getId())) {
+//                    found = true;
+//                }
+//            }
+//            Assert.assertTrue(found);
+//        }
+//    }
 }

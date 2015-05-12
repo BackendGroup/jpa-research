@@ -26,25 +26,20 @@ public class CountryLogic implements ICountryLogic{
         entityManager.persist(entity);
         return CountryConverter.entity2PersistenceDTO(entity);
     }
-
-    public List<CountryDTO> getCountries() {
-        Query q = entityManager.createQuery("select u from CountryEntity u");
-        return CountryConverter.entity2PersistenceDTOList(q.getResultList());
+    
+    public int countCountries(){
+        Query count = entityManager.createQuery("select count(u) from CountryEntity u");
+        int regCount = Integer.parseInt(count.getSingleResult().toString());
+        return regCount;
     }
 
-    public CountryPageDTO getCountries(Integer page, Integer maxRecords) {
-        Query count = entityManager.createQuery("select count(u) from CountryEntity u");
-        Long regCount = 0L;
-        regCount = Long.parseLong(count.getSingleResult().toString());
+    public List<CountryDTO> getCountries(Integer page, Integer maxRecords) {
         Query q = entityManager.createQuery("select u from CountryEntity u");
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);
             q.setMaxResults(maxRecords);
         }
-        CountryPageDTO response = new CountryPageDTO();
-        response.setTotalRecords(regCount);
-        response.setRecords(CountryConverter.entity2PersistenceDTOList(q.getResultList()));
-        return response;
+        return CountryConverter.entity2PersistenceDTOList(q.getResultList());
     }
 
     public CountryDTO getCountry(Long id) {
