@@ -2,18 +2,27 @@
     var mod = ng.module('masterModule');
 
     mod.service('masterUtils', ['CRUDBase', 'actionsService', function (CRUDBase, actionsBuilder) {
-            function childConstructor(scope, childName) {
+            function compositeRelCtrl(scope, model, childName, refName) {
+
+                //Atributos del Scope
+                scope.model = model;
+                scope.refName = refName;
                 scope.currentRecord = {};
                 var self = this;
-                scope.$on('master-selected', function (event, args) {
-                    scope.records = args[childName];
-                    self.fetchRecords();
-                });
+                
+                //Atributos del controlador
                 this.editMode = false;
                 this.error = {show: false};
-
                 this.globalActions = actionsBuilder.buildGlobalActions(this);
 
+                //Escucha de evento cuando se selecciona un registro maestro
+                scope.$on('master-selected', function (event, args) {
+                    scope.records = args[childName];
+                    scope.refId = args.id;
+                    self.fetchRecords();
+                });
+
+                //Función para encontrar un registro por ID o CID
                 function indexOf(rc) {
                     for (var i in scope.records) {
                         if (scope.records.hasOwnProperty(i)) {
@@ -25,6 +34,7 @@
                     }
                 }
 
+                //Funciones del controlador
                 this.showError = function (response) {
                     this.error = {show: true, msg: response.data};
                     $timeout(function () {
@@ -42,6 +52,7 @@
                         scope.records.splice(idx, 1, rc);
                     } else {
                         rc.cid = -Math.floor(Math.random() * 10000);
+                        rc[scope.refName] = scope.refId;
                         scope.records.push(rc);
                     }
                     this.fetchRecords();
@@ -59,14 +70,15 @@
                     scope.currentRecord = {};
                 };
             }
-            function masterConstructor() {
-                var oldExtend = this.extendCtrl;
+            function masterSvcConstructor() {
+                var oldExtendFn = this.extendCtrl;
                 this.extendCtrl = function (ctrl, scope) {
-                    oldExtend.call(this, ctrl, scope);
-                    var oldEdit = ctrl.editRecord;
+                    oldExtendFn.call(this, ctrl, scope);
+                    var oldEditFn = ctrl.editRecord;
                     ctrl.editRecord = function (record) {
-                        return oldEdit.call(this, record).then(function (data) {
+                        return oldEditFn.call(this, record).then(function (data) {
                             scope.$broadcast('master-selected', data);
+                            return data;
                         });
                     };
                     ctrl.changeTab = function (tab) {
@@ -74,12 +86,12 @@
                     };
                 };
             }
-            this.extendChildCtrl = function (ctrl, scope, childName) {
-                childConstructor.call(ctrl, scope, childName);
+            this.extendCompChildCtrl = function (ctrl, scope, model, childName, refName) {
+                compositeRelCtrl.call(ctrl, scope, model, childName, refName);
             };
             this.extendService = function (svc) {
                 CRUDBase.extendService(svc);
-                masterConstructor.call(svc);
+                masterSvcConstructor.call(svc);
             };
         }]);
 })(window.angular);

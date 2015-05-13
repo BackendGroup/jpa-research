@@ -8,12 +8,10 @@
         }]);
 
     mod.controller('ownedSportsCtrl', ['masterUtils', '$scope', 'sportModel', function (masterSvc, $scope, model) {
-            $scope.model = model;
-            masterSvc.extendChildCtrl(this, $scope, 'ownedSports');
+            masterSvc.extendCompChildCtrl(this, $scope, model, 'ownedSports', "country");
         }]);
 
     mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', function (masterSvc, $scope, model) {
-            $scope.model = model;
-            masterSvc.extendChildCtrl(this, $scope, 'sports');
+            masterSvc.extendCompChildCtrl(this, $scope, model, 'sports', "country");
         }]);
 })(window.angular);
