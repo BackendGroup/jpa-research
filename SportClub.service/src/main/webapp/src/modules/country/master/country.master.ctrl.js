@@ -11,7 +11,22 @@
             masterSvc.extendCompChildCtrl(this, $scope, model, 'ownedSports', "country");
         }]);
 
-    mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', function (masterSvc, $scope, model) {
+    mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', 'sportService', function (masterSvc, $scope, model, svc) {
             masterSvc.extendCompChildCtrl(this, $scope, model, 'sports', "country");
+            var self = this;
+            this.showList = function(){
+                
+            };
+            this.globalActions = [{
+                    name: 'select',
+                    displayName: 'Select',
+                    icon: 'check',
+                    fn: function () {
+                        self.createRecord();
+                    },
+                    show: function () {
+                        return !self.editMode;
+                    }
+                }];
         }]);
 })(window.angular);

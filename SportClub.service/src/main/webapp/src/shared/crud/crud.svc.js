@@ -11,7 +11,7 @@
                             ctrl.createRecord();
                         },
                         show: function () {
-                            return !ctrl.editMode;
+                            return !ctrl.readOnly && !ctrl.editMode;
                         }
                     }, {
                         name: 'refresh',
@@ -31,7 +31,7 @@
                             ctrl.saveRecord();
                         },
                         show: function () {
-                            return ctrl.editMode;
+                            return !ctrl.readOnly && ctrl.editMode;
                         }
                     }, {
                         name: 'cancel',
@@ -41,10 +41,33 @@
                             ctrl.fetchRecords();
                         },
                         show: function () {
-                            return ctrl.editMode;
+                            return !ctrl.readOnly && ctrl.editMode;
                         }
                     }
                 ];
+            };
+            this.buildRecordActions = function (ctrl) {
+                return [{
+                        name: 'edit',
+                        displayName: 'Edit',
+                        icon: 'edit',
+                        fn: function (rc) {
+                            ctrl.editRecord(rc);
+                        },
+                        show: function () {
+                            return !ctrl.readOnly;
+                        }
+                    }, {
+                        name: 'delete',
+                        displayName: 'Delete',
+                        icon: 'minus',
+                        fn: function (rc) {
+                            ctrl.deleteRecord(rc);
+                        },
+                        show: function () {
+                            return !ctrl.readOnly;
+                        }
+                    }];
             };
         }]);
 
@@ -79,6 +102,8 @@
                     ctrl.itemsPerPage = 5;
                     ctrl.totalItems = 0;
                     ctrl.currentPage = 1;
+
+                    ctrl.readOnly = false;
 
                     //Variables para el controlador
                     ctrl.editMode = false;

@@ -93,5 +93,8 @@
                 CRUDBase.extendService(svc);
                 masterSvcConstructor.call(svc);
             };
+            this.extendAggChildCtrl = function(ctrl, scope, model, childName, refName){
+                
+            };
         }]);
 })(window.angular);
