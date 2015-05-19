@@ -12,8 +12,8 @@
                 templateUrl: 'src/shared/crud/list.tpl.html'
             };
         }]);
-    
-    mod.directive('toolbar', [function(){
+
+    mod.directive('toolbar', [function () {
             return {
                 scope: {
                     actions: '=*',
@@ -21,7 +21,7 @@
                     displayName: '@'
                 },
                 restrict: 'E',
-                templateUrl: 'src/shared/crud/menu.tpl.html'
+                templateUrl: 'src/shared/crud/toolbar.tpl.html'
             };
-    }]);
+        }]);
 })(window.angular);
