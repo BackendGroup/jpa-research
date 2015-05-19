@@ -12,8 +12,10 @@
                 
                 //Atributos del controlador
                 this.editMode = false;
+                this.readOnly = false;
                 this.error = {show: false};
                 this.globalActions = actionsBuilder.buildGlobalActions(this);
+                this.recordActions = actionsBuilder.buildRecordActions(this);
 
                 //Escucha de evento cuando se selecciona un registro maestro
                 scope.$on('master-selected', function (event, args) {
