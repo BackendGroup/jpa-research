@@ -157,6 +157,7 @@
                         }, ctrl.showError);
                     };
                     ctrl.globalActions = actionsBuilder.buildGlobalActions(ctrl);
+                    ctrl.recordActions = actionsBuilder.buildRecordActions(ctrl);
                 };
             }
             this.extendService = function (svc) {

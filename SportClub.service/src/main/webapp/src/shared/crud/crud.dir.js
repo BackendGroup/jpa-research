@@ -5,10 +5,8 @@
             return {
                 scope: {
                     records: '=*',
-                    model: '=',
-                    changePage: '&',
-                    editRecord: '&',
-                    deleteRecord: '&'
+                    model: '=*',
+                    actions: '=*'
                 },
                 restrict: 'E',
                 templateUrl: 'src/shared/crud/list.tpl.html'

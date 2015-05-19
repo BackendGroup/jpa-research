@@ -14,8 +14,7 @@
                     <div ng-switch-default>{{record[column.name]}}</div>
                 </td>
                 <td>
-                    <button class="btn btn-default btn-sm" ng-click="editRecord({record: record})"><span class="glyphicon glyphicon-edit"></span> Edit</button>
-                    <button class="btn btn-default btn-sm" ng-click="deleteRecord({record: record})"><span class="glyphicon glyphicon-minus"></span> Delete</button>
+                    <button ng-repeat="action in actions" id="{{action.name}}-btn" class="btn btn-default btn-sm" ng-show="action.show()" ng-click="action.fn(record)"><span class="glyphicon glyphicon-{{action.icon}}"></span> {{action.displayName}}</button>
                 </td>
             </tr>
         </tbody>
