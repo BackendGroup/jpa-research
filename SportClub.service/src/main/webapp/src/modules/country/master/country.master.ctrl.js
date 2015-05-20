@@ -13,6 +13,10 @@
             var self = this;
             this.showList = function () {
                 var modal = modalService.createSelectionModal('Sports', svc.fetchRecords());
+                modal.result.then(function(data){
+                    $scope.records.splice.call($scope.records, 0,$scope.records.length);
+                    $scope.records.push.apply($scope.records, data);
+                });
             };
             this.globalActions = [{
                     name: 'select',

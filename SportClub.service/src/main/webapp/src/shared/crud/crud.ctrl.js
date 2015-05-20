@@ -5,8 +5,12 @@
             $scope.name = name;
             $scope.items = items;
 
+            function isSelected(item) {
+                return item.selected;
+            }
+
             $scope.ok = function () {
-                $modalInstance.close($scope.items);
+                $modalInstance.close($scope.items.filter(isSelected));
             };
 
             $scope.cancel = function () {
