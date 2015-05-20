@@ -1,12 +1,10 @@
 (function (ng) {
     var mod = ng.module('masterModule');
 
-    mod.service('masterUtils', ['CRUDBase', 'actionsService', function (CRUDBase, actionsBuilder) {
-            function commonChildCtrl(scope, model, childName, refName) {
+    mod.service('masterUtils', ['CRUDBase', 'actionsService', 'modalService', function (CRUDBase, actionsBuilder, modalService) {
+            function commonChildCtrl(scope, model, childName) {
                 //Atributos del Scope
                 scope.model = model;
-                scope.refName = refName;
-                scope.currentRecord = {};
 
                 //Atributos del controlador
                 this.editMode = false;
@@ -32,8 +30,34 @@
                     }
                 });
             }
+            function aggregateRelCtrl(scope, model, childName, svc) {
+                commonChildCtrl.call(this, scope, model, childName);
+                this.showList = function () {
+                    var modal = modalService.createSelectionModal(childName, svc.fetchRecords());
+                    modal.result.then(function (data) {
+                        scope.records.splice.call(scope.records, 0, scope.records.length);
+                        scope.records.push.apply(scope.records, data);
+                    });
+                };
+
+                var self = this;
+                this.globalActions = [{
+                        name: 'select',
+                        displayName: 'Select',
+                        icon: 'check',
+                        fn: function () {
+                            self.showList();
+                        },
+                        show: function () {
+                            return !self.editMode;
+                        }
+                    }];
+            }
             function compositeRelCtrl(scope, model, childName, refName) {
-                commonChildCtrl.call(this, scope, model, childName, refName);
+                commonChildCtrl.call(this, scope, model, childName);
+
+                scope.currentRecord = {};
+                scope.refName = refName;
 
                 this.globalActions = actionsBuilder.buildGlobalActions(this);
                 this.recordActions = actionsBuilder.buildRecordActions(this);
@@ -101,8 +125,8 @@
                 CRUDBase.extendService(svc);
                 masterSvcConstructor.call(svc);
             };
-            this.extendAggChildCtrl = function (ctrl, scope, model, childName, refName) {
-
+            this.extendAggChildCtrl = function (ctrl, scope, model, childName, svc) {
+                aggregateRelCtrl.call(ctrl, scope, model, childName, svc);
             };
         }]);
 })(window.angular);

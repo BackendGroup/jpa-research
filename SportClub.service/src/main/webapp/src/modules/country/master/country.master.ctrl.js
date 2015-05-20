@@ -9,26 +9,7 @@
             masterSvc.extendCompChildCtrl(this, $scope, model, 'ownedSports', "country");
         }]);
     mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', 'sportService', 'modalService', function (masterSvc, $scope, model, svc, modalService) {
-            masterSvc.extendCompChildCtrl(this, $scope, model, 'sports', "country");
-            var self = this;
-            this.showList = function () {
-                var modal = modalService.createSelectionModal('Sports', svc.fetchRecords());
-                modal.result.then(function(data){
-                    $scope.records.splice.call($scope.records, 0,$scope.records.length);
-                    $scope.records.push.apply($scope.records, data);
-                });
-            };
-            this.globalActions = [{
-                    name: 'select',
-                    displayName: 'Select',
-                    icon: 'check',
-                    fn: function () {
-                        self.showList();
-                    },
-                    show: function () {
-                        return !self.editMode;
-                    }
-                }];
+            masterSvc.extendAggChildCtrl(this, $scope, model, 'sports', svc);
         }]);
     
 })(window.angular);
