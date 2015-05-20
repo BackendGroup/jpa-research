@@ -166,12 +166,13 @@
         }]);
     
     mod.service('modalService', ['$modal', function($modal){
-            this.createSelectionModal = function(items){
+            this.createSelectionModal = function(name, items){
                 return $modal.open({
                     animation: true,
                     templateUrl: 'src/shared/crud/modal.tpl.html',
                     controller: 'modalCtrl',
                     resolve: {
+                        name: function(){return name;},
                         items: function(){
                             return items;
                         }

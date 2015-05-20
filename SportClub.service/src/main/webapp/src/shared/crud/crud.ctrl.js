@@ -1,7 +1,8 @@
 (function (ng) {
     var mod = ng.module('CrudModule');
 
-    mod.controller('modalCtrl', ['$scope', '$modalInstance', 'items', function ($scope, $modalInstance, items) {
+    mod.controller('modalCtrl', ['$scope', '$modalInstance', 'items', 'name', function ($scope, $modalInstance, items, name) {
+            $scope.name = name;
             $scope.items = items;
 
             $scope.ok = function () {

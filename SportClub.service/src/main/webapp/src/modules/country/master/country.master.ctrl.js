@@ -12,7 +12,7 @@
             masterSvc.extendCompChildCtrl(this, $scope, model, 'sports', "country");
             var self = this;
             this.showList = function () {
-                var modal = modalService.createSelectionModal(svc.fetchRecords());
+                var modal = modalService.createSelectionModal('Sports', svc.fetchRecords());
             };
             this.globalActions = [{
                     name: 'select',
