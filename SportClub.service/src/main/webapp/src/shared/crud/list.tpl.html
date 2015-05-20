@@ -3,7 +3,7 @@
         <thead>
             <tr>
                 <th ng-repeat="column in model | orderBy : 'order'">{{column.displayName}}</th>
-                <th>Actions</th>
+                <th ng-if="actions">Actions</th>
             </tr>
         </thead>
         <tbody>
@@ -13,7 +13,7 @@
                     <div ng-switch-when="Date">{{record[column.name] | date}}</div>
                     <div ng-switch-default>{{record[column.name]}}</div>
                 </td>
-                <td>
+                <td ng-if="actions">
                     <button ng-repeat="action in actions" id="{{$parent.$index}}-{{action.name}}-btn" class="btn btn-default btn-sm" ng-show="action.show()" ng-click="action.fn(record)"><span class="glyphicon glyphicon-{{action.icon}}"></span> {{action.displayName}}</button>
                 </td>
             </tr>

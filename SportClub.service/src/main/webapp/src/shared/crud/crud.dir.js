@@ -6,7 +6,7 @@
                 scope: {
                     records: '=*',
                     model: '=*',
-                    actions: '=*'
+                    actions: '=*?'
                 },
                 restrict: 'E',
                 templateUrl: 'src/shared/crud/list.tpl.html'
