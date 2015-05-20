@@ -30,102 +30,102 @@
                     }
                 });
             }
-            function aggregateRelCtrl(scope, model, childName, svc) {
-                commonChildCtrl.call(this, scope, model, childName);
-                this.showList = function () {
-                    var modal = modalService.createSelectionModal(childName, svc.fetchRecords());
-                    modal.result.then(function (data) {
-                        scope.records.splice.call(scope.records, 0, scope.records.length);
-                        scope.records.push.apply(scope.records, data);
-                    });
-                };
+            this.extendService = function (svc, ctx) {
+                function masterSvcConstructor() {
+                    var oldExtendFn = this.extendCtrl;
+                    this.extendCtrl = function (ctrl, scope) {
+                        oldExtendFn.call(this, ctrl, scope);
+                        var oldEditFn = ctrl.editRecord;
+                        ctrl.editRecord = function (record) {
+                            return oldEditFn.call(this, record).then(function (data) {
+                                scope.$broadcast('master-selected', data);
+                                return data;
+                            });
+                        };
+                        ctrl.changeTab = function (tab) {
+                            scope.tab = tab;
+                        };
+                    };
+                }
+                CRUDBase.extendService(svc, ctx);
+                masterSvcConstructor.call(svc);
+            };
+            this.extendCompChildCtrl = function (ctrl, scope, model, childName, refName) {
+                function compositeRelCtrl(scope, model, childName, refName) {
+                    commonChildCtrl.call(this, scope, model, childName);
 
-                var self = this;
-                this.globalActions = [{
-                        name: 'select',
-                        displayName: 'Select',
-                        icon: 'check',
-                        fn: function () {
-                            self.showList();
-                        },
-                        show: function () {
-                            return !self.editMode;
-                        }
-                    }];
-            }
-            function compositeRelCtrl(scope, model, childName, refName) {
-                commonChildCtrl.call(this, scope, model, childName);
+                    scope.currentRecord = {};
+                    scope.refName = refName;
 
-                scope.currentRecord = {};
-                scope.refName = refName;
+                    this.globalActions = actionsBuilder.buildGlobalActions(this);
+                    this.recordActions = actionsBuilder.buildRecordActions(this);
 
-                this.globalActions = actionsBuilder.buildGlobalActions(this);
-                this.recordActions = actionsBuilder.buildRecordActions(this);
-
-                //Función para encontrar un registro por ID o CID
-                function indexOf(rc) {
-                    for (var i in scope.records) {
-                        if (scope.records.hasOwnProperty(i)) {
-                            var current = scope.records[i];
-                            if (current.id === rc.id || current.cid === rc.cid) {
-                                return i;
+                    //Función para encontrar un registro por ID o CID
+                    function indexOf(rc) {
+                        for (var i in scope.records) {
+                            if (scope.records.hasOwnProperty(i)) {
+                                var current = scope.records[i];
+                                if (current.id === rc.id || current.cid === rc.cid) {
+                                    return i;
+                                }
                             }
                         }
                     }
+                    this.fetchRecords = function () {
+                        scope.currentRecord = {};
+                        this.editMode = false;
+                    };
+                    this.saveRecord = function () {
+                        var rc = scope.currentRecord;
+                        if (rc.id || rc.cid) {
+                            var idx = indexOf(rc);
+                            scope.records.splice(idx, 1, rc);
+                        } else {
+                            rc.cid = -Math.floor(Math.random() * 10000);
+                            rc[scope.refName] = scope.refId;
+                            scope.records.push(rc);
+                        }
+                        this.fetchRecords();
+                    };
+                    this.deleteRecord = function (record) {
+                        var idx = indexOf(record);
+                        scope.records.splice(idx, 1);
+                    };
+                    this.editRecord = function (record) {
+                        scope.currentRecord = ng.copy(record);
+                        this.editMode = true;
+                    };
+                    this.createRecord = function () {
+                        this.editMode = true;
+                        scope.currentRecord = {};
+                    };
                 }
-                this.fetchRecords = function () {
-                    scope.currentRecord = {};
-                    this.editMode = false;
-                };
-                this.saveRecord = function () {
-                    var rc = scope.currentRecord;
-                    if (rc.id || rc.cid) {
-                        var idx = indexOf(rc);
-                        scope.records.splice(idx, 1, rc);
-                    } else {
-                        rc.cid = -Math.floor(Math.random() * 10000);
-                        rc[scope.refName] = scope.refId;
-                        scope.records.push(rc);
-                    }
-                    this.fetchRecords();
-                };
-                this.deleteRecord = function (record) {
-                    var idx = indexOf(record);
-                    scope.records.splice(idx, 1);
-                };
-                this.editRecord = function (record) {
-                    scope.currentRecord = ng.copy(record);
-                    this.editMode = true;
-                };
-                this.createRecord = function () {
-                    this.editMode = true;
-                    scope.currentRecord = {};
-                };
-            }
-            function masterSvcConstructor() {
-                var oldExtendFn = this.extendCtrl;
-                this.extendCtrl = function (ctrl, scope) {
-                    oldExtendFn.call(this, ctrl, scope);
-                    var oldEditFn = ctrl.editRecord;
-                    ctrl.editRecord = function (record) {
-                        return oldEditFn.call(this, record).then(function (data) {
-                            scope.$broadcast('master-selected', data);
-                            return data;
-                        });
-                    };
-                    ctrl.changeTab = function (tab) {
-                        scope.tab = tab;
-                    };
-                };
-            }
-            this.extendCompChildCtrl = function (ctrl, scope, model, childName, refName) {
                 compositeRelCtrl.call(ctrl, scope, model, childName, refName);
             };
-            this.extendService = function (svc) {
-                CRUDBase.extendService(svc);
-                masterSvcConstructor.call(svc);
-            };
             this.extendAggChildCtrl = function (ctrl, scope, model, childName, svc) {
+                function aggregateRelCtrl(scope, model, childName, svc) {
+                    commonChildCtrl.call(this, scope, model, childName);
+                    this.showList = function () {
+                        var modal = modalService.createSelectionModal(childName, svc.fetchRecords());
+                        modal.result.then(function (data) {
+                            scope.records.splice.call(scope.records, 0, scope.records.length);
+                            scope.records.push.apply(scope.records, data);
+                        });
+                    };
+
+                    var self = this;
+                    this.globalActions = [{
+                            name: 'select',
+                            displayName: 'Select',
+                            icon: 'check',
+                            fn: function () {
+                                self.showList();
+                            },
+                            show: function () {
+                                return !self.editMode;
+                            }
+                        }];
+                }
                 aggregateRelCtrl.call(ctrl, scope, model, childName, svc);
             };
         }]);

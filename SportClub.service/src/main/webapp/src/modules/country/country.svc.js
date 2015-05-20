@@ -2,8 +2,7 @@
     var mod = ng.module('countryModule');
 
     mod.service('countryService', ['CRUDBase', 'country.context', function (CRUDBase, ctx) {
-            this.url = ctx;
-            CRUDBase.extendService(this);
+            CRUDBase.extendService(this, ctx);
             this.getMostPopulated = function () {
                 return this.api.customGET('mostPopulated');
             };

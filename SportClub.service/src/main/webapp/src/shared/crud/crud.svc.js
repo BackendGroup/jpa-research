@@ -72,7 +72,8 @@
         }]);
 
     mod.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
-            function crudConstructor() {
+            function crudConstructor(url) {
+                this.url = url;
                 this.api = RestAngular.all(this.url);
 
                 this.fetchRecords = function (currentPage, itemsPerPage) {
@@ -161,8 +162,8 @@
                     ctrl.recordActions = actionsBuilder.buildRecordActions(ctrl);
                 };
             }
-            this.extendService = function (svc) {
-                crudConstructor.call(svc);
+            this.extendService = function (svc, ctx) {
+                crudConstructor.call(svc, ctx);
             };
 
             function basicCtrl(scope) {
