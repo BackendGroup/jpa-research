@@ -2,15 +2,17 @@
     <table class="table table-striped table-bordered">
         <thead>
             <tr>
-                <th ng-repeat="column in model | orderBy : 'order'">{{column.displayName}}</th>
+                <th ng-if="checklist" id="check-all"><input type="checkbox"/></th>
+                <th ng-repeat="column in model| orderBy : 'order'">{{column.displayName}}</th>
                 <th ng-if="actions">Actions</th>
             </tr>
         </thead>
         <tbody>
             <tr ng-repeat="record in records">
-                <td ng-repeat="column in model | orderBy : 'order'" ng-switch="column.type" id="{{$parent.$index}}-{{column.name}}">
+                <td ng-if="checklist" id="{{$index}}-selected"><input type="checkbox" ng-model="record.selected"/></td>
+                <td ng-repeat="column in model| orderBy : 'order'" ng-switch="column.type" id="{{$parent.$index}}-{{column.name}}">
                     <div ng-switch-when="Computed">{{column.compute(record)}}</div>
-                    <div ng-switch-when="Date">{{record[column.name] | date}}</div>
+                    <div ng-switch-when="Date">{{record[column.name]| date}}</div>
                     <div ng-switch-default>{{record[column.name]}}</div>
                 </td>
                 <td ng-if="actions">

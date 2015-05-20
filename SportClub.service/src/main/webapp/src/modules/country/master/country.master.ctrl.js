@@ -14,7 +14,6 @@
             this.showList = function () {
                 var modal = $modal.open({
                     animation: true,
-                    size: 'lg',
                     templateUrl: 'myModalContent.html',
                     controller: 'modalCtrl',
                     resolve: {
