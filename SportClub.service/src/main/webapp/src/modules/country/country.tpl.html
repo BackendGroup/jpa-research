@@ -1,5 +1,6 @@
 <toolbar name="country" display-name="Country" actions="countryCtrl.globalActions"></toolbar>
 <div ng-show="countryCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
+    <button type="button" class="close" ng-click="countryCtrl.closeError()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Error!</strong> {{countryCtrl.error.msg}}
 </div>
 <div ng-hide="countryCtrl.editMode">

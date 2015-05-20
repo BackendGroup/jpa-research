@@ -111,9 +111,10 @@
 
                     ctrl.showError = function (response) {
                         ctrl.error = {show: true, msg: response.data};
-                        $timeout(function () {
-                            ctrl.error = {show: false};
-                        }, 3000);
+                    };
+                    
+                    ctrl.closeError = function(){
+                        this.error = {show: false};
                     };
 
                     //Funciones que no requieren del servicio
@@ -163,21 +164,45 @@
             this.extendService = function (svc) {
                 crudConstructor.call(svc);
             };
+
+            function basicCtrl(scope) {
+                //Variables para el scope
+                scope.currentRecord = {};
+                scope.records = [];
+
+                //Variables para el controlador
+                this.readOnly = false;
+                this.editMode = false;
+                this.error = {show: false};
+
+                this.showError = function (response) {
+                    this.error = {show: true, msg: response.data};
+                    var self = this;
+                    $timeout(function () {
+                        self.error = {show: false};
+                    }, 3000);
+                };
+            }
+            this.extendBasicCtrl = function (ctrl) {
+
+            };
         }]);
-    
-    mod.service('modalService', ['$modal', function($modal){
-            this.createSelectionModal = function(name, items){
+
+    mod.service('modalService', ['$modal', function ($modal) {
+            this.createSelectionModal = function (name, items) {
                 return $modal.open({
                     animation: true,
                     templateUrl: 'src/shared/crud/modal.tpl.html',
                     controller: 'modalCtrl',
                     resolve: {
-                        name: function(){return name;},
-                        items: function(){
+                        name: function () {
+                            return name;
+                        },
+                        items: function () {
                             return items;
                         }
                     }
                 });
             };
-    }]);
+        }]);
 })(window.angular);

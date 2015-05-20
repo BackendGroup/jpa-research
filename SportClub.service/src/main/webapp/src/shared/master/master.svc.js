@@ -2,27 +2,41 @@
     var mod = ng.module('masterModule');
 
     mod.service('masterUtils', ['CRUDBase', 'actionsService', function (CRUDBase, actionsBuilder) {
-            function compositeRelCtrl(scope, model, childName, refName) {
-
+            function commonChildCtrl(scope, model, childName, refName) {
                 //Atributos del Scope
                 scope.model = model;
                 scope.refName = refName;
                 scope.currentRecord = {};
-                var self = this;
-                
+
                 //Atributos del controlador
                 this.editMode = false;
                 this.readOnly = false;
                 this.error = {show: false};
-                this.globalActions = actionsBuilder.buildGlobalActions(this);
-                this.recordActions = actionsBuilder.buildRecordActions(this);
+
+                //Función para despliegue de errores
+                this.showError = function (response) {
+                    this.error = {show: true, msg: response.data};
+                };
+
+                this.closeError = function () {
+                    this.error = {show: false};
+                };
 
                 //Escucha de evento cuando se selecciona un registro maestro
+                var self = this;
                 scope.$on('master-selected', function (event, args) {
                     scope.records = args[childName];
                     scope.refId = args.id;
-                    self.fetchRecords();
+                    if (self.fetchRecords) {
+                        self.fetchRecords();
+                    }
                 });
+            }
+            function compositeRelCtrl(scope, model, childName, refName) {
+                commonChildCtrl.call(this, scope, model, childName, refName);
+
+                this.globalActions = actionsBuilder.buildGlobalActions(this);
+                this.recordActions = actionsBuilder.buildRecordActions(this);
 
                 //Función para encontrar un registro por ID o CID
                 function indexOf(rc) {
@@ -35,14 +49,6 @@
                         }
                     }
                 }
-
-                //Funciones del controlador
-                this.showError = function (response) {
-                    this.error = {show: true, msg: response.data};
-                    $timeout(function () {
-                        self.error = {show: false};
-                    }, 3000);
-                };
                 this.fetchRecords = function () {
                     scope.currentRecord = {};
                     this.editMode = false;
@@ -95,8 +101,8 @@
                 CRUDBase.extendService(svc);
                 masterSvcConstructor.call(svc);
             };
-            this.extendAggChildCtrl = function(ctrl, scope, model, childName, refName){
-                
+            this.extendAggChildCtrl = function (ctrl, scope, model, childName, refName) {
+
             };
         }]);
 })(window.angular);

@@ -1,5 +1,6 @@
 <toolbar name="sport" display-name="Sport" actions="sportCtrl.globalActions"></toolbar>
 <div ng-show="sportCtrl.error.show" ng-message="show" class="alert alert-danger" role="alert">
+    <button type="button" class="close" ng-click="sportCtrl.closeError()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
     <strong>Error!</strong> {{sportCtrl.error.msg}}
 </div>
 <div ng-hide="sportCtrl.editMode">
