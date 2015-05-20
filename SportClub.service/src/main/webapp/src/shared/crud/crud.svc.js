@@ -1,7 +1,7 @@
 (function (ng) {
-    var crud = ng.module('CrudModule');
+    var mod = ng.module('CrudModule');
 
-    crud.service('actionsService', [function () {
+    mod.service('actionsService', [function () {
             this.buildGlobalActions = function (ctrl) {
                 return [{
                         name: 'create',
@@ -26,7 +26,7 @@
                     }, {
                         name: 'save',
                         displayName: 'Save',
-                        icon: 'floppy-disk',
+                        icon: 'save',
                         fn: function () {
                             ctrl.saveRecord();
                         },
@@ -71,7 +71,7 @@
             };
         }]);
 
-    crud.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
+    mod.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
             function crudConstructor() {
                 this.api = RestAngular.all(this.url);
 
@@ -164,4 +164,19 @@
                 crudConstructor.call(svc);
             };
         }]);
+    
+    mod.service('modalService', ['$modal', function($modal){
+            this.createSelectionModal = function(items){
+                return $modal.open({
+                    animation: true,
+                    templateUrl: 'src/shared/crud/modal.tpl.html',
+                    controller: 'modalCtrl',
+                    resolve: {
+                        items: function(){
+                            return items;
+                        }
+                    }
+                });
+            };
+    }]);
 })(window.angular);
