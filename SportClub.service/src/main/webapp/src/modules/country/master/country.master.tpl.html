@@ -13,12 +13,9 @@
         </div>
         <div class="modal-body">
         <list-records model="[{name: 'name', displayName: 'Name', type: 'String', order: 1}]" records="items"></list-records>
-            <ul class="list-group">
-                <li ng-repeat="item in items" class="list-group-item">{{ item.name }}</li>
-            </ul>
         </div>
         <div class="modal-footer">
             <button class="btn btn-primary" ng-click="ok()">OK</button>
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>
         </div>
-    </script>
+</script>
