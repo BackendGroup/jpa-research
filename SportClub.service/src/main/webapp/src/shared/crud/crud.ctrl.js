@@ -1,5 +1,11 @@
 (function (ng) {
     var mod = ng.module('CrudModule');
+    
+    mod.controller('listCtrl', ['$scope', function($scope){
+            $scope.checkAll = function(){
+                this.records.forEach(function(item){item.selected = !item.selected;});
+            };
+    }]);
 
     mod.controller('modalCtrl', ['$scope', '$modalInstance', 'items', 'name', function ($scope, $modalInstance, items, name) {
             $scope.name = name;

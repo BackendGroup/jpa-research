@@ -10,7 +10,8 @@
                     checklist: '=?'
                 },
                 restrict: 'E',
-                templateUrl: 'src/shared/crud/list.tpl.html'
+                templateUrl: 'src/shared/crud/list.tpl.html',
+                controller: 'listCtrl'
             };
         }]);
 
