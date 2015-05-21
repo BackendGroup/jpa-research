@@ -94,73 +94,75 @@
                     return record.remove();
                 };
                 this.extendController = function (ctrl, scope, model) {
-                    //Variables para el scope
-                    scope.model = model;
-                    scope.currentRecord = {};
-                    scope.records = [];
-
-                    //Variables de paginacion
-                    ctrl.maxSize = 5;
-                    ctrl.itemsPerPage = 5;
-                    ctrl.totalItems = 0;
-                    ctrl.currentPage = 1;
-
-                    ctrl.readOnly = false;
-
-                    //Variables para el controlador
-                    ctrl.editMode = false;
-                    ctrl.error = {show: false};
-
-                    ctrl.showError = function (response) {
-                        ctrl.error = {show: true, msg: response.data};
-                    };
-                    
-                    ctrl.closeError = function(){
-                        this.error = {show: false};
-                    };
-
-                    //Funciones que no requieren del servicio
-                    ctrl.createRecord = function () {
-                        this.editMode = true;
+                    function extendCtrl(scope, model, svc) {
+                        //Variables para el scope
+                        scope.model = model;
                         scope.currentRecord = {};
-                    };
-                    ctrl.editRecord = function (record) {
-                        return service.fetchRecord(record).then(function (data) {
-                            scope.currentRecord = data;
-                            ctrl.editMode = true;
-                            return data;
-                        });
-                    };
+                        scope.records = [];
 
-                    //Funciones que usan el servicio CRUD
-                    var service = this;
+                        //Variables de paginacion
+                        this.maxSize = 5;
+                        this.itemsPerPage = 5;
+                        this.totalItems = 0;
+                        this.currentPage = 1;
 
-                    ctrl.pageChanged = function () {
-                        this.fetchRecords();
-                    };
+                        this.readOnly = false;
 
-                    ctrl.fetchRecords = function () {
-                        return service.fetchRecords(ctrl.currentPage, ctrl.itemsPerPage).then(function (data) {
-                            scope.records = data;
-                            ctrl.totalItems = data.totalRecords;
-                            scope.currentRecord = {};
-                            ctrl.editMode = false;
-                            return data;
-                        }, ctrl.showError);
-                    };
-                    ctrl.saveRecord = function () {
-                        return service.saveRecord(scope.currentRecord).then(function () {
-                            ctrl.fetchRecords();
-                        }, ctrl.showError);
-                    };
-                    ctrl.deleteRecord = function (record) {
+                        //Variables para el controlador
+                        this.editMode = false;
+                        this.error = {show: false};
                         var self = this;
-                        return service.deleteRecord(record).then(function () {
-                            self.fetchRecords();
-                        }, ctrl.showError);
-                    };
-                    ctrl.globalActions = actionsBuilder.buildGlobalActions(ctrl);
-                    ctrl.recordActions = actionsBuilder.buildRecordActions(ctrl);
+
+                        this.showError = function (response) {
+                            self.error = {show: true, msg: response.data};
+                        };
+
+                        this.closeError = function () {
+                            self.error = {show: false};
+                        };
+
+                        //Funciones que no requieren del servicio
+                        this.createRecord = function () {
+                            this.editMode = true;
+                            scope.currentRecord = {};
+                        };
+
+                        this.editRecord = function (record) {
+                            return svc.fetchRecord(record).then(function (data) {
+                                scope.currentRecord = data;
+                                self.editMode = true;
+                                return data;
+                            });
+                        };
+
+                        //Funciones que usan el servicio CRUD
+                        this.pageChanged = function () {
+                            this.fetchRecords();
+                        };
+
+                        this.fetchRecords = function () {
+                            return svc.fetchRecords(this.currentPage, this.itemsPerPage).then(function (data) {
+                                scope.records = data;
+                                self.totalItems = data.totalRecords;
+                                scope.currentRecord = {};
+                                self.editMode = false;
+                                return data;
+                            }, this.showError);
+                        };
+                        this.saveRecord = function () {
+                            return svc.saveRecord(scope.currentRecord).then(function () {
+                                self.fetchRecords();
+                            }, this.showError);
+                        };
+                        this.deleteRecord = function (record) {
+                            return svc.deleteRecord(record).then(function () {
+                                self.fetchRecords();
+                            }, this.showError);
+                        };
+                        this.globalActions = actionsBuilder.buildGlobalActions(this);
+                        this.recordActions = actionsBuilder.buildRecordActions(this);
+                    }
+                    extendCtrl.call(ctrl, scope, model, this);
                 };
             }
             this.extendService = function (svc, ctx) {
