@@ -4,6 +4,7 @@ import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.country.logic.converter.CountryConverter;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
+import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.util._TestUtil.*;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,6 +29,7 @@ public class CountryLogicTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, DEPLOY + ".war")
                 .addPackage(CountryEntity.class.getPackage())
+                .addPackage(SportEntity.class.getPackage())
                 .addPackage(CountryDTO.class.getPackage())
                 .addPackage(CountryConverter.class.getPackage())
                 .addPackage(CountryLogic.class.getPackage())
