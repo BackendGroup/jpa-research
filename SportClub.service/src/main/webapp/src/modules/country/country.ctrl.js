@@ -7,7 +7,7 @@
             var self = this;
             this.getMostPopulated = function () {
                 svc.getMostPopulated().then(function (data) {
-                    alert('The most populated country is ' + data.name + ' with ' + data.population + ' habitants');
+                    self.showSuccess('The most populated country is ' + data.name + ' with ' + data.population + ' habitants');
                 }, function () {
                     self.showError('There are no countries with population on server');
                 });
@@ -15,12 +15,11 @@
 
             this.getLeastPopulated = function () {
                 svc.getLeastPopulated().then(function (data) {
-                    alert('The least populated country is ' + data.name + ' with ' + data.population + ' habitants');
+                    self.showSuccess('The least populated country is ' + data.name + ' with ' + data.population + ' habitants');
                 }, function () {
                     self.showError('There are no countries with population on server');
                 });
             };
-            var self = this;
             this.globalActions.push({
                 name: 'leastPopulated',
                 displayName: 'Least Populated',
@@ -31,8 +30,7 @@
                 show: function () {
                     return true;
                 }
-            });
-            this.globalActions.push({
+            }, {
                 name: 'mostPopulated',
                 displayName: 'Most Populated',
                 icon: 'star',

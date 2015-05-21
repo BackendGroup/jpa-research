@@ -88,12 +88,32 @@
 
                 //Variables para el controlador
                 this.editMode = false;
-                this.error = {show: false, type: 'error'};
+                this.error = {show: false, type: 'danger'};
                 var self = this;
+                
+                this.showMessage = function(msg, type){
+                    var types = ['info', 'danger', 'warning', 'success'];
+                    if(types.some(function(rc){return type === rc;})){
+                        this.error.show = true;
+                        this.error.type = type;
+                        this.error.msg = msg;
+                    }
+                };
 
                 this.showError = function (msg) {
-                    this.error.show = true;
-                    this.error.msg = msg;
+                    this.showMessage(msg, 'danger');
+                };
+                
+                this.showSuccess = function(msg){
+                    this.showMessage(msg, 'success');
+                };
+                
+                this.showWarning = function(msg){
+                    this.showMessage(msg, 'warning');
+                };
+                
+                this.showInfo = function(msg){
+                    this.showMessage(msg, 'info');
                 };
 
                 this.closeError = function () {
