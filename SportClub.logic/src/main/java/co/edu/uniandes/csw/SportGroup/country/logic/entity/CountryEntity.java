@@ -23,7 +23,7 @@ public class CountryEntity implements Serializable {
     @JoinFetch
     private List<SportEntity> sports;
 
-    @OneToMany(mappedBy = "country", cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REFRESH })
+    @OneToMany(mappedBy = "country", cascade = CascadeType.ALL, orphanRemoval = true)
     @JoinFetch
     private List<SportEntity> ownedSports;
 
