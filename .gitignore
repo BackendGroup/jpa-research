@@ -13,3 +13,4 @@ hs_err_pid*
 /SportClub.logic/target/
 /SportClub.service/target/
 *.log
+nbactions.xml

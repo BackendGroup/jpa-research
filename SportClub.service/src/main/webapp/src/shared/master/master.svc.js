@@ -47,8 +47,8 @@
                         };
                         var oldCreateFn = ctrl.createRecord;
                         ctrl.createRecord = function () {
-                            oldCreateFn.call(this)
-                            scope.$broadcast('master-selected', {});
+                            oldCreateFn.call(this);
+                            scope.$broadcast('master-selected', scope.currentRecord);
                         };
                         ctrl.changeTab = function (tab) {
                             scope.tab = tab;
