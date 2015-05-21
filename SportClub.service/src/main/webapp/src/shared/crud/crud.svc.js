@@ -72,7 +72,7 @@
         }]);
 
     mod.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
-            function crudConstructor(url) {
+            function extendSvc(url) {
                 this.url = url;
                 this.api = RestAngular.all(this.url);
 
@@ -93,7 +93,7 @@
                 this.deleteRecord = function (record) {
                     return record.remove();
                 };
-                this.extendCtrl = function (ctrl, scope, model) {
+                this.extendController = function (ctrl, scope, model) {
                     //Variables para el scope
                     scope.model = model;
                     scope.currentRecord = {};
@@ -164,29 +164,7 @@
                 };
             }
             this.extendService = function (svc, ctx) {
-                crudConstructor.call(svc, ctx);
-            };
-
-            function basicCtrl(scope) {
-                //Variables para el scope
-                scope.currentRecord = {};
-                scope.records = [];
-
-                //Variables para el controlador
-                this.readOnly = false;
-                this.editMode = false;
-                this.error = {show: false};
-
-                this.showError = function (response) {
-                    this.error = {show: true, msg: response.data};
-                    var self = this;
-                    $timeout(function () {
-                        self.error = {show: false};
-                    }, 3000);
-                };
-            }
-            this.extendBasicCtrl = function (ctrl) {
-
+                extendSvc.call(svc, ctx);
             };
         }]);
 

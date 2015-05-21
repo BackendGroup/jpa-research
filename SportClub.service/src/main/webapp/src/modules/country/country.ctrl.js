@@ -2,7 +2,7 @@
     var countryModule = ng.module('countryModule');
 
     countryModule.controller('countryCtrl', ['$scope', 'countryService', 'countryModel', function ($scope, svc, model) {
-            svc.extendCtrl(this, $scope, model);
+            svc.extendController(this, $scope, model);
             this.fetchRecords();
             this.getMostPopulated = function () {
                 svc.getMostPopulated().then(function (data) {
