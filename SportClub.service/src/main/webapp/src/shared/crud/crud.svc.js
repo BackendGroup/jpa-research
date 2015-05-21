@@ -71,7 +71,7 @@
             };
         }]);
 
-    mod.service('CRUDBase', ['Restangular', '$timeout', 'actionsService', function (RestAngular, $timeout, actionsBuilder) {
+    mod.service('CRUDBase', ['Restangular', 'actionsService', function (RestAngular, actionsBuilder) {
             function extendCtrl(scope, model, svc) {
                 //Variables para el scope
                 scope.model = model;
