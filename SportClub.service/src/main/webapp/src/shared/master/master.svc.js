@@ -62,10 +62,11 @@
 
                     //Función para encontrar un registro por ID o CID
                     function indexOf(rc) {
+                        var field = rc.id!==undefined?'id':'cid';
                         for (var i in scope.records) {
                             if (scope.records.hasOwnProperty(i)) {
                                 var current = scope.records[i];
-                                if (current.id === rc.id || current.cid === rc.cid) {
+                                if (current[field] === rc[field]) {
                                     return i;
                                 }
                             }
