@@ -19,14 +19,9 @@
 
             function getEntityName(req_url) {
                 var url = req_url.split("?")[0];
-                var idReg = /\d+$/;
-                var urlArray = url.split('/');
-                if (idReg.test(url)) {
-                    urlArray.pop();
-                    return urlArray.pop();
-                } else {
-                    return urlArray.pop();
-                }
+                var baseRegex = new RegExp(baseUrl + "/");
+                var urlSuffix = url.split(baseRegex).pop();
+                return urlSuffix.split("/")[0];
             }
 
             function getRecords(url) {
@@ -37,13 +32,12 @@
                 return mockRecords[entity];
             }
 
-            var fetchUrl = new RegExp(baseUrl + '/(\\w+)([?].*)?$');
-            var postUrl = new RegExp(baseUrl + '/(\\w+)$');
-            var idUrl = new RegExp(baseUrl + '/(\\w+)/([0-9]+)$');
+            var collectionUrl = new RegExp(baseUrl + '/(\\w+)(/master)?(([?](\\w+=\\w+))([&](\\w+=\\w+))*)?$');
+            var recordUrl = new RegExp(baseUrl + '/(\\w+)(/master)?/([0-9]+)(([?](\\w+=\\w+))([&](\\w+=\\w+))*)?$');
             var ignore_regexp = new RegExp('^((?!' + baseUrl + ').)*$');
 
             $httpBackend.whenGET(ignore_regexp).passThrough();
-            $httpBackend.whenGET(fetchUrl).respond(function (method, url) {
+            $httpBackend.whenGET(collectionUrl).respond(function (method, url) {
                 var records = getRecords(url);
                 var responseObj = [];
                 var queryParams = getQueryParams(url);
@@ -60,7 +54,7 @@
                 }
                 return [200, responseObj, headers];
             });
-            $httpBackend.whenGET(idUrl).respond(function (method, url) {
+            $httpBackend.whenGET(recordUrl).respond(function (method, url) {
                 var records = getRecords(url);
                 var id = parseInt(url.split('/').pop());
                 var record;
@@ -71,14 +65,14 @@
                 });
                 return [200, record, {}];
             });
-            $httpBackend.whenPOST(postUrl).respond(function (method, url, data) {
+            $httpBackend.whenPOST(collectionUrl).respond(function (method, url, data) {
                 var records = getRecords(url);
                 var record = ng.fromJson(data);
                 record.id = Math.floor(Math.random() * 10000);
                 records.push(record);
                 return [200, record, {}];
             });
-            $httpBackend.whenPUT(idUrl).respond(function (method, url, data) {
+            $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
                 var records = getRecords(url);
                 var record = ng.fromJson(data);
                 ng.forEach(records, function (value, key) {
@@ -88,7 +82,7 @@
                 });
                 return [200, null, {}];
             });
-            $httpBackend.whenDELETE(idUrl).respond(function (method, url) {
+            $httpBackend.whenDELETE(recordUrl).respond(function (method, url) {
                 var records = getRecords(url);
                 var id = parseInt(url.split('/').pop());
                 ng.forEach(records, function (value, key) {
