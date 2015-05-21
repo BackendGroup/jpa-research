@@ -3,24 +3,22 @@ package co.edu.uniandes.csw.SportGroup.ejbs;
 import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.enterprise.inject.Default;
 
 import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
 import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
 import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
 import java.util.List;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@Default
 @Stateless
 @LocalBean
-public class SportLogic implements ISportLogic {
+public class SportLogic extends CrudLogic implements ISportLogic {
 
-    @PersistenceContext(unitName = "SportClassPU")
-    protected EntityManager entityManager;
+    public SportLogic() {
+        entityClass = SportEntity.class;
+        dtoClass = SportDTO.class;
+    }
 
     public SportDTO createSport(SportDTO sport) {
         SportEntity entity = SportConverter.persistenceDTO2Entity(sport);
@@ -38,8 +36,7 @@ public class SportLogic implements ISportLogic {
     }
 
     public int countSports() {
-        Query count = entityManager.createQuery("select count(u) from SportEntity u");
-        return Integer.parseInt(count.getSingleResult().toString());
+        return count();
     }
 
     public List<SportDTO> getSports(Integer page, Integer maxRecords) {

@@ -9,27 +9,25 @@ import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.EntityManager;
-import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@Stateless 
+@Stateless
 @LocalBean
-public class CountryLogic implements ICountryLogic{
+public class CountryLogic extends CrudLogic implements ICountryLogic {
 
-    @PersistenceContext(unitName = "SportClassPU")
-    protected EntityManager entityManager;
+    public CountryLogic() {
+        entityClass = CountryEntity.class;
+        dtoClass = CountryDTO.class;
+    }
 
     public CountryDTO createCountry(CountryDTO country) {
         CountryEntity entity = CountryConverter.persistenceDTO2Entity(country);
         entityManager.persist(entity);
         return CountryConverter.entity2PersistenceDTO(entity);
     }
-    
-    public int countCountries(){
-        Query count = entityManager.createQuery("select count(u) from CountryEntity u");
-        int regCount = Integer.parseInt(count.getSingleResult().toString());
-        return regCount;
+
+    public int countCountries() {
+        return count();
     }
 
     public List<CountryDTO> getCountries(Integer page, Integer maxRecords) {
@@ -57,23 +55,23 @@ public class CountryLogic implements ICountryLogic{
 
     public CountryDTO getMostPopulated() {
         Query query = entityManager.createQuery("select u from CountryEntity u WHERE u.population = (SELECT MAX(v.population) from CountryEntity v)");
-        return CountryConverter.entity2PersistenceDTO((CountryEntity)query.getSingleResult());
+        return CountryConverter.entity2PersistenceDTO((CountryEntity) query.getSingleResult());
     }
 
     public CountryDTO getLeastPopulated() {
         Query query = entityManager.createQuery("select u from CountryEntity u WHERE u.population = (SELECT MIN(v.population) from CountryEntity v)");
-        return CountryConverter.entity2PersistenceDTO((CountryEntity)query.getSingleResult());
+        return CountryConverter.entity2PersistenceDTO((CountryEntity) query.getSingleResult());
     }
 
     public CountryDTO getCountryMaster(Long id) {
         return CountryConverter.entityMaster2PersistenceDTO(entityManager.find(CountryEntity.class, id));
-    }    
+    }
 
     public CountryDTO updateCountryMaster(CountryDTO dto) {
         CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2EntityMaster(dto));
         return CountryConverter.entityMaster2PersistenceDTO(entity);
     }
-    
+
     public CountryDTO createCountryMaster(CountryDTO country) {
         CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(country);
         entityManager.persist(entity);
