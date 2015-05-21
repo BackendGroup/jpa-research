@@ -1,6 +1,5 @@
-package co.edu.uniandes.csw.SportGroup.sport.logic.entity;
+package co.edu.uniandes.csw.SportGroup.entities;
 
-import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
 import java.io.Serializable;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;

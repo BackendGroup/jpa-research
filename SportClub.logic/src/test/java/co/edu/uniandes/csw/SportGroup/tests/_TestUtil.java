@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.SportGroup.util;
+package co.edu.uniandes.csw.SportGroup.tests;
 
 import java.util.Date;
 import java.util.Random;

@@ -3,10 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package co.edu.uniandes.csw.SportGroup.country.logic.api;
+package co.edu.uniandes.csw.SportGroup.api;
 
-import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
+import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
+import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
 
 /**

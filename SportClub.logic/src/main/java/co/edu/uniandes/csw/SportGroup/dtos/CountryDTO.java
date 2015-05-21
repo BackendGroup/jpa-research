@@ -1,6 +1,5 @@
-package co.edu.uniandes.csw.SportGroup.country.logic.dto;
+package co.edu.uniandes.csw.SportGroup.dtos;
 
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
 

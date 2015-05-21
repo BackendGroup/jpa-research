@@ -1,14 +1,14 @@
-package co.edu.uniandes.csw.SportGroup.sport.logic.ejb;
+package co.edu.uniandes.csw.SportGroup.ejbs;
 
-import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
+import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 import javax.enterprise.inject.Default;
 
-import co.edu.uniandes.csw.SportGroup.sport.logic.api.ISportLogic;
-import co.edu.uniandes.csw.SportGroup.sport.logic.dto.SportDTO;
-import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
-import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
+import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
+import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
+import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
+import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
 import java.util.List;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

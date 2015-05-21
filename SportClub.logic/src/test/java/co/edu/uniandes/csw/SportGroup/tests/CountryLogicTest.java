@@ -1,11 +1,12 @@
-package co.edu.uniandes.csw.SportGroup.country.logic.ejb;
+package co.edu.uniandes.csw.SportGroup.tests;
 
-import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
-import co.edu.uniandes.csw.SportGroup.country.logic.converter.CountryConverter;
-import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.sport.logic.entity.SportEntity;
-import static co.edu.uniandes.csw.SportGroup.util._TestUtil.*;
+import co.edu.uniandes.csw.SportGroup.ejbs.CountryLogic;
+import co.edu.uniandes.csw.SportGroup.api.ICountryLogic;
+import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
+import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
+import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
+import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
+import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.*;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;

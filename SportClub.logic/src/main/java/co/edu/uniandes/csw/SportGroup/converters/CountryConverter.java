@@ -1,8 +1,7 @@
-package co.edu.uniandes.csw.SportGroup.country.logic.converter;
+package co.edu.uniandes.csw.SportGroup.converters;
 
-import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.country.logic.entity.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.sport.logic.converter.SportConverter;
+import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
+import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import java.util.ArrayList;
 import java.util.List;
 
