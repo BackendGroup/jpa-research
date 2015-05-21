@@ -13,11 +13,10 @@ import javax.persistence.Query;
 
 @Stateless
 @LocalBean
-public class SportLogic extends CrudLogic implements ISportLogic {
+public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
 
     public SportLogic() {
         entityClass = SportEntity.class;
-        dtoClass = SportDTO.class;
     }
 
     public SportDTO createSport(SportDTO sport) {
@@ -53,8 +52,7 @@ public class SportLogic extends CrudLogic implements ISportLogic {
     }
 
     public void deleteSport(Long id) {
-        SportEntity entity = entityManager.find(SportEntity.class, id);
-        entityManager.remove(entity);
+        delete(id);
     }
 
     public SportDTO updateSport(SportDTO sport) {
@@ -65,10 +63,11 @@ public class SportLogic extends CrudLogic implements ISportLogic {
         }
         return SportConverter.entity2PersistenceDTO(entity);
     }
-    private CountryEntity getSelectedCountry(SportDTO sport){
+
+    private CountryEntity getSelectedCountry(SportDTO sport) {
         if (sport != null && sport.getCountry() != null && sport.getCountry() != null) {
             return entityManager.find(CountryEntity.class, sport.getCountry());
-        }else{
+        } else {
             return null;
         }
     }

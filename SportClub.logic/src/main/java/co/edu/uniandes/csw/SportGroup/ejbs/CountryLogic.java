@@ -13,11 +13,10 @@ import javax.persistence.Query;
 
 @Stateless
 @LocalBean
-public class CountryLogic extends CrudLogic implements ICountryLogic {
+public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLogic {
 
     public CountryLogic() {
         entityClass = CountryEntity.class;
-        dtoClass = CountryDTO.class;
     }
 
     public CountryDTO createCountry(CountryDTO country) {
@@ -44,8 +43,7 @@ public class CountryLogic extends CrudLogic implements ICountryLogic {
     }
 
     public void deleteCountry(Long id) {
-        CountryEntity entity = entityManager.find(CountryEntity.class, id);
-        entityManager.remove(entity);
+        delete(id);
     }
 
     public CountryDTO updateCountry(CountryDTO country) {
