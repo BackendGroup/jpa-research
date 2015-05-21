@@ -2,9 +2,7 @@
     var sportModule = angular.module('sportModule');
 
     sportModule.controller('sportCtrl', ['$scope', 'sportService','countryService', 'sportModel', function ($scope, sportSvc, countrySvc, model) {
-            
-            $scope.model = model;
-            sportSvc.extendCtrl(this, $scope);
+            sportSvc.extendCtrl(this, $scope, model);
             this.fetchRecords();
             this.getAvgAge = function (sport) {
                 return (sport.minAge + sport.maxAge) / 2;

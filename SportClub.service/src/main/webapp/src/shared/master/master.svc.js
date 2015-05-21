@@ -33,8 +33,8 @@
             this.extendService = function (svc, ctx) {
                 function masterSvcConstructor() {
                     var oldExtendFn = this.extendCtrl;
-                    this.extendCtrl = function (ctrl, scope) {
-                        oldExtendFn.call(this, ctrl, scope);
+                    this.extendCtrl = function (ctrl, scope, model) {
+                        oldExtendFn.call(this, ctrl, scope, model);
                         var oldEditFn = ctrl.editRecord;
                         ctrl.editRecord = function (record) {
                             return oldEditFn.call(this, record).then(function (data) {

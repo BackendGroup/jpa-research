@@ -1,8 +1,7 @@
 (function (ng) {
     var mod = ng.module('countryMasterModule');
     mod.controller('countryMasterCtrl', ['$scope', 'countryMasterService', 'countryModel', function ($scope, svc, model) {
-            $scope.model = model;
-            svc.extendCtrl(this, $scope);
+            svc.extendCtrl(this, $scope, model);
             this.fetchRecords();
         }]);
     mod.controller('ownedSportsCtrl', ['masterUtils', '$scope', 'sportModel', function (masterSvc, $scope, model) {

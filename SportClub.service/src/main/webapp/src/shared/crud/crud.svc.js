@@ -93,8 +93,9 @@
                 this.deleteRecord = function (record) {
                     return record.remove();
                 };
-                this.extendCtrl = function (ctrl, scope) {
+                this.extendCtrl = function (ctrl, scope, model) {
                     //Variables para el scope
+                    scope.model = model;
                     scope.currentRecord = {};
                     scope.records = [];
 
