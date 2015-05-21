@@ -14,7 +14,7 @@ import java.util.List;
  * @author afesguerra
  */
 public interface ICountryLogic {
-    
+
     public int countCountries();
 
     public CountryDTO createCountry(CountryDTO detail);
@@ -26,16 +26,18 @@ public interface ICountryLogic {
     public void deleteCountry(Long id);
 
     public CountryDTO updateCountry(CountryDTO detail);
-    
+
     public CountryDTO getMostPopulated();
-    
+
     public CountryDTO getLeastPopulated();
-    
+
     public CountryDTO getCountryMaster(Long id);
-    
+
     public CountryDTO updateCountryMaster(CountryDTO dto);
-    
+
+    public CountryDTO createCountryMaster(CountryDTO country);
+
     public List<SportDTO> getCountrySports(Long id);
-    
+
     public List<SportDTO> getCountryOwnedSports(Long id);
 }

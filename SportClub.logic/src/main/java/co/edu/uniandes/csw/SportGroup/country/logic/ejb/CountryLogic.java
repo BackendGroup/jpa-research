@@ -73,6 +73,12 @@ public class CountryLogic implements ICountryLogic{
         CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2EntityMaster(dto));
         return CountryConverter.entityMaster2PersistenceDTO(entity);
     }
+    
+    public CountryDTO createCountryMaster(CountryDTO country) {
+        CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(country);
+        entityManager.persist(entity);
+        return CountryConverter.entityMaster2PersistenceDTO(entity);
+    }
 
     public List<SportDTO> getCountrySports(Long id) {
         return SportConverter.entity2PersistenceDTOList(entityManager.find(CountryEntity.class, id).getSports());

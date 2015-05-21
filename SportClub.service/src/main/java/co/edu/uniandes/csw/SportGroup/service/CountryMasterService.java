@@ -2,11 +2,16 @@ package co.edu.uniandes.csw.SportGroup.service;
 
 import co.edu.uniandes.csw.SportGroup.country.logic.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.country.logic.dto.CountryDTO;
+import java.io.IOException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
 import javax.ws.rs.Consumes;
+import javax.ws.rs.DELETE;
 import javax.ws.rs.GET;
+import javax.ws.rs.POST;
 import javax.ws.rs.PUT;
 import javax.ws.rs.Path;
 import javax.ws.rs.PathParam;
@@ -45,5 +50,23 @@ public class CountryMasterService {
     public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto){
         dto.setId(id);
         return countryLogic.updateCountryMaster(dto);
+    }
+    
+    @POST
+    public CountryDTO createCountry(CountryDTO sport) {
+        CountryDTO dto = countryLogic.createCountryMaster(sport);
+        response.setStatus(HttpServletResponse.SC_CREATED);
+        try {
+            response.flushBuffer();
+        } catch (IOException ex) {
+            Logger.getLogger(CountryService.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return dto;
+    }
+    
+    @DELETE
+    @Path("{id}")
+    public void deleteCountry(@PathParam("id") Long id) {
+        countryLogic.deleteCountry(id);
     }
 }
