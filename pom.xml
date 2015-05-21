@@ -7,7 +7,7 @@
     <packaging>pom</packaging>
     <name>SportClub</name>
     <modules>
-        <module>../SportClub.logic</module>
-        <module>../SportClub.service</module>
+        <module>SportClub.logic</module>
+        <module>SportClub.service</module>
     </modules>
 </project>
