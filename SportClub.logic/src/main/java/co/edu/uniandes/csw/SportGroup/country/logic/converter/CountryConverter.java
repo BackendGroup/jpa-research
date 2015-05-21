@@ -50,7 +50,7 @@ public class CountryConverter {
         if (dto != null) {
             CountryEntity entity = persistenceDTO2Entity(dto);
             entity.setSports(SportConverter.persistenceDTO2EntityList(dto.getSports()));
-            entity.setOwnedSports(SportConverter.persistenceDTO2EntityList(dto.getOwnedSports()));
+            entity.setOwnedSports(SportConverter.persistenceDTO2EntityListChild(dto.getOwnedSports(), entity));
             return entity;
         } else {
             return null;

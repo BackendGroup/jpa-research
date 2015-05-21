@@ -69,4 +69,20 @@ public class SportConverter {
         }
         return entities;
     }
+    
+    public static SportEntity persistenceDTO2EntityChild(SportDTO dto, CountryEntity country){
+        SportEntity entity = persistenceDTO2Entity(dto);
+        entity.setCountry(country);
+        return entity;
+    }
+    
+    public static List<SportEntity> persistenceDTO2EntityListChild(List<SportDTO> dtos, CountryEntity country) {
+        List<SportEntity> entities = new ArrayList<SportEntity>();
+        if (dtos != null) {
+            for (SportDTO dto : dtos) {
+                entities.add(persistenceDTO2EntityChild(dto, country));
+            }
+        }
+        return entities;
+    }
 }
