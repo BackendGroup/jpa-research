@@ -12,8 +12,8 @@
                 this.error = {show: false};
 
                 //Función para despliegue de errores
-                this.showError = function (response) {
-                    this.error = {show: true, msg: response.data};
+                this.showError = function (msg) {
+                    this.error = {show: true, msg: msg};
                 };
 
                 this.closeError = function () {
@@ -23,6 +23,9 @@
                 //Escucha de evento cuando se selecciona un registro maestro
                 var self = this;
                 scope.$on('master-selected', function (event, args) {
+                    if (args[childName] === undefined) {
+                        args[childName] = [];
+                    }
                     scope.records = args[childName];
                     scope.refId = args.id;
                     if (self.fetchRecords) {
@@ -41,6 +44,11 @@
                                 scope.$broadcast('master-selected', data);
                                 return data;
                             });
+                        };
+                        var oldCreateFn = ctrl.createRecord;
+                        ctrl.createRecord = function () {
+                            oldCreateFn.call(this)
+                            scope.$broadcast('master-selected', {});
                         };
                         ctrl.changeTab = function (tab) {
                             scope.tab = tab;
@@ -62,7 +70,7 @@
 
                     //Función para encontrar un registro por ID o CID
                     function indexOf(rc) {
-                        var field = rc.id!==undefined?'id':'cid';
+                        var field = rc.id !== undefined ? 'id' : 'cid';
                         for (var i in scope.records) {
                             if (scope.records.hasOwnProperty(i)) {
                                 var current = scope.records[i];

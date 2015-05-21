@@ -4,11 +4,12 @@
     countryModule.controller('countryCtrl', ['$scope', 'countryService', 'countryModel', function ($scope, svc, model) {
             svc.extendController(this, $scope, model);
             this.fetchRecords();
+            var self = this;
             this.getMostPopulated = function () {
                 svc.getMostPopulated().then(function (data) {
                     alert('The most populated country is ' + data.name + ' with ' + data.population + ' habitants');
                 }, function () {
-                    alert('There are no countries with population on server');
+                    self.showError('There are no countries with population on server');
                 });
             };
 
@@ -16,7 +17,7 @@
                 svc.getLeastPopulated().then(function (data) {
                     alert('The least populated country is ' + data.name + ' with ' + data.population + ' habitants');
                 }, function () {
-                    alert('There are no countries with population on server');
+                    self.showError('There are no countries with population on server');
                 });
             };
             var self = this;

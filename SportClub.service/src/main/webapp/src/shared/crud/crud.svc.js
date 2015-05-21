@@ -88,18 +88,28 @@
 
                 //Variables para el controlador
                 this.editMode = false;
-                this.error = {show: false};
+                this.error = {show: false, type: 'error'};
                 var self = this;
 
-                this.showError = function (response) {
-                    self.error = {show: true, msg: response.data};
+                this.showError = function (msg) {
+                    this.error.show = true;
+                    this.error.msg = msg;
                 };
 
                 this.closeError = function () {
-                    self.error = {show: false};
+                    this.error.show = false;
+                    this.error.msg = "";
                 };
 
-                //Funciones que no requieren del servicio
+                //Funciones del controlador
+                this.pageChanged = function () {
+                    this.fetchRecords();
+                };
+                
+                function responseError(response){
+                    self.showError(response.data);
+                }
+                
                 this.createRecord = function () {
                     this.editMode = true;
                     scope.currentRecord = {};
@@ -110,12 +120,7 @@
                         scope.currentRecord = data;
                         self.editMode = true;
                         return data;
-                    });
-                };
-
-                //Funciones que usan el servicio CRUD
-                this.pageChanged = function () {
-                    this.fetchRecords();
+                    }, responseError);
                 };
 
                 this.fetchRecords = function () {
@@ -125,17 +130,17 @@
                         scope.currentRecord = {};
                         self.editMode = false;
                         return data;
-                    }, this.showError);
+                    }, responseError);
                 };
                 this.saveRecord = function () {
                     return svc.saveRecord(scope.currentRecord).then(function () {
                         self.fetchRecords();
-                    }, this.showError);
+                    }, responseError);
                 };
                 this.deleteRecord = function (record) {
                     return svc.deleteRecord(record).then(function () {
                         self.fetchRecords();
-                    }, this.showError);
+                    }, responseError);
                 };
                 this.globalActions = actionsBuilder.buildGlobalActions(this);
                 this.recordActions = actionsBuilder.buildRecordActions(this);
