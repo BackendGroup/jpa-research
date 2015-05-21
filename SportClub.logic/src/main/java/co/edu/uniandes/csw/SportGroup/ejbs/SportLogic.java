@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
 import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
 import java.util.List;
-import javax.persistence.Query;
 
 @Stateless
 @LocalBean
@@ -19,19 +18,14 @@ public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
         entityClass = SportEntity.class;
     }
 
-    public SportDTO createSport(SportDTO sport) {
-        SportEntity entity = SportConverter.persistenceDTO2Entity(sport);
-        CountryEntity country = this.getSelectedCountry(sport);
+    public SportDTO createSport(SportDTO dto) {
+        SportEntity entity = SportConverter.persistenceDTO2Entity(dto);
+        CountryEntity country = this.getSelectedCountry(dto);
         if (country != null) {
             entity.setCountry(country);
         }
-        entityManager.persist(entity);
+        create(entity);
         return SportConverter.entity2PersistenceDTO(entity);
-    }
-
-    public List<SportDTO> getSports() {
-        Query q = entityManager.createQuery("select u from SportEntity u");
-        return SportConverter.entity2PersistenceDTOList(q.getResultList());
     }
 
     public int countSports() {
@@ -39,34 +33,29 @@ public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
     }
 
     public List<SportDTO> getSports(Integer page, Integer maxRecords) {
-        Query q = entityManager.createQuery("select u from SportEntity u");
-        if (page != null && maxRecords != null) {
-            q.setFirstResult((page - 1) * maxRecords);
-            q.setMaxResults(maxRecords);
-        }
-        return SportConverter.entity2PersistenceDTOList(q.getResultList());
+        return SportConverter.entity2PersistenceDTOList(findAll(page, maxRecords));
     }
 
     public SportDTO getSport(Long id) {
-        return SportConverter.entity2PersistenceDTO(entityManager.find(SportEntity.class, id));
+        return SportConverter.entity2PersistenceDTO(find(id));
     }
 
     public void deleteSport(Long id) {
         delete(id);
     }
 
-    public SportDTO updateSport(SportDTO sport) {
-        SportEntity entity = entityManager.merge(SportConverter.persistenceDTO2Entity(sport));
-        CountryEntity country = this.getSelectedCountry(sport);
+    public SportDTO updateSport(SportDTO dto) {
+        SportEntity entity = update(SportConverter.persistenceDTO2Entity(dto));
+        CountryEntity country = this.getSelectedCountry(dto);
         if (country != null) {
             entity.setCountry(country);
         }
         return SportConverter.entity2PersistenceDTO(entity);
     }
 
-    private CountryEntity getSelectedCountry(SportDTO sport) {
-        if (sport != null && sport.getCountry() != null && sport.getCountry() != null) {
-            return entityManager.find(CountryEntity.class, sport.getCountry());
+    private CountryEntity getSelectedCountry(SportDTO dto) {
+        if (dto != null && dto.getCountry() != null && dto.getCountry() != null) {
+            return entityManager.find(CountryEntity.class, dto.getCountry());
         } else {
             return null;
         }

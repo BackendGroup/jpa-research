@@ -19,9 +19,9 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
         entityClass = CountryEntity.class;
     }
 
-    public CountryDTO createCountry(CountryDTO country) {
-        CountryEntity entity = CountryConverter.persistenceDTO2Entity(country);
-        entityManager.persist(entity);
+    public CountryDTO createCountry(CountryDTO dto) {
+        CountryEntity entity = CountryConverter.persistenceDTO2Entity(dto);
+        create(entity);
         return CountryConverter.entity2PersistenceDTO(entity);
     }
 
@@ -30,24 +30,19 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
     }
 
     public List<CountryDTO> getCountries(Integer page, Integer maxRecords) {
-        Query q = entityManager.createQuery("select u from CountryEntity u");
-        if (page != null && maxRecords != null) {
-            q.setFirstResult((page - 1) * maxRecords);
-            q.setMaxResults(maxRecords);
-        }
-        return CountryConverter.entity2PersistenceDTOList(q.getResultList());
+        return CountryConverter.entity2PersistenceDTOList(findAll(page, maxRecords));
     }
 
     public CountryDTO getCountry(Long id) {
-        return CountryConverter.entity2PersistenceDTO(entityManager.find(CountryEntity.class, id));
+        return CountryConverter.entity2PersistenceDTO(find(id));
     }
 
     public void deleteCountry(Long id) {
         delete(id);
     }
 
-    public CountryDTO updateCountry(CountryDTO country) {
-        CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2Entity(country));
+    public CountryDTO updateCountry(CountryDTO dto) {
+        CountryEntity entity = update(CountryConverter.persistenceDTO2Entity(dto));
         return CountryConverter.entity2PersistenceDTO(entity);
     }
 
@@ -62,25 +57,25 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
     }
 
     public CountryDTO getCountryMaster(Long id) {
-        return CountryConverter.entityMaster2PersistenceDTO(entityManager.find(CountryEntity.class, id));
+        return CountryConverter.entityMaster2PersistenceDTO(find(id));
     }
 
     public CountryDTO updateCountryMaster(CountryDTO dto) {
-        CountryEntity entity = entityManager.merge(CountryConverter.persistenceDTO2EntityMaster(dto));
+        CountryEntity entity = update(CountryConverter.persistenceDTO2EntityMaster(dto));
         return CountryConverter.entityMaster2PersistenceDTO(entity);
     }
 
-    public CountryDTO createCountryMaster(CountryDTO country) {
-        CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(country);
-        entityManager.persist(entity);
+    public CountryDTO createCountryMaster(CountryDTO dto) {
+        CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(dto);
+        create(entity);
         return CountryConverter.entityMaster2PersistenceDTO(entity);
     }
 
     public List<SportDTO> getCountrySports(Long id) {
-        return SportConverter.entity2PersistenceDTOList(entityManager.find(CountryEntity.class, id).getSports());
+        return SportConverter.entity2PersistenceDTOList(find(id).getSports());
     }
 
     public List<SportDTO> getCountryOwnedSports(Long id) {
-        return SportConverter.entity2PersistenceDTOList(entityManager.find(CountryEntity.class, id).getOwnedSports());
+        return SportConverter.entity2PersistenceDTOList(find(id).getOwnedSports());
     }
 }
