@@ -55,7 +55,7 @@ public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
 
     private CountryEntity getSelectedCountry(SportDTO dto) {
         if (dto != null && dto.getCountry() != null && dto.getCountry() != null) {
-            return entityManager.find(CountryEntity.class, dto.getCountry());
+            return em.find(CountryEntity.class, dto.getCountry());
         } else {
             return null;
         }

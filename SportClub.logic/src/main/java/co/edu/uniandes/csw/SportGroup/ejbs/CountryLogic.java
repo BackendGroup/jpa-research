@@ -9,7 +9,6 @@ import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
 import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
-import javax.persistence.Query;
 
 @Stateless
 @LocalBean
@@ -47,13 +46,11 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
     }
 
     public CountryDTO getMostPopulated() {
-        Query query = entityManager.createQuery("select u from CountryEntity u WHERE u.population = (SELECT MAX(v.population) from CountryEntity v)");
-        return CountryConverter.entity2PersistenceDTO((CountryEntity) query.getSingleResult());
+        return CountryConverter.entity2PersistenceDTO((CountryEntity) executeSingleNamedQuery("Country.mostPopulated"));
     }
 
     public CountryDTO getLeastPopulated() {
-        Query query = entityManager.createQuery("select u from CountryEntity u WHERE u.population = (SELECT MIN(v.population) from CountryEntity v)");
-        return CountryConverter.entity2PersistenceDTO((CountryEntity) query.getSingleResult());
+        return CountryConverter.entity2PersistenceDTO((CountryEntity) executeSingleNamedQuery("Country.leastPopulated"));
     }
 
     public CountryDTO getCountryMaster(Long id) {

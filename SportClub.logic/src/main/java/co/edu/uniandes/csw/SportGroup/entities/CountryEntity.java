@@ -6,10 +6,16 @@ import javax.persistence.CascadeType;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.NamedQueries;
+import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
 import org.eclipse.persistence.annotations.JoinFetch;
 
 @Entity
+@NamedQueries({
+    @NamedQuery(name = "Country.leastPopulated", query = "select u from CountryEntity u WHERE u.population = (SELECT MIN(v.population) from CountryEntity v)"),
+    @NamedQuery(name = "Country.mostPopulated", query = "select u from CountryEntity u WHERE u.population = (SELECT MAX(v.population) from CountryEntity v)")
+})
 public class CountryEntity implements Serializable {
 
     @Id
