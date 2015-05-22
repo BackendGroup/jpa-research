@@ -1,7 +1,6 @@
 package co.edu.uniandes.csw.SportGroup.ejbs;
 
 import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
@@ -11,7 +10,6 @@ import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
 import java.util.List;
 
 @Stateless
-@LocalBean
 public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
 
     public SportLogic() {

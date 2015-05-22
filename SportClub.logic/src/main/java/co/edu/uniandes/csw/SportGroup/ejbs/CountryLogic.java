@@ -7,11 +7,9 @@ import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
 import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
 
 @Stateless
-@LocalBean
 public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLogic {
 
     public CountryLogic() {
