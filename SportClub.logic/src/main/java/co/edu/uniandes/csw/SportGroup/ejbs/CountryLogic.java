@@ -31,7 +31,7 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
     }
 
     public CountryDTO getCountry(Long id) {
-        return CountryConverter.entity2PersistenceDTO(find(id));
+        return CountryConverter.entityMaster2PersistenceDTO(find(id));
     }
 
     public void deleteCountry(Long id) {
@@ -39,7 +39,7 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
     }
 
     public CountryDTO updateCountry(CountryDTO dto) {
-        CountryEntity entity = update(CountryConverter.persistenceDTO2Entity(dto));
+        CountryEntity entity = update(CountryConverter.persistenceDTO2EntityMaster(dto));
         return CountryConverter.entity2PersistenceDTO(entity);
     }
 
