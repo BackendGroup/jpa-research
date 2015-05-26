@@ -6,7 +6,6 @@
 package co.edu.uniandes.csw.SportGroup.api;
 
 import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
 
 /**
@@ -31,13 +30,5 @@ public interface ICountryLogic {
 
     public CountryDTO getLeastPopulated();
 
-    public CountryDTO getCountryMaster(Long id);
-
-    public CountryDTO updateCountryMaster(CountryDTO dto);
-
     public CountryDTO createCountryMaster(CountryDTO country);
-
-    public List<SportDTO> getCountrySports(Long id);
-
-    public List<SportDTO> getCountryOwnedSports(Long id);
 }

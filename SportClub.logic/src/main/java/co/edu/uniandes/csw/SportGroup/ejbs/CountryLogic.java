@@ -51,26 +51,9 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
         return CountryConverter.entity2PersistenceDTO((CountryEntity) executeSingleNamedQuery("Country.leastPopulated"));
     }
 
-    public CountryDTO getCountryMaster(Long id) {
-        return CountryConverter.entityMaster2PersistenceDTO(find(id));
-    }
-
-    public CountryDTO updateCountryMaster(CountryDTO dto) {
-        CountryEntity entity = update(CountryConverter.persistenceDTO2EntityMaster(dto));
-        return CountryConverter.entityMaster2PersistenceDTO(entity);
-    }
-
     public CountryDTO createCountryMaster(CountryDTO dto) {
         CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(dto);
         create(entity);
         return CountryConverter.entityMaster2PersistenceDTO(entity);
-    }
-
-    public List<SportDTO> getCountrySports(Long id) {
-        return SportConverter.entity2PersistenceDTOList(find(id).getSports());
-    }
-
-    public List<SportDTO> getCountryOwnedSports(Long id) {
-        return SportConverter.entity2PersistenceDTOList(find(id).getOwnedSports());
     }
 }

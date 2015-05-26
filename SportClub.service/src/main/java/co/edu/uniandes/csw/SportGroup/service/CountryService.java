@@ -82,16 +82,4 @@ public class CountryService {
     public CountryDTO getLeastPopulated() {
         return countryLogic.getLeastPopulated();
     }
-    
-    @GET
-    @Path("{id}/sports")
-    public List<SportDTO> getCountrySports(@PathParam("id") Long id) {
-        return countryLogic.getCountrySports(id);
-    }
-    
-    @GET
-    @Path("{id}/ownedSports")
-    public List<SportDTO> getCountryOwnedSports(@PathParam("id") Long id) {
-        return countryLogic.getCountryOwnedSports(id);
-    }
 }

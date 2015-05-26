@@ -42,14 +42,14 @@ public class CountryMasterService {
     @GET
     @Path("{id}")
     public CountryDTO getCountry(@PathParam("id") Long id){
-        return countryLogic.getCountryMaster(id);
+        return countryLogic.getCountry(id);
     }
     
     @PUT
     @Path("{id}")
     public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto){
         dto.setId(id);
-        return countryLogic.updateCountryMaster(dto);
+        return countryLogic.updateCountry(dto);
     }
     
     @POST
