@@ -32,8 +32,9 @@
                 return mockRecords[entity];
             }
 
-            var collectionUrl = new RegExp(baseUrl + '/(\\w+)(/master)?(([?](\\w+=\\w+))([&](\\w+=\\w+))*)?$');
-            var recordUrl = new RegExp(baseUrl + '/(\\w+)(/master)?/([0-9]+)(([?](\\w+=\\w+))([&](\\w+=\\w+))*)?$');
+            var queryParamsRegex = '(([?](\\w+=\\w+))([&](\\w+=\\w+))*)?$';
+            var collectionUrl = new RegExp(baseUrl + '/(\\w+)(/master)?' + queryParamsRegex);
+            var recordUrl = new RegExp(baseUrl + '/(\\w+)(/master)?/([0-9]+)' + queryParamsRegex);
             var ignore_regexp = new RegExp('^((?!' + baseUrl + ').)*$');
 
             $httpBackend.whenGET(ignore_regexp).passThrough();
