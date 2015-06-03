@@ -1,3 +1,9 @@
 language: java
 after_success:
- - mvn sonar:sonar -Dsonar.jdbc.url=$sonar_jdbc_url -Dsonar.host.url=$sonar_host_url
+- mvn sonar:sonar
+env:
+  global:
+  - secure: YktcpxUrRSxH3yJZ/2cfq1PcxKorR42Xx0Zpy+c6/Av/4Lk2RgToqkFFHKz5BMtmM0oCGOhny7KBPbKMJm+97h4f0jX4rov50Y/CtWQ/JqaPBtZBY3ulFsFGIXQb8r7TsSqbrGmseJBLUnsos/cNoygjhkys1R6HJYTgoX0+ga0=
+  - secure: Ftd1Abeht0roT/zEa5ZoNfreETgAP+DYs2lXNzPXTxbG5kebJN55c4TmO4ZlfJA3YMjBls8dH7v6fjQ7R0PmnZMYsl6yqZEjI0X1aW9RKXOq0tb5lXk3XHgy2mWaSgzxLXBU4ysGcDsOr4TV5D8v4AY4n7jJtH49kTmpbWva2xA=
+  - secure: CEL6zedSjNxHidcaSqmS4NqM3pIKhyGF6+SY346bNgmyYmKUNtXzwFrHhxUrTMNMl6IzUh/TLRccMGCWq7363OxRgmXqR5obD+Aik2Rsp/LpEyNi0NjptxgTMvtdBzhTPv2kjtz/ekaPt+SgiyBfy3hkLUUp6DKe+wRSofRWFnQ=
+  - secure: bxfXHAoGvMdjgFFf0AAWqoE1tTrFgAnALLtmljej/DitCY3xrAJX7BFeCQmcrc1SeiFJVDUDiaoRw78VRVFn4TPj4rtn227jddOX+9bGXmZUjuUjegC0mMO/j4Bc4qziSqWOqHbBz5j2OwxmIznYgkccHRnjbXpc20f8mClzIAk=
