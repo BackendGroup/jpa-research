@@ -12,27 +12,5 @@
     <pagination total-items="sportCtrl.totalItems" ng-model="sportCtrl.currentPage" ng-change="sportCtrl.pageChanged()" items-per-page="sportCtrl.itemsPerPage" max-size="sportCtrl.maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 </div>
 <div ng-show="sportCtrl.editMode">
-    <form name="countryForm" role="form">
-        <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input id="name" class="form-control" type="text" ng-model="currentRecord.name"/>
-        </div>
-        <div class="form-group">
-            <label for="minAge">Min Age</label>
-            <input id="minAge" class="form-control" type="number" ng-model="currentRecord.minAge"/>
-        </div>
-        <div class="form-group">
-            <label for="maxAge">Max Age</label>
-            <input id="maxAge" class="form-control" type="number" ng-model="currentRecord.maxAge"/>
-        </div>
-        <div class="form-group">
-            <label for="rules">Rules</label>
-            <input id="rules" class="form-control" type="text" ng-model="currentRecord.rules"/>
-        </div>
-        <div class="form-group">
-            <label for="country">Country</label>
-            <select id="country" class="form-control" ng-options="country.id as country.name for country in countryRecords" ng-model="currentRecord.country"></select>
-        </div>
-    </form>
+    <crud-form name="sport" model="model" record="currentRecord"></crud-form>
 </div>

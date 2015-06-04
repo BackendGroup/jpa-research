@@ -26,4 +26,15 @@
                 templateUrl: 'src/shared/crud/toolbar.tpl.html'
             };
         }]);
+    mod.directive('crudForm', [function(){
+            return {
+                scope: {
+                    name: '@',
+                    model: '=*',
+                    record: '='
+                },
+                restrict: 'E',
+                templateUrl: 'src/shared/crud/form.tpl.html'
+            };
+    }]);
 })(window.angular);

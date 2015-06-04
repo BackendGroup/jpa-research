@@ -9,11 +9,11 @@
             name: 'name',
             displayName: 'Name',
             type: 'String',
-            order: 1
+            required: true
         }, {
             name: 'population',
             displayName: 'Population',
             type: 'Integer',
-            order: 2
+            required: true
         }]);
 })(window.angular);

@@ -6,15 +6,18 @@
     mod.constant('sportModel', [{
             name: 'name',
             displayName: 'Name',
-            type: 'String'
+            type: 'String',
+            required: true
         }, {
             name: 'minAge',
             displayName: 'MinAge',
-            type: 'Integer'
+            type: 'Integer',
+            required: true
         }, {
             name: 'maxAge',
             displayName: 'MaxAge',
-            type: 'Integer'
+            type: 'Integer',
+            required: true
         }, {
             name: 'avgAge',
             displayName: 'Average Age',
@@ -25,13 +28,13 @@
         }, {
             name: 'rules',
             displayName: 'Rules',
-            type: 'String'
+            type: 'String',
+            required: true
         }, {
             name: 'country',
             displayName: 'Country',
-            type: 'Computed',
-            fn: function (record) {
-                return record.country;
-            }
+            type: 'Reference',
+            options: [],
+            required: true
         }]);
 })(window.angular);

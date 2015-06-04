@@ -1,0 +1,17 @@
+<form novalidate name="form" id="{{name}}-form" role="form">
+    <fieldset>
+        <input id="id" class="form-control" type="hidden" ng-model="record.id"/>
+        <div class="form-group" ng-repeat="column in model" ng-switch="column.type" ng-class="{'has-success': form[column.name].$valid && form[column.name].$dirty, 'has-error': form[column.name].$invalid && form[column.name].$dirty, 'has-feedback': form[column.name].$dirty}" >
+            <label for="{{column.name}}" class="control-label col-md-2">{{column.displayName}}</label>
+            <div class="col-md-10">
+                <input ng-switch-when="String" id="{{column.name}}" name="{{column.name}}" class="form-control" type="text" ng-model="record[column.name]" ng-required="column.required"/>
+                <input ng-switch-when="Integer" id="{{column.name}}" name="{{column.name}}" class="form-control" type="number" ng-model="record[column.name]" ng-required="column.required"/>
+                <input ng-switch-when="Long" id="{{column.name}}" name="{{column.name}}" class="form-control" type="number" ng-model="record[column.name]" ng-required="column.required"/>
+                <input ng-switch-when="Date" id="{{column.name}}" name="{{column.name}}" ng-value="false" type="date" ng-model="record[column.name]" ng-required="column.required" />
+                <input ng-switch-when="Boolean" id="{{column.name}}" name="{{column.name}}" ng-value="false" type="checkbox" ng-model="record[column.name]" ng-required="column.required" />
+                <input ng-switch-when="Computed" id="{{column.name}}" name="{{column.name}}" class="form-control" type="text" ng-value="column.fn(record)" readonly/>
+                <select ng-switch-when="Reference" id="{{column.name}}" name="{{column.name}}" class="form-control" ng-options="rc as rc.name for rc in column.options" ng-model="record[column.name]"></select>
+            </div>
+        </div>
+    </fieldset>
+</form>

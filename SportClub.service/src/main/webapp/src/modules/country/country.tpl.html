@@ -12,15 +12,5 @@
     <pagination total-items="countryCtrl.totalItems" ng-model="countryCtrl.currentPage" ng-change="countryCtrl.pageChanged()" items-per-page="countryCtrl.itemsPerPage" max-size="countryCtrl.maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 </div>
 <div ng-show="countryCtrl.editMode">
-    <form name="countryForm" role="form">
-        <input id="id" class="form-control" type="hidden" ng-model="currentRecord.id"/>
-        <div class="form-group">
-            <label for="name">Name</label>
-            <input id="name" name="name" class="form-control" type="text" ng-model="currentRecord.name"/>
-        </div>
-        <div class="form-group">
-            <label for="population">Population</label>
-            <input id="population" name="population" class="form-control" type="number" ng-model="currentRecord.population"/>
-        </div>
-    </form>
+    <crud-form name="country" model="model" record="currentRecord"></crud-form>
 </div>

@@ -4,22 +4,10 @@
     sportModule.controller('sportCtrl', ['$scope', 'sportService','countryService', 'sportModel', function ($scope, sportSvc, countrySvc, model) {
             sportSvc.extendController(this, $scope, model);
             this.fetchRecords();
-            var getCountryName = function(record){
-                for (var i in $scope.countryRecords) {
-                    if ($scope.countryRecords[i].id === record.country) {
-                        return $scope.countryRecords[i].name;
-                    }
-                }
-                return;
-            };
+            
+            var self = this;
             countrySvc.fetchRecords().then(function(data){
-                $scope.countryRecords = data.plain();
-                for(var i in model){
-                    if(model.hasOwnProperty(i) && model[i].name === 'country'){
-                        model[i].compute = getCountryName;
-                        return;
-                    }
-                }
+                self.setModelOptions('country', data.plain());
             });
         }]);
 })(window.angular);

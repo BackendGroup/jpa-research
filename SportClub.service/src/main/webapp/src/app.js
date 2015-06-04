@@ -1,6 +1,6 @@
 (function (ng) {
 
-    var mainApp = ng.module('mainApp', ['ngRoute', 'sportModule', 'countryModule', 'countryMasterModule']);
+    var mainApp = ng.module('mainApp', ['ngRoute', 'sportModule', 'countryModule', 'countryMasterModule', 'MockModule']);
 
     mainApp.config(['$routeProvider', function ($routeProvider) {
             $routeProvider.when('/sport', {
