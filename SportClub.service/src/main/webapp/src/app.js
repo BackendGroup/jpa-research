@@ -15,7 +15,7 @@
             }).when('/country/master', {
                 templateUrl: 'src/modules/country/master/country.master.tpl.html',
                 controller: 'countryMasterCtrl',
-                controllerAs: 'countryCtrl'
+                controllerAs: 'ctrl'
             }).otherwise('/');
         }]);
 })(window.angular);

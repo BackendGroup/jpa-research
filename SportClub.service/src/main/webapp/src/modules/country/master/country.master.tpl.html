@@ -1,9 +1,9 @@
-<div ng-include="'src/modules/country/country.tpl.html'"></div>
-<div id="childs" ng-show="countryCtrl.editMode">
+<div ng-include="'src/shared/crud/crud.tpl.html'"></div>
+<div id="childs" ng-show="ctrl.editMode">
     <ul class="nav nav-tabs">
-        <li role="presentation" ng-class="{active: tab === 'sports'}"><a href ng-click="countryCtrl.changeTab('sports')">Sports</a></li>
-        <li role="presentation" ng-class="{active: tab === 'ownedSports'}"><a href ng-click="countryCtrl.changeTab('ownedSports')">Owned Sports</a></li>
+        <li role="presentation" ng-class="{active: tab === 'sports'}"><a href ng-click="ctrl.changeTab('sports')">Sports</a></li>
+        <li role="presentation" ng-class="{active: tab === 'ownedSports'}"><a href ng-click="ctrl.changeTab('ownedSports')">Owned Sports</a></li>
     </ul>
-    <div ng-show="tab === 'sports'" ng-controller="sportsCtrl as sportCtrl"ng-include="'src/modules/sport/sport.tpl.html'"></div>
-    <div ng-show="tab === 'ownedSports'" ng-controller="ownedSportsCtrl as sportCtrl" ng-include="'src/modules/sport/sport.tpl.html'"></div>
+    <div ng-show="tab === 'sports'" ng-controller="sportsCtrl as ctrl"ng-include="'src/shared/crud/crud.tpl.html'"></div>
+    <div ng-show="tab === 'ownedSports'" ng-controller="ownedSportsCtrl as ctrl" ng-include="'src/shared/crud/crud.tpl.html'"></div>
 </div>
