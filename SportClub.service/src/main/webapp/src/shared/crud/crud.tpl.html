@@ -1,0 +1,16 @@
+<toolbar name="name" display-name="displayName" actions="ctrl.globalActions"></toolbar>
+<div ng-show="ctrl.error.show" ng-message="show" class="alert alert-{{ctrl.error.type}}" role="alert">
+    <button type="button" class="close" ng-click="ctrl.closeError()" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    <strong>{{ctrl.error.type | uppercase}}:</strong> {{ctrl.error.msg}}
+</div>
+<div ng-hide="ctrl.editMode">
+    <list-records
+        model="model"
+        records="records"
+        actions="ctrl.recordActions">
+    </list-records>
+    <pagination total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" items-per-page="ctrl.itemsPerPage" max-size="ctrl.maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
+</div>
+<div ng-show="ctrl.editMode">
+    <crud-form name="name" model="model" record="currentRecord"></crud-form>
+</div>

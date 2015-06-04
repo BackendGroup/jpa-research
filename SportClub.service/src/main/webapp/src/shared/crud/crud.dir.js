@@ -19,8 +19,8 @@
             return {
                 scope: {
                     actions: '=*',
-                    name: '@',
-                    displayName: '@'
+                    name: '=',
+                    displayName: '='
                 },
                 restrict: 'E',
                 templateUrl: 'src/shared/crud/toolbar.tpl.html'
@@ -29,7 +29,7 @@
     mod.directive('crudForm', [function(){
             return {
                 scope: {
-                    name: '@',
+                    name: '=',
                     model: '=*',
                     record: '='
                 },

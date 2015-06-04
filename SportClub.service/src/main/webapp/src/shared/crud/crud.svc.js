@@ -72,8 +72,10 @@
         }]);
 
     mod.service('CRUDBase', ['Restangular', 'actionsService', function (RestAngular, actionsBuilder) {
-            function extendCtrl(scope, model, svc) {
+            function extendCtrl(scope, model, svc, name, displayName) {
                 //Variables para el scope
+                scope.name = name;
+                scope.displayName = displayName;
                 scope.model = model;
                 scope.currentRecord = {};
                 scope.records = [];
@@ -197,8 +199,8 @@
                 this.deleteRecord = function (record) {
                     return record.remove();
                 };
-                this.extendController = function (ctrl, scope, model) {
-                    extendCtrl.call(ctrl, scope, model, this);
+                this.extendController = function (ctrl, scope, model, name, displayName) {
+                    extendCtrl.call(ctrl, scope, model, this, name, displayName);
                 };
             }
             this.extendService = function (svc, ctx) {
