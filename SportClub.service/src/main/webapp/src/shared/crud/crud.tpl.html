@@ -11,6 +11,6 @@
     </list-records>
     <pagination total-items="ctrl.totalItems" ng-model="ctrl.currentPage" ng-change="ctrl.pageChanged()" items-per-page="ctrl.itemsPerPage" max-size="ctrl.maxSize" class="pagination-sm" boundary-links="true" rotate="false"></pagination>
 </div>
-<div ng-show="ctrl.editMode">
+<div ng-show="ctrl.editMode" class="well">
     <crud-form name="name" model="model" record="currentRecord"></crud-form>
 </div>
