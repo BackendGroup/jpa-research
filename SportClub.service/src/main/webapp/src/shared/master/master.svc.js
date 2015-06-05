@@ -1,10 +1,12 @@
-(function (ng) {
+(function (ng, Math) {
     var mod = ng.module('masterModule');
 
     mod.service('masterUtils', ['CRUDBase', 'actionsService', 'modalService', function (CRUDBase, actionsBuilder, modalService) {
             function commonChildCtrl(scope, model, childName) {
                 //Atributos del Scope
                 scope.model = model;
+                scope.name = childName;
+                scope.displayName = childName;
 
                 //Atributos del controlador
                 this.editMode = false;
@@ -138,4 +140,4 @@
                 aggregateRelCtrl.call(ctrl, scope, model, childName, svc);
             };
         }]);
-})(window.angular);
+})(window.angular, window.Math);
