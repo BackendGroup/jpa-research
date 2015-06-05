@@ -13,6 +13,7 @@ public class CountryConverter {
             dto.setId(entity.getId());
             dto.setName(entity.getName());
             dto.setPopulation(entity.getPopulation());
+            dto.setFoundation(entity.getFoundation());
             return dto;
         } else {
             return null;
@@ -27,6 +28,8 @@ public class CountryConverter {
             entity.setName(dto.getName());
 
             entity.setPopulation(dto.getPopulation());
+            
+            entity.setFoundation(dto.getFoundation());
 
             return entity;
         } else {

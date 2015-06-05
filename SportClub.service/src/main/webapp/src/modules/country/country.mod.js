@@ -15,5 +15,10 @@
             displayName: 'Population',
             type: 'Integer',
             required: true
+        }, {
+            name: 'foundation',
+            displayName: 'Foundation',
+            type: 'Date',
+            required: true
         }]);
 })(window.angular);

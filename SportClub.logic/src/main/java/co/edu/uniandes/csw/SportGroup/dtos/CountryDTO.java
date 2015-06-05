@@ -1,7 +1,9 @@
 package co.edu.uniandes.csw.SportGroup.dtos;
 
+import java.util.Date;
 import java.util.List;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.adapters.XmlJavaTypeAdapter;
 
 @XmlRootElement
 public class CountryDTO {
@@ -11,6 +13,9 @@ public class CountryDTO {
     private String name;
 
     private Integer population;
+
+    @XmlJavaTypeAdapter(DateAdapter.class)
+    private Date foundation;
 
     private List<SportDTO> sports;
 
@@ -54,5 +59,13 @@ public class CountryDTO {
 
     public void setOwnedSports(List<SportDTO> ownedSports) {
         this.ownedSports = ownedSports;
+    }
+
+    public Date getFoundation() {
+        return foundation;
+    }
+
+    public void setFoundation(Date foundation) {
+        this.foundation = foundation;
     }
 }

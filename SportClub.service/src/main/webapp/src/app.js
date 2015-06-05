@@ -1,6 +1,6 @@
 (function (ng) {
 
-    var mainApp = ng.module('mainApp', ['ngRoute', 'sportModule', 'countryModule', 'countryMasterModule', 'MockModule']);
+    var mainApp = ng.module('mainApp', ['ngRoute', 'sportModule', 'countryModule', 'countryMasterModule']);
 
     mainApp.config(['$routeProvider', function ($routeProvider) {
             var crudTpl = 'src/shared/crud/crud.tpl.html';

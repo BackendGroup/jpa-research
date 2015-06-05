@@ -1,6 +1,7 @@
 package co.edu.uniandes.csw.SportGroup.entities;
 
 import java.io.Serializable;
+import java.util.Date;
 import java.util.List;
 import javax.persistence.CascadeType;
 import javax.persistence.Entity;
@@ -9,6 +10,8 @@ import javax.persistence.Id;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
 import org.eclipse.persistence.annotations.JoinFetch;
 
 @Entity
@@ -23,6 +26,8 @@ public class CountryEntity implements Serializable {
     private Long id;
     private String name;
     private Integer population;
+    @Temporal(TemporalType.DATE)
+    private Date foundation;
 
     @OneToMany
     @JoinFetch
@@ -70,5 +75,13 @@ public class CountryEntity implements Serializable {
 
     public void setOwnedSports(List<SportEntity> ownedSports) {
         this.ownedSports = ownedSports;
+    }
+
+    public Date getFoundation() {
+        return foundation;
+    }
+
+    public void setFoundation(Date foundation) {
+        this.foundation = foundation;
     }
 }
