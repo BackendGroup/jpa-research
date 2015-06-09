@@ -10,7 +10,7 @@
                 <input ng-switch-when="Boolean" id="{{column.name}}" name="{{column.name}}" ng-value="false" type="checkbox" ng-model="record[column.name]" ng-required="column.required" />
                 <input ng-switch-when="Computed" id="{{column.name}}" name="{{column.name}}" class="form-control" type="text" ng-value="column.fn(record)" readonly/>
                 <select ng-switch-when="Reference" id="{{column.name}}" name="{{column.name}}" class="form-control" ng-options="rc as rc.name for rc in column.options" ng-model="record[column.name]"></select>
-                <date-picker ng-switch-when="Date" value="record[column.name]" name="column.name"></date-picker>
+                <date-picker ng-switch-when="Date" value="record[column.name]" model="column"></date-picker>
             </div>
         </div>
     </fieldset>
