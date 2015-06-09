@@ -42,7 +42,7 @@ public class SportDTO {
     
     private String rules;
     
-    private Long country;
+    private CountryDTO country;
 
     public Long getId() {
         return id;
@@ -76,19 +76,19 @@ public class SportDTO {
         this.maxAge = maxage;
     }
 
-    public Long getCountry() {
-        return country;
-    }
-
-    public void setCountry(Long country) {
-        this.country = country;
-    }
-
     public String getRules() {
         return rules;
     }
 
     public void setRules(String rules) {
         this.rules = rules;
+    }
+
+    public CountryDTO getCountry() {
+        return country;
+    }
+
+    public void setCountry(CountryDTO country) {
+        this.country = country;
     }
 }

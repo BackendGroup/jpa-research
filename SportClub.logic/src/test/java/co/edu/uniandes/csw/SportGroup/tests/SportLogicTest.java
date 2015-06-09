@@ -9,6 +9,7 @@ import co.edu.uniandes.csw.SportGroup.ejbs.SportLogic;
 import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
+import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
 import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
 import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
@@ -101,13 +102,13 @@ public class SportLogicTest {
 
     @Test
     public void createSportTest() {
-        Long countryId = data.get(0).getCountry().getId();
+        CountryDTO country = CountryConverter.entity2PersistenceDTO(data.get(0).getCountry());
         SportDTO dto = new SportDTO();
         dto.setName(generateRandom(String.class));
         dto.setMinAge(generateRandom(Integer.class));
         dto.setMaxAge(generateRandom(Integer.class));
         dto.setRules(generateRandom(String.class));
-        dto.setCountry(countryId);
+        dto.setCountry(country);
 
         SportDTO result = sportLogic.createSport(dto);
 
@@ -119,7 +120,7 @@ public class SportLogicTest {
         Assert.assertEquals(dto.getMinAge(), entity.getMinAge());
         Assert.assertEquals(dto.getMaxAge(), entity.getMaxAge());
         Assert.assertEquals(dto.getRules(), entity.getRules());
-        Assert.assertEquals(dto.getCountry(), entity.getCountry().getId());
+        Assert.assertEquals(dto.getCountry().getId(), entity.getCountry().getId());
     }
 
     @Test
@@ -146,7 +147,7 @@ public class SportLogicTest {
         Assert.assertEquals(entity.getMinAge(), dto.getMinAge());
         Assert.assertEquals(entity.getMaxAge(), dto.getMaxAge());
         Assert.assertEquals(entity.getRules(), dto.getRules());
-        Assert.assertEquals(entity.getCountry().getId(), dto.getCountry());
+        Assert.assertEquals(entity.getCountry().getId(), dto.getCountry().getId());
     }
 
     @Test
@@ -160,7 +161,7 @@ public class SportLogicTest {
     @Test
     public void updateSportTest() {
         SportEntity entity = data.get(0);
-        Long newCountry = data.get(1).getCountry().getId();
+        CountryDTO newCountry = CountryConverter.entity2PersistenceDTO(data.get(1).getCountry());
 
         SportDTO dto = new SportDTO();
         dto.setId(entity.getId());
@@ -178,7 +179,7 @@ public class SportLogicTest {
         Assert.assertEquals(dto.getMinAge(), resp.getMinAge());
         Assert.assertEquals(dto.getMaxAge(), resp.getMaxAge());
         Assert.assertEquals(dto.getRules(), resp.getRules());
-        Assert.assertEquals(dto.getCountry(), resp.getCountry().getId());
+        Assert.assertEquals(dto.getCountry().getId(), resp.getCountry().getId());
     }
 
     @Test

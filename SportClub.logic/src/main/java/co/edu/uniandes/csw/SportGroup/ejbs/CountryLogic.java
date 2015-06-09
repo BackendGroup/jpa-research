@@ -4,8 +4,6 @@ import co.edu.uniandes.csw.SportGroup.api.ICountryLogic;
 import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
 import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
 import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
-import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
 import java.util.List;
 import javax.ejb.Stateless;
 

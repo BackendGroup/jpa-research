@@ -1,6 +1,5 @@
 package co.edu.uniandes.csw.SportGroup.ejbs;
 
-import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import javax.ejb.Stateless;
 
 import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
@@ -18,10 +17,6 @@ public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
 
     public SportDTO createSport(SportDTO dto) {
         SportEntity entity = SportConverter.persistenceDTO2Entity(dto);
-        CountryEntity country = this.getSelectedCountry(dto);
-        if (country != null) {
-            entity.setCountry(country);
-        }
         create(entity);
         return SportConverter.entity2PersistenceDTO(entity);
     }
@@ -44,18 +39,6 @@ public class SportLogic extends CrudLogic<SportEntity> implements ISportLogic {
 
     public SportDTO updateSport(SportDTO dto) {
         SportEntity entity = update(SportConverter.persistenceDTO2Entity(dto));
-        CountryEntity country = this.getSelectedCountry(dto);
-        if (country != null) {
-            entity.setCountry(country);
-        }
         return SportConverter.entity2PersistenceDTO(entity);
-    }
-
-    private CountryEntity getSelectedCountry(SportDTO dto) {
-        if (dto != null && dto.getCountry() != null && dto.getCountry() != null) {
-            return em.find(CountryEntity.class, dto.getCountry());
-        } else {
-            return null;
-        }
     }
 }
