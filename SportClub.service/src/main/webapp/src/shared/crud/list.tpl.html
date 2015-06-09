@@ -14,6 +14,7 @@
                     <div ng-switch-when="Computed">{{column.fn(record)}}</div>
                     <div ng-switch-when="Date">{{record[column.name]| date}}</div>
                     <div ng-switch-when="Reference">{{record[column.name].name}}</div>
+                    <div ng-switch-when="Boolean"><span ng-if="record[column.name] !== undefined" class="glyphicon" ng-class="{'glyphicon-check': record[column.name], 'glyphicon-unchecked': !record[column.name]}"></span></div>
                     <div ng-switch-default>{{record[column.name]}}</div>
                 </td>
                 <td ng-if="actions">
