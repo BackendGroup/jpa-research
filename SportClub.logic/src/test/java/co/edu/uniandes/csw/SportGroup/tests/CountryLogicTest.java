@@ -8,6 +8,7 @@ import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
 import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.*;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
@@ -24,6 +25,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class CountryLogicTest {
+
     public static final String DEPLOY = "Prueba";
 
     @Deployment
@@ -77,6 +79,7 @@ public class CountryLogicTest {
             CountryEntity entity = new CountryEntity();
             entity.setName(generateRandom(String.class));
             entity.setPopulation(generateRandom(Integer.class));
+            entity.setFoundation(generateRandom(Date.class));
             em.persist(entity);
             data.add(entity);
         }
@@ -87,6 +90,7 @@ public class CountryLogicTest {
         CountryDTO dto = new CountryDTO();
         dto.setName(generateRandom(String.class));
         dto.setPopulation(generateRandom(Integer.class));
+        dto.setFoundation(generateRandom(Date.class));
 
         CountryDTO result = countryLogic.createCountry(dto);
 
@@ -96,6 +100,7 @@ public class CountryLogicTest {
 
         Assert.assertEquals(dto.getName(), entity.getName());
         Assert.assertEquals(dto.getPopulation(), entity.getPopulation());
+        Assert.assertEquals(dto.getFoundation(), entity.getFoundation());
     }
 
     @Test
@@ -120,7 +125,7 @@ public class CountryLogicTest {
         Assert.assertNotNull(dto);
         Assert.assertEquals(entity.getName(), dto.getName());
         Assert.assertEquals(entity.getPopulation(), dto.getPopulation());
-
+        Assert.assertEquals(entity.getFoundation(), dto.getFoundation());
     }
 
     @Test
@@ -139,6 +144,7 @@ public class CountryLogicTest {
         dto.setId(entity.getId());
         dto.setName(generateRandom(String.class));
         dto.setPopulation(generateRandom(Integer.class));
+        dto.setFoundation(generateRandom(Date.class));
 
         countryLogic.updateCountry(dto);
 
@@ -146,6 +152,7 @@ public class CountryLogicTest {
 
         Assert.assertEquals(dto.getName(), resp.getName());
         Assert.assertEquals(dto.getPopulation(), resp.getPopulation());
+        Assert.assertEquals(dto.getFoundation(), resp.getFoundation());
     }
 
     @Test
@@ -153,11 +160,11 @@ public class CountryLogicTest {
         //Page 1
         List<CountryDTO> dto1 = countryLogic.getCountries(1, 2);
         Assert.assertNotNull(dto1);
-        Assert.assertEquals(dto1.size(), 2);
+        Assert.assertEquals(2, dto1.size());
         //Page 2
         List<CountryDTO> dto2 = countryLogic.getCountries(2, 2);
         Assert.assertNotNull(dto2);
-        Assert.assertEquals(dto2.size(), 1);
+        Assert.assertEquals(1, dto2.size());
 
         for (CountryDTO dto : dto1) {
             boolean found = false;

@@ -24,13 +24,9 @@ public class CountryConverter {
         if (dto != null) {
             CountryEntity entity = new CountryEntity();
             entity.setId(dto.getId());
-
             entity.setName(dto.getName());
-
             entity.setPopulation(dto.getPopulation());
-            
             entity.setFoundation(dto.getFoundation());
-
             return entity;
         } else {
             return null;
