@@ -34,6 +34,7 @@
             name: 'country',
             displayName: 'Country',
             type: 'Reference',
+            service: 'countryService',
             options: [],
             required: true
         }]);

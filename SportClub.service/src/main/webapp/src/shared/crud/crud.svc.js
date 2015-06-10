@@ -71,7 +71,7 @@
             };
         }]);
 
-    mod.service('CRUDBase', ['Restangular', 'actionsService', function (RestAngular, actionsBuilder) {
+    mod.service('CRUDBase', ['Restangular', 'actionsService', '$injector', function (RestAngular, actionsBuilder, $injector) {
             function extendCtrl(scope, model, svc, name, displayName) {
                 //Variables para el scope
                 scope.name = name;
@@ -130,15 +130,6 @@
                     this.fetchRecords();
                 };
 
-                this.setModelOptions = function (name, options) {
-                    for (var i in scope.model) {
-                        if (scope.model.hasOwnProperty(i) && scope.model[i].name === name) {
-                            scope.model[i].options = options;
-                            return;
-                        }
-                    }
-                };
-
                 function responseError(response) {
                     self.showError(response.data);
                 }
@@ -175,6 +166,25 @@
                         self.fetchRecords();
                     }, responseError);
                 };
+
+                //Código para cargar los valores de las referencias
+                this.loadRefOptions = function () {
+                    var model = scope.model;
+                    for (var i in model) {
+                        if (model.hasOwnProperty(i)) {
+                            var field = model[i];
+                            if (field.type === 'Reference' && !!field.service) {
+                                if ($injector.has(field.service)) {
+                                    var svc = $injector.get(field.service);
+                                    svc.fetchRecords().then(function (data) {
+                                        field.options = data.plain();
+                                    });
+                                }
+                            }
+                        }
+                    }
+                };
+
                 this.globalActions = actionsBuilder.buildGlobalActions(this);
                 this.recordActions = actionsBuilder.buildRecordActions(this);
             }
