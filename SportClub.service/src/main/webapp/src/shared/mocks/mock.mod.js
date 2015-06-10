@@ -1,4 +1,4 @@
-(function (ng) {
+(function (ng, _, Math) {
     var mod = ng.module('MockModule', ['ngMockE2E']);
 
     mod.constant('MockModule.baseUrl', 'webresources');
@@ -93,5 +93,24 @@
                 });
                 return [200, null, {}];
             });
+            
+            //Personalizado
+            $httpBackend.whenGET(baseUrl + '/countries/mostPopulated').respond(function () {
+                    var top = _.max(mockRecords['countries'], function(country){ return country.population;});
+                    if (top !== Infinity) {
+                        return [200, top, {}];
+                    } else {
+                        return [404, {}, {}];
+                    }
+                });
+
+                $httpBackend.whenGET(baseUrl + '/countries/leastPopulated').respond(function () {
+                    var top = _.min(mockRecords['countries'], function(country){ return country.population;});
+                    if (top !== Infinity) {
+                        return [200, top, {}];
+                    } else {
+                        return [404, {}, {}];
+                    }
+                });
         }]);
-})(window.angular);
+})(window.angular, window._, window.Math);
