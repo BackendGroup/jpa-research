@@ -21,7 +21,7 @@
                 <sonar.jdbc.username>${sonar_jdbc_username}</sonar.jdbc.username>
                 <sonar.jdbc.password>${sonar_jdbc_password}</sonar.jdbc.password>
                 <sonar.host.url>${sonar_host_url}</sonar.host.url>
-                <sonar.exclusions>SportClub.service/src/main/webapp/src/assets/**/*</sonar.exclusions>
+                <sonar.exclusions>/src/main/webapp/src/assets/**/*</sonar.exclusions>
             </properties>
         </profile>
     </profiles>
