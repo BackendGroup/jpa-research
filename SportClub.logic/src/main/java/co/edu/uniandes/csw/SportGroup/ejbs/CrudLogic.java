@@ -6,38 +6,37 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public abstract class CrudLogic<Entity> {
+public abstract class CrudLogic<T> {
 
     @PersistenceContext(unitName = "SportClassPU")
     protected EntityManager em;
 
-    protected Class<Entity> entityClass;
+    protected Class<T> entityClass;
 
     public int count() {
         Query count = em.createQuery("select count(u) from " + entityClass.getSimpleName() + " u");
-        int regCount = Integer.parseInt(count.getSingleResult().toString());
-        return regCount;
+        return Integer.parseInt(count.getSingleResult().toString());
     }
     
-    public Entity create(Entity entity){
+    public T create(T entity){
         em.persist(entity);
         return entity;
     }
     
-    public Entity update(Entity entity){
+    public T update(T entity){
         return em.merge(entity);
     }
 
     public void delete(Long id) {
-        Entity entity = em.find(entityClass, id);
+        T entity = em.find(entityClass, id);
         em.remove(entity);
     }
     
-    public Entity find(Long id){
+    public T find(Long id){
         return em.find(entityClass, id);
     }
 
-    public List<Entity> findAll(Integer page, Integer maxRecords) {
+    public List<T> findAll(Integer page, Integer maxRecords) {
         Query q = em.createQuery("select u from " + entityClass.getSimpleName() + " u");
         if (page != null && maxRecords != null) {
             q.setFirstResult((page - 1) * maxRecords);

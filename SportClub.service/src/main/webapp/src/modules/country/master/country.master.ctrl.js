@@ -7,8 +7,8 @@
     mod.controller('ownedSportsCtrl', ['masterUtils', '$scope', 'sportModel', function (masterSvc, $scope, model) {
             masterSvc.extendCompChildCtrl(this, $scope, model, 'ownedSports', "country");
         }]);
-    mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', 'sportService', 'modalService', function (masterSvc, $scope, model, svc, modalService) {
+    mod.controller('sportsCtrl', ['masterUtils', '$scope', 'sportModel', 'sportService', function (masterSvc, $scope, model, svc) {
             masterSvc.extendAggChildCtrl(this, $scope, model, 'sports', svc);
         }]);
-    
+
 })(window.angular);

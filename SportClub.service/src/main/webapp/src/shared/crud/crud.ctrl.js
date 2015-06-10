@@ -17,7 +17,7 @@
             $scope.clear = function () {
                 $scope.value = null;
             };
-            
+
             $scope.open = function ($event) {
                 $event.preventDefault();
                 $event.stopPropagation();
