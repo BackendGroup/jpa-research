@@ -92,8 +92,9 @@ public class SportService {
 
     @PUT
     @Path("{id}")
-    public SportDTO updateSport(@PathParam("id") Long id, SportDTO sport) {
-        return sportLogic.updateSport(sport);
+    public SportDTO updateSport(@PathParam("id") Long id, SportDTO dto) {
+        dto.setId(id);
+        return sportLogic.updateSport(dto);
     }
 
 }
