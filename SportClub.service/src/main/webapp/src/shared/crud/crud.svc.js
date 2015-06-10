@@ -169,16 +169,19 @@
 
                 //Código para cargar los valores de las referencias
                 this.loadRefOptions = function () {
+                    function loadFieldOptions(field) {
+                        var svc = $injector.get(field.service);
+                        svc.fetchRecords().then(function (data) {
+                            field.options = data.plain();
+                        });
+                    }
                     var model = scope.model;
                     for (var i in model) {
                         if (model.hasOwnProperty(i)) {
                             var field = model[i];
                             if (field.type === 'Reference' && !!field.service) {
                                 if ($injector.has(field.service)) {
-                                    var svc = $injector.get(field.service);
-                                    svc.fetchRecords().then(function (data) {
-                                        field.options = data.plain();
-                                    });
+                                    loadFieldOptions(field);
                                 }
                             }
                         }

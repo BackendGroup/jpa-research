@@ -37,5 +37,12 @@
             service: 'countryService',
             options: [],
             required: true
+        }, {
+            name: 'reference',
+            displayName: 'Reference',
+            type: 'Reference',
+            service: 'countryService',
+            options: [],
+            required: true
         }]);
 })(window.angular);

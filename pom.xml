@@ -10,4 +10,19 @@
         <module>SportClub.logic</module>
         <module>SportClub.service</module>
     </modules>
+    <profiles>
+        <profile>
+            <id>sonar</id>
+            <activation>
+                <activeByDefault>true</activeByDefault>
+            </activation>
+            <properties>
+                <sonar.jdbc.url>${sonar_jdbc_url}</sonar.jdbc.url>
+                <sonar.jdbc.username>${sonar_jdbc_username}</sonar.jdbc.username>
+                <sonar.jdbc.password>${sonar_jdbc_password}</sonar.jdbc.password>
+                <sonar.host.url>${sonar_host_url}</sonar.host.url>
+                <sonar.exclusions>SportClub.service/src/main/webapp/src/assets/**/*</sonar.exclusions>
+            </properties>
+        </profile>
+    </profiles>
 </project>
