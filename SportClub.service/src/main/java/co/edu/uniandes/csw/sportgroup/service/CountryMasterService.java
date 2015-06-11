@@ -1,7 +1,7 @@
-package co.edu.uniandes.csw.SportGroup.service;
+package co.edu.uniandes.csw.sportgroup.service;
 
-import co.edu.uniandes.csw.SportGroup.api.ICountryLogic;
-import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
+import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
+import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
 import java.io.IOException;
 import java.util.List;
 import java.util.logging.Level;

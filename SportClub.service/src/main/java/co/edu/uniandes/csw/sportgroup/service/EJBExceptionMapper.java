@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.SportGroup.service;
+package co.edu.uniandes.csw.sportgroup.service;
 
 import javax.ws.rs.core.MediaType;
 import javax.ws.rs.core.Response;

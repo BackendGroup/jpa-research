@@ -5,14 +5,14 @@
  */
 package co.edu.uniandes.csw.SportGroup.tests;
 
-import co.edu.uniandes.csw.SportGroup.ejbs.SportLogic;
-import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
-import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
-import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
-import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
-import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
+import co.edu.uniandes.csw.sportclub.ejbs.SportLogic;
+import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
+import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
+import co.edu.uniandes.csw.sportclub.api.ISportLogic;
+import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
+import co.edu.uniandes.csw.sportclub.converters.SportConverter;
+import co.edu.uniandes.csw.sportclub.dtos.SportDTO;
+import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.generateRandom;
 import java.util.ArrayList;
 import java.util.List;

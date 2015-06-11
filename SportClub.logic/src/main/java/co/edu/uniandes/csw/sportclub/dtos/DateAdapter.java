@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.SportGroup.dtos;
+package co.edu.uniandes.csw.sportclub.dtos;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;

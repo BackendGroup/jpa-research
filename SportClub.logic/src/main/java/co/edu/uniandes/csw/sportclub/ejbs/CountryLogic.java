@@ -1,9 +1,9 @@
-package co.edu.uniandes.csw.SportGroup.ejbs;
+package co.edu.uniandes.csw.sportclub.ejbs;
 
-import co.edu.uniandes.csw.SportGroup.api.ICountryLogic;
-import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
-import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
+import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
+import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
+import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
+import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
 import java.util.List;
 import javax.ejb.Stateless;
 

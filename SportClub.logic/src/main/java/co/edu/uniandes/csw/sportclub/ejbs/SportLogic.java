@@ -1,11 +1,11 @@
-package co.edu.uniandes.csw.SportGroup.ejbs;
+package co.edu.uniandes.csw.sportclub.ejbs;
 
 import javax.ejb.Stateless;
 
-import co.edu.uniandes.csw.SportGroup.api.ISportLogic;
-import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
-import co.edu.uniandes.csw.SportGroup.converters.SportConverter;
-import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
+import co.edu.uniandes.csw.sportclub.api.ISportLogic;
+import co.edu.uniandes.csw.sportclub.dtos.SportDTO;
+import co.edu.uniandes.csw.sportclub.converters.SportConverter;
+import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import java.util.List;
 
 @Stateless

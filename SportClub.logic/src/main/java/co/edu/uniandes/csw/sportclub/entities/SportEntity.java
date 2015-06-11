@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.SportGroup.entities;
+package co.edu.uniandes.csw.sportclub.entities;
 
 import java.io.Serializable;
 import javax.persistence.Entity;

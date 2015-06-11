@@ -1,8 +1,8 @@
-package co.edu.uniandes.csw.SportGroup.converters;
+package co.edu.uniandes.csw.sportclub.converters;
 
-import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.dtos.SportDTO;
-import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
+import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
+import co.edu.uniandes.csw.sportclub.dtos.SportDTO;
+import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import java.util.ArrayList;
 import java.util.List;
 

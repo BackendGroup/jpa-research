@@ -1,11 +1,11 @@
 package co.edu.uniandes.csw.SportGroup.tests;
 
-import co.edu.uniandes.csw.SportGroup.ejbs.CountryLogic;
-import co.edu.uniandes.csw.SportGroup.api.ICountryLogic;
-import co.edu.uniandes.csw.SportGroup.converters.CountryConverter;
-import co.edu.uniandes.csw.SportGroup.dtos.CountryDTO;
-import co.edu.uniandes.csw.SportGroup.entities.CountryEntity;
-import co.edu.uniandes.csw.SportGroup.entities.SportEntity;
+import co.edu.uniandes.csw.sportclub.ejbs.CountryLogic;
+import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
+import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
+import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
+import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
+import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.*;
 import java.util.ArrayList;
 import java.util.Date;

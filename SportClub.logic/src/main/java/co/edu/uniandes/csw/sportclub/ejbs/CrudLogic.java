@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.SportGroup.ejbs;
+package co.edu.uniandes.csw.sportclub.ejbs;
 
 import java.util.List;
 import java.util.Map;
