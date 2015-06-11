@@ -1,3 +1,3 @@
 (function (ng) {
-    var mod = ng.module('masterModule', ['CrudModule']);
+    ng.module('masterModule', ['CrudModule']);
 })(window.angular);
