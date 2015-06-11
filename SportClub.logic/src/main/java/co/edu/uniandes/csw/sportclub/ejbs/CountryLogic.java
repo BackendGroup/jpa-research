@@ -14,44 +14,38 @@ public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLo
         entityClass = CountryEntity.class;
     }
 
-    public CountryDTO createCountry(CountryDTO dto) {
-        CountryEntity entity = CountryConverter.persistenceDTO2Entity(dto);
-        create(entity);
-        return CountryConverter.entity2PersistenceDTO(entity);
-    }
-
     public int countCountries() {
         return count();
     }
 
     public List<CountryDTO> getCountries(Integer page, Integer maxRecords) {
-        return CountryConverter.entity2PersistenceDTOList(findAll(page, maxRecords));
+        return CountryConverter.listEntity2DTO(findAll(page, maxRecords));
     }
 
     public CountryDTO getCountry(Long id) {
-        return CountryConverter.entityMaster2PersistenceDTO(find(id));
+        return CountryConverter.fullEntity2DTO(find(id));
+    }
+
+    public CountryDTO createCountry(CountryDTO dto) {
+        CountryEntity entity = CountryConverter.fullDTO2Entity(dto);
+        create(entity);
+        return CountryConverter.fullEntity2DTO(entity);
+    }
+
+    public CountryDTO updateCountry(CountryDTO dto) {
+        CountryEntity entity = update(CountryConverter.fullDTO2Entity(dto));
+        return CountryConverter.fullEntity2DTO(entity);
     }
 
     public void deleteCountry(Long id) {
         delete(id);
     }
 
-    public CountryDTO updateCountry(CountryDTO dto) {
-        CountryEntity entity = update(CountryConverter.persistenceDTO2EntityMaster(dto));
-        return CountryConverter.entity2PersistenceDTO(entity);
-    }
-
     public CountryDTO getMostPopulated() {
-        return CountryConverter.entity2PersistenceDTO((CountryEntity) executeSingleNamedQuery("Country.mostPopulated"));
+        return CountryConverter.fullEntity2DTO((CountryEntity) executeSingleNamedQuery("Country.mostPopulated"));
     }
 
     public CountryDTO getLeastPopulated() {
-        return CountryConverter.entity2PersistenceDTO((CountryEntity) executeSingleNamedQuery("Country.leastPopulated"));
-    }
-
-    public CountryDTO createCountryMaster(CountryDTO dto) {
-        CountryEntity entity = CountryConverter.persistenceDTO2EntityMaster(dto);
-        create(entity);
-        return CountryConverter.entityMaster2PersistenceDTO(entity);
+        return CountryConverter.fullEntity2DTO((CountryEntity) executeSingleNamedQuery("Country.leastPopulated"));
     }
 }

@@ -24,37 +24,40 @@ import javax.ws.rs.core.MediaType;
 @Consumes(MediaType.APPLICATION_JSON)
 @Produces(MediaType.APPLICATION_JSON)
 public class CountryMasterService {
-    
+
     @Inject
     protected ICountryLogic countryLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
-    
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
+
     @GET
-    public List<CountryDTO> getCountries(){
+    public List<CountryDTO> getCountries() {
         if (page != null && maxRecords != null) {
             this.response.setIntHeader("X-Total-Count", countryLogic.countCountries());
         }
         return countryLogic.getCountries(page, maxRecords);
     }
-    
+
     @GET
     @Path("{id}")
-    public CountryDTO getCountry(@PathParam("id") Long id){
+    public CountryDTO getCountry(@PathParam("id") Long id) {
         return countryLogic.getCountry(id);
     }
-    
+
     @PUT
     @Path("{id}")
-    public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto){
+    public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto) {
         dto.setId(id);
         return countryLogic.updateCountry(dto);
     }
-    
+
     @POST
     public CountryDTO createCountry(CountryDTO sport) {
-        CountryDTO dto = countryLogic.createCountryMaster(sport);
+        CountryDTO dto = countryLogic.createCountry(sport);
         response.setStatus(HttpServletResponse.SC_CREATED);
         try {
             response.flushBuffer();
@@ -63,7 +66,7 @@ public class CountryMasterService {
         }
         return dto;
     }
-    
+
     @DELETE
     @Path("{id}")
     public void deleteCountry(@PathParam("id") Long id) {

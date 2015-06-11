@@ -102,7 +102,7 @@ public class SportLogicTest {
 
     @Test
     public void createSportTest() {
-        CountryDTO country = CountryConverter.entity2PersistenceDTO(data.get(0).getCountry());
+        CountryDTO country = CountryConverter.fullEntity2DTO(data.get(0).getCountry());
         SportDTO dto = new SportDTO();
         dto.setName(generateRandom(String.class));
         dto.setMinAge(generateRandom(Integer.class));
@@ -161,7 +161,7 @@ public class SportLogicTest {
     @Test
     public void updateSportTest() {
         SportEntity entity = data.get(0);
-        CountryDTO newCountry = CountryConverter.entity2PersistenceDTO(data.get(1).getCountry());
+        CountryDTO newCountry = CountryConverter.fullEntity2DTO(data.get(1).getCountry());
 
         SportDTO dto = new SportDTO();
         dto.setId(entity.getId());

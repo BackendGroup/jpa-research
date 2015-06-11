@@ -16,7 +16,7 @@ public abstract class SportConverter {
             dto.setMinAge(entity.getMinAge());
             dto.setMaxAge(entity.getMaxAge());
             dto.setRules(entity.getRules());
-            dto.setCountry(CountryConverter.entity2PersistenceDTO(entity.getCountry()));
+            dto.setCountry(CountryConverter.refEntity2DTO(entity.getCountry()));
             return dto;
         } else {
             return null;
@@ -31,7 +31,7 @@ public abstract class SportConverter {
             entity.setMinAge(dto.getMinAge());
             entity.setMaxAge(dto.getMaxAge());
             entity.setRules(dto.getRules());
-            entity.setCountry(CountryConverter.persistenceDTO2Entity(dto.getCountry()));
+            entity.setCountry(CountryConverter.refDTO2Entity(dto.getCountry()));
 
             return entity;
         } else {

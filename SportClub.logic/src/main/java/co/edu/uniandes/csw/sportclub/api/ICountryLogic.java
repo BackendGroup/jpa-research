@@ -29,6 +29,4 @@ public interface ICountryLogic {
     public CountryDTO getMostPopulated();
 
     public CountryDTO getLeastPopulated();
-
-    public CountryDTO createCountryMaster(CountryDTO country);
 }

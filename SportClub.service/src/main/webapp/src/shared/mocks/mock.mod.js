@@ -71,7 +71,7 @@
                 var record = ng.fromJson(data);
                 record.id = Math.floor(Math.random() * 10000);
                 records.push(record);
-                return [200, record, {}];
+                return [201, record, {}];
             });
             $httpBackend.whenPUT(recordUrl).respond(function (method, url, data) {
                 var records = getRecords(url);
@@ -91,7 +91,7 @@
                         records.splice(key, 1);
                     }
                 });
-                return [200, null, {}];
+                return [204, null, {}];
             });
 
             //Personalizado
