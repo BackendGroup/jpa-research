@@ -6,7 +6,7 @@ import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class SportConverter {
+public abstract class SportConverter {
 
     public static SportDTO entity2PersistenceDTO(SportEntity entity) {
         if (entity != null) {

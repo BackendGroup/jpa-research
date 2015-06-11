@@ -5,7 +5,7 @@ import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CountryConverter {
+public abstract class CountryConverter {
 
     public static CountryDTO entity2PersistenceDTO(CountryEntity entity) {
         if (entity != null) {

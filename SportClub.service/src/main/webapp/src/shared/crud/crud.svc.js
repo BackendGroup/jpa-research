@@ -179,10 +179,8 @@
                     for (var i in model) {
                         if (model.hasOwnProperty(i)) {
                             var field = model[i];
-                            if (field.type === 'Reference' && !!field.service) {
-                                if ($injector.has(field.service)) {
-                                    loadFieldOptions(field);
-                                }
+                            if (field.type === 'Reference' && !!field.service && $injector.has(field.service)) {
+                                loadFieldOptions(field);
                             }
                         }
                     }
