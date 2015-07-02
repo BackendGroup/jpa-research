@@ -1,6 +1,18 @@
 (function (ng) {
     var mod = ng.module('CrudModule');
 
+    mod.directive('searchBar', [function () {
+            return {
+                scope: {
+                    name: '=',
+                    model: '=*',
+                    record: '='
+                },
+                restrict: 'E',
+                templateUrl: 'src/shared/crud/search.tpl.html'
+            };
+        }]);
+
     mod.directive('listRecords', [function () {
             return {
                 scope: {
