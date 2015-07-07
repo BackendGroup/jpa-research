@@ -6,7 +6,7 @@
             var crudTpl = 'src/shared/crud/crud.tpl.html';
             var crudCtrl = 'ctrl';
             $routeProvider.when('/sport', {
-                templateUrl: crudTpl,
+                templateUrl: 'src/modules/sport/sport.tpl.html',
                 controller: 'sportCtrl',
                 controllerAs: crudCtrl
             }).when('/country', {

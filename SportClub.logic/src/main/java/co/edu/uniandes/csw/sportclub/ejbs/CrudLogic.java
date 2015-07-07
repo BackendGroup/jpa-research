@@ -66,4 +66,10 @@ public abstract class CrudLogic<T> {
         }
         return q.getSingleResult();
     }
+    
+    public List<T> findByName(String name){
+        Query q = em.createQuery("select u from " + entityClass.getSimpleName() + " u where u.name like :name");
+        q.setParameter("name", "%"+name+"%");
+        return q.getResultList();
+    }
 }
