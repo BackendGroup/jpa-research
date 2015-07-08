@@ -41,4 +41,8 @@ public class SportLogic implements ISportLogic {
         SportEntity entity = persistence.update(SportConverter.persistenceDTO2Entity(dto));
         return SportConverter.entity2PersistenceDTO(entity);
     }
+    
+    public List<SportDTO> searchByName(String name){
+        return SportConverter.entity2PersistenceDTOList(findByName(name));
+    }
 }

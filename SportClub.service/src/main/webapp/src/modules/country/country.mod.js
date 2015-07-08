@@ -9,8 +9,7 @@
             name: 'name',
             displayName: 'Name',
             type: 'String',
-            required: true,
-            searchable: true
+            required: true
         }, {
             name: 'population',
             displayName: 'Population',

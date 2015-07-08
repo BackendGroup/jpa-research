@@ -7,7 +7,8 @@
             name: 'name',
             displayName: 'Name',
             type: 'String',
-            required: true
+            required: true,
+            searchable: true
         }, {
             name: 'minAge',
             displayName: 'MinAge',

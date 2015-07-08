@@ -43,4 +43,6 @@ public interface ISportLogic {
     public void deleteSport(Long id);
 
     public SportDTO updateSport(SportDTO detail);
+    
+    public List<SportDTO> searchByName(String name);
 }

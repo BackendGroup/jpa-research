@@ -57,6 +57,7 @@ public class SportService {
     @Context private HttpServletResponse response;
     @QueryParam("page") private Integer page;
     @QueryParam("maxRecords") private Integer maxRecords;
+    @QueryParam("name") private String name;
 
     @POST
     public SportDTO createSport(SportDTO sport) {
@@ -80,6 +81,9 @@ public class SportService {
     public List<SportDTO> getSports() {
         if (page != null && maxRecords != null) {
             this.response.setIntHeader("X-Total-Count", sportLogic.countSports());
+        }
+        if(name != null){
+            return sportLogic.searchByName(name);
         }
         return sportLogic.getSports(page, maxRecords);
     }

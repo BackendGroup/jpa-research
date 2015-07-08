@@ -1,4 +1,5 @@
 <form novalidate name="form" id="{{name}}-form" role="form">
+    <legend>Search</legend>
     <fieldset>
         <div class="form-group col-md-4" ng-repeat="column in model|filter: {searchable: true}" ng-switch="column.type" ng-class="{'has-success': form[column.name].$valid && form[column.name].$dirty, 'has-error': form[column.name].$invalid && form[column.name].$dirty}" >
             <label for="{{column.name}}-search" control-label">{{column.displayName}}</label>

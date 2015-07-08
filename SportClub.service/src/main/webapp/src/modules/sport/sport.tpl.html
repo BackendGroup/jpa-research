@@ -2,6 +2,9 @@
 <alert ng-show="ctrl.error.show"type="{{ctrl.error.type}}" close="ctrl.closeError()">
     <strong>{{ctrl.error.type | uppercase}}:</strong> {{ctrl.error.msg}}
 </alert>
+<div class="well" ng-show="showSearchFields">
+    <search-bar name="name" model="model" record="searchParams"></search-bar>
+</div>
 <div ng-hide="ctrl.editMode">
     <list-records
         model="model"
