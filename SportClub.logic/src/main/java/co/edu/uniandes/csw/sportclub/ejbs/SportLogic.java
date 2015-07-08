@@ -43,6 +43,6 @@ public class SportLogic implements ISportLogic {
     }
     
     public List<SportDTO> searchByName(String name){
-        return SportConverter.entity2PersistenceDTOList(findByName(name));
+        return SportConverter.entity2PersistenceDTOList(persistence.findByName(name));
     }
 }
