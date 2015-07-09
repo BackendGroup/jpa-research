@@ -2,15 +2,11 @@ package co.edu.uniandes.csw.sportclub.ejbs;
 
 import java.util.List;
 import java.util.Map;
-import javax.ejb.LocalBean;
-import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-@Stateless
-@LocalBean
-public class CrudLogic<T> {
+public abstract class CrudLogic<T> {
 
     @PersistenceContext(unitName = "SportClassPU")
     protected EntityManager em;

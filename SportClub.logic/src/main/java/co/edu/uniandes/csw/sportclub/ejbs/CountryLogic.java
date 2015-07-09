@@ -6,46 +6,46 @@ import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
 import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
 import java.util.List;
 import javax.ejb.Stateless;
-import javax.inject.Inject;
 
 @Stateless
-public class CountryLogic implements ICountryLogic {
-    
-    @Inject
-    private CrudLogic<CountryEntity> persistence;
+public class CountryLogic extends CrudLogic<CountryEntity> implements ICountryLogic {
+
+    public CountryLogic() {
+        entityClass = CountryEntity.class;
+    }
 
     public int countCountries() {
-        return persistence.count();
+        return count();
     }
 
     public List<CountryDTO> getCountries(Integer page, Integer maxRecords) {
-        return CountryConverter.listEntity2DTO(persistence.findAll(page, maxRecords));
+        return CountryConverter.listEntity2DTO(findAll(page, maxRecords));
     }
 
     public CountryDTO getCountry(Long id) {
-        return CountryConverter.fullEntity2DTO(persistence.find(id));
+        return CountryConverter.fullEntity2DTO(find(id));
     }
 
     public CountryDTO createCountry(CountryDTO dto) {
         CountryEntity entity = CountryConverter.fullDTO2Entity(dto);
-        persistence.create(entity);
+        create(entity);
         return CountryConverter.fullEntity2DTO(entity);
     }
 
     public CountryDTO updateCountry(CountryDTO dto) {
-        CountryEntity entity = persistence.update(CountryConverter.fullDTO2Entity(dto));
+        CountryEntity entity = update(CountryConverter.fullDTO2Entity(dto));
         return CountryConverter.fullEntity2DTO(entity);
     }
 
     public void deleteCountry(Long id) {
-        persistence.delete(id);
+        delete(id);
     }
 
     public CountryDTO getMostPopulated() {
-        return CountryConverter.fullEntity2DTO((CountryEntity) persistence.executeSingleNamedQuery("Country.mostPopulated"));
+        return CountryConverter.fullEntity2DTO((CountryEntity) executeSingleNamedQuery("Country.mostPopulated"));
     }
 
     public CountryDTO getLeastPopulated() {
-        return CountryConverter.fullEntity2DTO((CountryEntity) persistence.executeSingleNamedQuery("Country.leastPopulated"));
+        return CountryConverter.fullEntity2DTO((CountryEntity) executeSingleNamedQuery("Country.leastPopulated"));
     }
 }
