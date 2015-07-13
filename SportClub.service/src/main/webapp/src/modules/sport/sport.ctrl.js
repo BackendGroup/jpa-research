@@ -3,7 +3,7 @@
 
     sportModule.controller('sportCtrl', ['$scope', 'sportService', 'sportModel', function ($scope, sportSvc, model) {
             sportSvc.extendController(this, $scope, model, 'sport', 'Sport');
-            $scope.showSearchFields = true;
+            $scope.showSearchFields = false;
             $scope.searchParams = {};
 
             var self = this;
@@ -26,7 +26,7 @@
                     return true;
                 },
                 fn: function () {
-                    return self.searchByName();
+                    $scope.showSearchFields = !$scope.showSearchFields;
                 }
             });
 

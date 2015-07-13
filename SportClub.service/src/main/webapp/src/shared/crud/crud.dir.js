@@ -6,7 +6,8 @@
                 scope: {
                     name: '=',
                     model: '=*',
-                    record: '='
+                    record: '=',
+                    submitFn: '&'
                 },
                 restrict: 'E',
                 templateUrl: 'src/shared/crud/search.tpl.html'
