@@ -1,4 +1,4 @@
-<form novalidate name="form" id="{{name}}-form" role="form">
+<form novalidate name="form" id="{{name}}-form" role="form" class="form-horizontal">
     <fieldset>
         <input id="id" class="form-control" type="hidden" ng-model="record.id"/>
         <div class="form-group col-md-12" ng-repeat="column in model" ng-switch="column.type" ng-class="{'has-success': form[column.name].$valid && form[column.name].$dirty, 'has-error': form[column.name].$invalid && form[column.name].$dirty}" >
