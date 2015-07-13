@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.sportclub.ejbs;
+package co.edu.uniandes.csw.sportclub.persistence;
 
 import java.util.List;
 import java.util.Map;
@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
-public abstract class CrudLogic<T> {
+public abstract class CrudPersistence<T> {
 
     @PersistenceContext(unitName = "SportClassPU")
     protected EntityManager em;
