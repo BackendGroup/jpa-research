@@ -3,7 +3,7 @@
     <strong>{{ctrl.error.type | uppercase}}:</strong> {{ctrl.error.msg}}
 </alert>
 <div class="well" ng-show="showSearchFields">
-    <search-bar name="name" model="model" record="searchParams" submit-fn="ctrl.searchByName"></search-bar>
+    <search-bar name="name" model="model" record="searchParams" submit-fn="ctrl.searchByName()"></search-bar>
 </div>
 <div ng-hide="ctrl.editMode">
     <list-records
