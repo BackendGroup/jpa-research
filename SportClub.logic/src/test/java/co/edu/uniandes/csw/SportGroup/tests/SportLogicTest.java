@@ -14,6 +14,7 @@ import co.edu.uniandes.csw.sportclub.converters.SportConverter;
 import co.edu.uniandes.csw.sportclub.dtos.SportDTO;
 import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.generateRandom;
+import co.edu.uniandes.csw.sportclub.persistence.SportPersistence;
 import java.util.ArrayList;
 import java.util.List;
 import javax.inject.Inject;
@@ -39,11 +40,10 @@ public class SportLogicTest {
         return ShrinkWrap.create(WebArchive.class, DEPLOY + ".war")
                 .addPackage(SportEntity.class.getPackage())
                 .addPackage(SportDTO.class.getPackage())
-                .addPackage(CountryEntity.class.getPackage())
-                .addPackage(CountryDTO.class.getPackage())
                 .addPackage(SportConverter.class.getPackage())
                 .addPackage(ISportLogic.class.getPackage())
                 .addPackage(SportLogic.class.getPackage())
+                .addPackage(SportPersistence.class.getPackage())
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
     }

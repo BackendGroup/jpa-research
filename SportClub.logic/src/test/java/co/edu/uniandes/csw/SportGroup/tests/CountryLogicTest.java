@@ -5,8 +5,8 @@ import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
 import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
 import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
 import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
-import co.edu.uniandes.csw.sportclub.entities.SportEntity;
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.*;
+import co.edu.uniandes.csw.sportclub.persistence.CountryPersistence;
 import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
@@ -32,11 +32,11 @@ public class CountryLogicTest {
     public static WebArchive createDeployment() {
         return ShrinkWrap.create(WebArchive.class, DEPLOY + ".war")
                 .addPackage(CountryEntity.class.getPackage())
-                .addPackage(SportEntity.class.getPackage())
                 .addPackage(CountryDTO.class.getPackage())
                 .addPackage(CountryConverter.class.getPackage())
                 .addPackage(CountryLogic.class.getPackage())
                 .addPackage(ICountryLogic.class.getPackage())
+                .addPackage(CountryPersistence.class.getPackage())
                 .addAsResource("META-INF/persistence.xml", "META-INF/persistence.xml")
                 .addAsWebInfResource("META-INF/beans.xml", "beans.xml");
     }
