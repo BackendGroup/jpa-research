@@ -25,7 +25,7 @@ import org.junit.runner.RunWith;
 
 @RunWith(Arquillian.class)
 public class SportPersistenceTest {
-    
+
     public static final String DEPLOY = "Prueba";
 
     @Deployment
@@ -200,6 +200,32 @@ public class SportPersistenceTest {
                 }
             }
             Assert.assertTrue(found);
+        }
+    }
+
+    @Test
+    public void findByName() {
+        String name = data.get(0).getName();
+        List<SportEntity> cache = new ArrayList<SportEntity>();
+        List<SportEntity> list = sportPersistence.findByName(name);
+
+        for (SportEntity entity : data) {
+            if (entity.getName().equals(name)) {
+                cache.add(entity);
+            }
+        }
+        Assert.assertEquals(list.size(), cache.size());
+        for (SportEntity ent : list) {
+            boolean found = false;
+            for (SportEntity cacheEntity : cache) {
+                if (cacheEntity.getName().equals(ent.getName())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                Assert.fail();
+            }
         }
     }
 }

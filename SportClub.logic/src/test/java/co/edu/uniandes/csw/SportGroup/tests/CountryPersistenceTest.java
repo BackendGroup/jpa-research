@@ -6,10 +6,8 @@
 package co.edu.uniandes.csw.SportGroup.tests;
 
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.generateRandom;
-import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
 import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
 import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
-import co.edu.uniandes.csw.sportclub.ejbs.CountryLogic;
 import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
 import co.edu.uniandes.csw.sportclub.persistence.CountryPersistence;
 import java.util.ArrayList;
@@ -190,6 +188,32 @@ public class CountryPersistenceTest {
                 }
             }
             Assert.assertTrue(found);
+        }
+    }
+    
+    @Test
+    public void findByName() {
+        String name = data.get(0).getName();
+        List<CountryEntity> cache = new ArrayList<CountryEntity>();
+        List<CountryEntity> list = countryPersistence.findByName(name);
+
+        for (CountryEntity entity : data) {
+            if (entity.getName().equals(name)) {
+                cache.add(entity);
+            }
+        }
+        Assert.assertEquals(list.size(), cache.size());
+        for (CountryEntity ent : list) {
+            boolean found = false;
+            for (CountryEntity cacheEntity : cache) {
+                if (cacheEntity.getName().equals(ent.getName())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                Assert.fail();
+            }
         }
     }
 }
