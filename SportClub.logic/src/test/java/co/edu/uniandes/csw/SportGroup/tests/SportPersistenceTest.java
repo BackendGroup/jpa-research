@@ -1,9 +1,7 @@
 package co.edu.uniandes.csw.SportGroup.tests;
 
 import static co.edu.uniandes.csw.SportGroup.tests._TestUtil.generateRandom;
-import co.edu.uniandes.csw.sportclub.converters.CountryConverter;
 import co.edu.uniandes.csw.sportclub.converters.SportConverter;
-import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
 import co.edu.uniandes.csw.sportclub.dtos.SportDTO;
 import co.edu.uniandes.csw.sportclub.entities.CountryEntity;
 import co.edu.uniandes.csw.sportclub.entities.SportEntity;

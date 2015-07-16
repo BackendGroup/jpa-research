@@ -214,4 +214,29 @@ public class SportLogicTest {
         }
     }
 
+    @Test
+    public void findByName() {
+        String name = data.get(0).getName();
+        List<SportEntity> cache = new ArrayList<SportEntity>();
+        List<SportDTO> list = sportLogic.searchByName(name);
+
+        for (SportEntity entity : data) {
+            if (entity.getName().equals(name)) {
+                cache.add(entity);
+            }
+        }
+        Assert.assertEquals(list.size(), cache.size());
+        for (SportDTO ent : list) {
+            boolean found = false;
+            for (SportEntity cacheEntity : cache) {
+                if (cacheEntity.getName().equals(ent.getName())) {
+                    found = true;
+                    break;
+                }
+            }
+            if (!found) {
+                Assert.fail();
+            }
+        }
+    }
 }
