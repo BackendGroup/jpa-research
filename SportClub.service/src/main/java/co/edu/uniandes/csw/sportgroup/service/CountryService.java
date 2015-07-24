@@ -2,10 +2,7 @@ package co.edu.uniandes.csw.sportgroup.service;
 
 import co.edu.uniandes.csw.sportclub.api.ICountryLogic;
 import co.edu.uniandes.csw.sportclub.dtos.CountryDTO;
-import java.io.IOException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 import javax.inject.Inject;
 import javax.servlet.http.HttpServletResponse;
@@ -26,21 +23,19 @@ import javax.ws.rs.core.MediaType;
 @Produces(MediaType.APPLICATION_JSON)
 public class CountryService {
 
-    @Inject private ICountryLogic countryLogic;
-    @Context private HttpServletResponse response;
-    @QueryParam("page") private Integer page;
-    @QueryParam("maxRecords") private Integer maxRecords;
+    @Inject
+    private ICountryLogic countryLogic;
+    @Context
+    private HttpServletResponse response;
+    @QueryParam("page")
+    private Integer page;
+    @QueryParam("maxRecords")
+    private Integer maxRecords;
 
     @POST
+    @StatusCreated
     public CountryDTO createCountry(CountryDTO sport) {
-        CountryDTO dto = countryLogic.createCountry(sport);
-        response.setStatus(HttpServletResponse.SC_CREATED);
-        try {
-            response.flushBuffer();
-        } catch (IOException ex) {
-            Logger.getLogger(CountryService.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return dto;
+        return countryLogic.createCountry(sport);
     }
 
     @DELETE
@@ -81,9 +76,9 @@ public class CountryService {
     public CountryDTO getLeastPopulated() {
         return countryLogic.getLeastPopulated();
     }
-    
+
     @Path("/master")
-    public CountryService getMasterService(){
+    public CountryService getMasterService() {
         return this;
     }
 }
