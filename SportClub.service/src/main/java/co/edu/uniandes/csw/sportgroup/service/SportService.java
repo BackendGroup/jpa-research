@@ -72,7 +72,7 @@ public class SportService {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public void deleteSport(@PathParam("id") Long id) {
         sportLogic.deleteSport(id);
     }
@@ -89,13 +89,13 @@ public class SportService {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public SportDTO getSport(@PathParam("id") Long id) {
         return sportLogic.getSport(id);
     }
 
     @PUT
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public SportDTO updateSport(@PathParam("id") Long id, SportDTO dto) {
         dto.setId(id);
         return sportLogic.updateSport(dto);

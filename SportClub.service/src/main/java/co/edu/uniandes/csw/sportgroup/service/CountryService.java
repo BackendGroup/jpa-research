@@ -44,7 +44,7 @@ public class CountryService {
     }
 
     @DELETE
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public void deleteCountry(@PathParam("id") Long id) {
         countryLogic.deleteCountry(id);
     }
@@ -58,13 +58,13 @@ public class CountryService {
     }
 
     @GET
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public CountryDTO getCountry(@PathParam("id") Long id) {
         return countryLogic.getCountry(id);
     }
 
     @PUT
-    @Path("{id}")
+    @Path("{id: \\d+}")
     public CountryDTO updateCountry(@PathParam("id") Long id, CountryDTO dto) {
         dto.setId(id);
         return countryLogic.updateCountry(dto);
@@ -80,5 +80,10 @@ public class CountryService {
     @Path("leastPopulated")
     public CountryDTO getLeastPopulated() {
         return countryLogic.getLeastPopulated();
+    }
+    
+    @Path("/master")
+    public CountryService getMasterService(){
+        return this;
     }
 }
