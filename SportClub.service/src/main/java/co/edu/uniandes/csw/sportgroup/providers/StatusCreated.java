@@ -1,4 +1,4 @@
-package co.edu.uniandes.csw.sportgroup.service;
+package co.edu.uniandes.csw.sportgroup.providers;
 
 import javax.ws.rs.NameBinding;
 import java.lang.annotation.Retention;
